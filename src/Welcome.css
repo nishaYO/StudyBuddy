@@ -1,0 +1,70 @@
+/* Style for the container div */
+#welcome-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff;
+}
+
+/* Style for the heading */
+#welcome-header {
+    font-size: 48px;
+    color: #5d3c8c;
+    text-align: center;
+}
+
+/* Style for the form */
+#name-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    border: 3px solid #5d3c8c;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 5px 5px 10px #888888;
+    width: fit-content;
+}
+
+/* Style for the label */
+#name-label {
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+    color: #5d3c8c;
+    margin-bottom: 10px;
+}
+
+/* Style for the input */
+#name-input {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #5d3c8c;
+    margin-top: 10px;
+    width: 300px;
+    text-align: center;
+    outline: none;
+}
+
+/* Style for the submit button */
+#name-submit-button {
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #5d3c8c;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: auto;
+}
+
+/* Style for the submit button when hovered */
+#name-submit-button:hover {
+    cursor: pointer;
+    background-color: #724daa;
+}
