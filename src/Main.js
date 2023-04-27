@@ -1,10 +1,12 @@
 import React from 'react';
-
+import Timer from './Timer';
+import SelectFocusMusic from './SelectFocusMusic'
 function Main(props) {
     return (
         <div>
             <h1>Hello, {props.name}!</h1>
-            {/* Add the rest of your components here */}
+            <Timer name={props.name} />
+            <SelectFocusMusic />
         </div>
     );
 }
