@@ -1,9 +1,12 @@
+// Main.js
 import React, { useState, useEffect } from 'react';
 import './stylesheets/Main.css';
+import SetTimer from './SetTimer';
 
 function Main(props) {
     const [currentTime, setCurrentTime] = useState(new Date());
     const [streak, setStreak] = useState(0);
+    const [showSetTimer, setShowSetTimer] = useState(false);
 
     // calculate the current time zone offset and convert it to hours
     const timeZoneOffset = currentTime.getTimezoneOffset() / 60;
@@ -29,23 +32,27 @@ function Main(props) {
     }, []);
 
     const handleStartSessionClick = () => {
-        // add your code to handle starting a session here
+        setShowSetTimer(true);
     };
 
-    const handleReportsClick = () => {
-        // add your code to handle viewing today's reports here
+    const handleTimerSubmit = () => {
+        setShowSetTimer(false);
+        // add your code to handle starting the session here
     };
 
     return (
         <div id="main-container">
             <div id="streak-container">
-                <p id="streak-text">Streak: {streak}</p>
+                <p id="streak-text">Streak: {props.streak}</p>
             </div>
-            <div id="greeting-container">
-                <p id="greeting-text">{greetingMessage}, {props.name}!</p>
-                <button id="start-session-button" onClick={handleStartSessionClick}>Start a Session</button>
-            </div>
-            <button id="reports-button" onClick={handleReportsClick}>See Today's Reports</button>
+            {showSetTimer ? (
+                <SetTimer onSubmit={handleTimerSubmit} />
+            ) : (
+                <div id="greeting-container">
+                    <p id="greeting-text">{greetingMessage}, {props.name}!</p>
+                    <button id="start-session-button" onClick={handleStartSessionClick}>Start a Session</button>
+                </div>
+            )}
         </div>
     );
 }

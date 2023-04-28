@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Timer(props) {
+function SetTimer(props) {
     const [studyTime, setStudyTime] = useState(0);
     const [breakTime, setBreakTime] = useState(0);
 
@@ -28,4 +28,4 @@ function Timer(props) {
     );
 }
 
-export default Timer;
+export default SetTimer;
