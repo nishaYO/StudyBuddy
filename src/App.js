@@ -21,3 +21,11 @@ function App() {
 }
 
 export default App;
+
+
+// all components :
+// main 
+// setTimer 
+// setMusic
+// sessionStarted
+// seeReports

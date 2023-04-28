@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Welcome.css';
+import './stylesheets/Welcome.css';
 
 function Welcome(props) {
     const [name, setName] = useState('');
