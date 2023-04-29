@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import React from 'react';
+
 
 const focusMusicList = [
     {
@@ -18,11 +21,21 @@ const focusMusicList = [
     },
 ];
 
-const FocusMusic = () => {
+const SetMusic = () => {
+
+    const navigate = useNavigate();
     const [selectedMusic, setSelectedMusic] = useState(null);
 
     const handleMusicSelect = (music) => {
         setSelectedMusic(music);
+    };
+
+    const handlePrevClick = () => {
+        navigate('/set-timer');
+    };
+
+    const handleNextClick = () => {
+        navigate('/session-started');
     };
 
     return (
@@ -43,8 +56,14 @@ const FocusMusic = () => {
                     <p>{selectedMusic.name}</p>
                 </div>
             )}
+            <button onClick={handlePrevClick}>Previous</button>
+            <button onClick={handleNextClick}>Next</button>
         </div>
     );
 };
 
-export default FocusMusic;
+export default SetMusic;
+
+
+
+

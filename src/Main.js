@@ -1,9 +1,10 @@
-// Main.js
+import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import './stylesheets/Main.css';
-import SetTimer from './SetTimer';
 
 function Main(props) {
+
+
     const [currentTime, setCurrentTime] = useState(new Date());
     const [streak, setStreak] = useState(0);
     const [showSetTimer, setShowSetTimer] = useState(false);
@@ -21,6 +22,7 @@ function Main(props) {
     } else {
         greetingMessage = 'Good Evening';
     }
+    greetingMessage += props.name ? `, ${props.name}!` : '!'; // add name to greeting message if it exists
 
     useEffect(() => {
         // update the current time every minute
@@ -31,30 +33,31 @@ function Main(props) {
         return () => clearInterval(interval);
     }, []);
 
+    const navigate = useNavigate();
     const handleStartSessionClick = () => {
         setShowSetTimer(true);
+        navigate('/set-timer');
     };
 
-    const handleTimerSubmit = () => {
-        setShowSetTimer(false);
-        // add your code to handle starting the session here
-    };
+
 
     return (
         <div id="main-container">
             <div id="streak-container">
                 <p id="streak-text">Streak: {props.streak}</p>
             </div>
-            {showSetTimer ? (
-                <SetTimer onSubmit={handleTimerSubmit} />
-            ) : (
-                <div id="greeting-container">
-                    <p id="greeting-text">{greetingMessage}, {props.name}!</p>
-                    <button id="start-session-button" onClick={handleStartSessionClick}>Start a Session</button>
-                </div>
-            )}
+
+            <div id="greeting-container">
+                <p id="greeting-text">{greetingMessage}</p>
+                <button id="start-session-button" onClick={handleStartSessionClick}>Start a Session</button>
+            </div>
+
         </div>
     );
 }
-
 export default Main;
+
+
+
+
+

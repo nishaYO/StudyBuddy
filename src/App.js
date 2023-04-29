@@ -1,40 +1,34 @@
-// App.js
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import Welcome from './Welcome';
 import Main from './Main';
+import SetTimer from './SetTimer';
+import SetMusic from './SetMusic';
+import SessionStarted from './SessionStarted';
 import SeeReports from './SeeReports';
 
 function App() {
   const [name, setName] = useState('');
-  const [streak, setStreak] = useState(0);
-  const [showSeeReports, setShowSeeReports] = useState(false);
+  const [nameSubmitted, setNameSubmitted] = useState(false);
 
   const handleNameSubmit = (name) => {
     setName(name);
-  };
-
-  const handleReportsClick = () => {
-    setShowSeeReports(true);
-  };
-
-  const handleReportsClose = () => {
-    setShowSeeReports(false);
+    setNameSubmitted(true);
   };
 
   return (
-    <div>
-
-      {showSeeReports ? (
-        <SeeReports onClose={handleReportsClose} />
-      ) : (
-        <Main name={name} streak={streak} />
-      )}
-      <button id="reports-button" onClick={handleReportsClick}>See Today's Reports</button>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Welcome onNameSubmit={handleNameSubmit} />} />
+        <Route path="/main" element={<Main onNameSubmit={handleNameSubmit} name={name} streak={0} />} />
+        <Route path="/set-timer" element={<SetTimer />} />
+        <Route path="/set-music" element={<SetMusic />} />
+        <Route path="/session-started" element={<SessionStarted />} />
+        <Route path="/see-reports" element={<SeeReports />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
-
-// add the welcome page as well then build the focus music componenet and startSession componenet and add them as well
-// name should be taken by the main page from lcoal storage itself
+// fix name local storage thing

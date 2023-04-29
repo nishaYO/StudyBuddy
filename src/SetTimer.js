@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function SetTimer(props) {
+    const navigate = useNavigate();
     const [studyTime, setStudyTime] = useState(0);
     const [breakTime, setBreakTime] = useState(0);
 
@@ -12,20 +14,44 @@ function SetTimer(props) {
         setBreakTime(event.target.value);
     };
 
+    const handlePrevClick = () => {
+        navigate('/main');
+    };
+
+    const handleNextClick = () => {
+        navigate('/set-music');
+    };
+
     return (
         <div>
-            <h2>Timer</h2>
-            <p>Hello, {props.name}! Please set the study time and break time:</p>
-            <div>
-                <label>Study time:</label>
-                <input type="number" value={studyTime} onChange={handleStudyTimeChange} />
-            </div>
-            <div>
-                <label>Break time:</label>
-                <input type="number" value={breakTime} onChange={handleBreakTimeChange} />
-            </div>
+            <label>Study Session Duration (in minutes):
+                <input type="number" name="studyDuration" min="1" max="120" />
+            </label>
+
+            <label>Break Duration (in minutes):
+                <input type="number" name="breakDuration" min="1" max="30" />
+            </label>
+
+            <label>Number of Sessions:
+                <input type="number" name="numSessions" min="1" max="10" />
+            </label>
+
+            <label>Frequency of Breaks:
+                <select name="breakFrequency">
+                    <option value="everyOther">Every Other Session</option>
+                    <option value="everyThree">Every Three Sessions</option>
+                    <option value="everyFour">Every Four Sessions</option>
+                </select>
+            </label>
+
+            <button onClick={handlePrevClick}>Previous</button>
+            <button onClick={handleNextClick}>Next</button>
         </div>
     );
 }
 
 export default SetTimer;
+
+
+
+
