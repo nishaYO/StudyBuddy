@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function SetTimer(props) {
+function SetTimer() {
     const navigate = useNavigate();
     const [studyTime, setStudyTime] = useState(0);
     const [breakTime, setBreakTime] = useState(0);
@@ -15,11 +15,11 @@ function SetTimer(props) {
     };
 
     const handlePrevClick = () => {
-        props.onPrev();
+        navigate('/main');
     };
 
     const handleNextClick = () => {
-        props.onNext();
+        navigate('/set-music');
     };
 
     return (

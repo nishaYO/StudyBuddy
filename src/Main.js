@@ -10,21 +10,7 @@ import SessionStarted from './SessionStarted';
 function Main(props) {
     const [streak, setStreak] = useState(0);
 
-    const [activeComponent, setActiveComponent] = useState('start');
-
     const handleStartSessionClick = () => {
-        setActiveComponent('set-timer');
-    };
-
-    const handleSetTimerNext = () => {
-        setActiveComponent('set-music');
-    };
-
-    const handleSetTimerPrev = () => {
-        setActiveComponent('start');
-    };
-
-    const handleSetMusicPrev = () => {
         setActiveComponent('set-timer');
     };
 
@@ -32,23 +18,7 @@ function Main(props) {
     const handleReportClick = () => {
         navigate('/see-reports');
     }
-    let activeComponentJSX;
-    switch (activeComponent) {
-        case 'start':
-            activeComponentJSX = <Start onStartSessionClick={handleStartSessionClick} />;
-            break;
-        case 'set-timer':
-            activeComponentJSX = <SetTimer onNext={handleSetTimerNext} onPrev={handleSetTimerPrev} />;
-            break;
-        case 'set-music':
-            activeComponentJSX = <SetMusic onPrev={handleSetMusicPrev} />;
-            break;
-        case 'session-started':
-            activeComponentJSX = <SessionStarted />;
-            break;
-        default:
-            activeComponentJSX = <Start onStartSessionClick={handleStartSessionClick} />;
-    }
+
 
     return (
         <div id="main-container">
@@ -56,7 +26,7 @@ function Main(props) {
                 <p id="streak-text">Streak: {streak}</p>
             </div>
             <div id="main-box">
-                {activeComponentJSX}
+                <Start />
             </div>
             <div id='reportcontainer'>
                 <button onClick={handleReportClick}>See Reports</button>
