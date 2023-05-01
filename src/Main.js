@@ -2,16 +2,13 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import './stylesheets/Main.css';
 import Start from './Start';
-import SetTimer from './SetTimer';
-import SetMusic from './SetMusic';
-import SessionStarted from './SessionStarted';
 
 
 function Main(props) {
     const [streak, setStreak] = useState(0);
 
     const handleStartSessionClick = () => {
-        setActiveComponent('set-timer');
+        navigate('set-timer');
     };
 
     const navigate = useNavigate();
