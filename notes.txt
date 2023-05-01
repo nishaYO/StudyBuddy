@@ -1,0 +1,13 @@
+create proper css for all components
+create a common scss file for all 
+fix name issue local storage and props in main page
+fix time zone logic issue
+
+fix all buttons and routing issues 
+add proper names of all functions
+session started add previous button and end session button (leading to main page start component)
+
+
+
+once name is taken welcome page should be inaccessible. but different page for name edit should be there.
+check when reloaded screen not change is okay or not?

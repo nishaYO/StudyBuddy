@@ -2,11 +2,11 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
-const Start = () => {
+const Start = (props) => {
     const navigate = useNavigate();
     const handleStartSessionClick = () => {
         // setShowSetTimer(true);
-        navigate('/set-timer');
+        props.onStartSessionClick();
     };
     return (
         <div id="greeting-container">

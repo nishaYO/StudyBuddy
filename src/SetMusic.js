@@ -21,7 +21,7 @@ const focusMusicList = [
     },
 ];
 
-const SetMusic = () => {
+const SetMusic = (props) => {
 
     const navigate = useNavigate();
     const [selectedMusic, setSelectedMusic] = useState(null);
@@ -31,12 +31,13 @@ const SetMusic = () => {
     };
 
     const handlePrevClick = () => {
-        navigate('/set-timer');
+        props.onPrev();
     };
 
     const handleNextClick = () => {
         navigate('/session-started');
     };
+
 
     return (
         <div>

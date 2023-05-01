@@ -15,11 +15,11 @@ function SetTimer(props) {
     };
 
     const handlePrevClick = () => {
-        navigate('/main');
+        props.onPrev();
     };
 
     const handleNextClick = () => {
-        navigate('/set-music');
+        props.onNext();
     };
 
     return (
