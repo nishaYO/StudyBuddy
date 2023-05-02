@@ -4,7 +4,7 @@ import './stylesheets/Main.css';
 import Start from './Start';
 
 
-function Main(props) {
+function Main() {
     const [streak, setStreak] = useState(0);
 
     const handleStartSessionClick = () => {

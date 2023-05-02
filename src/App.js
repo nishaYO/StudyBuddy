@@ -9,17 +9,12 @@ import SessionStarted from './SessionStarted';
 import SeeReports from './SeeReports';
 
 function App() {
-  const [name, setName] = useState('');
-
-  const handleNameSubmit = (name) => {
-    setName(name);
-  };
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Welcome onNameSubmit={handleNameSubmit} />} />
-        <Route path="/main" element={<Main onNameSubmit={handleNameSubmit} name={name} />} />
+        <Route path="/" element={<Welcome />} />
+        <Route path="/main" element={<Main />} />
         <Route path="/start" element={<Start />} />
         <Route path="/set-timer" element={<SetTimer />} />
         <Route path="/set-music" element={<SetMusic />} />

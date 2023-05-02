@@ -34,7 +34,7 @@ const Greet = () => {
     } else {
         greetingMessage = 'Good Evening';
     }
-    // greetingMessage += props.name ? `, ${props.name}!` : '!'; // add name to greeting message if it exists
+    greetingMessage += localStorage.name ? `, ${localStorage.name}!` : '!'; // add name to greeting message if it exists
 
     useEffect(() => {
         // update the current time every minute
