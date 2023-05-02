@@ -1,4 +1,3 @@
-//this will have greet component and start button
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
@@ -19,11 +18,9 @@ export default Start;
 
 
 const Greet = () => {
-    const [currentTime, setCurrentTime] = useState(new Date());
-    const [showSetTimer, setShowSetTimer] = useState(false);
-    // calculate the current time zone offset and convert it to hours
-    const timeZoneOffset = currentTime.getTimezoneOffset() / 60;
-    const currentHour = currentTime.getHours() + timeZoneOffset;
+
+    const [now, setNow] = useState(new Date());
+    const currentHour = now.getHours();
 
     // set the greeting message based on the current hour
     let greetingMessage;
@@ -34,12 +31,14 @@ const Greet = () => {
     } else {
         greetingMessage = 'Good Evening';
     }
+
+
     greetingMessage += localStorage.name ? `, ${localStorage.name}!` : '!'; // add name to greeting message if it exists
 
     useEffect(() => {
         // update the current time every minute
         const interval = setInterval(() => {
-            setCurrentTime(new Date());
+            setNow(new Date());
         }, 60000);
 
         return () => clearInterval(interval);
