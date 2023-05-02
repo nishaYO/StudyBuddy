@@ -1,15 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './stylesheets/Main.css';
 import Start from './Start';
 
 
 function Main() {
     const [streak, setStreak] = useState(0);
-
-    const handleStartSessionClick = () => {
-        navigate('set-timer');
-    };
 
     const navigate = useNavigate();
     const handleReportClick = () => {
@@ -26,7 +22,7 @@ function Main() {
                 <Start />
             </div>
             <div id='reportcontainer'>
-                <button onClick={handleReportClick}>See Reports</button>
+                <button id='reports-button' onClick={handleReportClick}>See Reports</button>
             </div>
         </div>
     );
