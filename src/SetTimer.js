@@ -4,9 +4,9 @@ import './stylesheets/SetTimer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
-
-
 function SetTimer() {
+    const [hours, setHours] = useState(2);
+    const [minutes, setMinutes] = useState(30);
     const navigate = useNavigate();
 
     const handlePrevClick = () => {
@@ -14,13 +14,18 @@ function SetTimer() {
     };
 
     const handleNextClick = () => {
-        navigate('/set-music');
+        // hours and minutes can't be zero simultaneously when clicked on continue
+        if (hours === 0 && minutes === 0) {
+            alert("Timer cannot be set for 0 hours 0 minutes!");
+        } else {
+            navigate('/set-music');
+        }
     };
 
     return (
         <div id="timer-container">
             <p id='heading'>Set The Session Duration</p>
-            <TimeDialer />
+            <TimeDialer hours={hours} setHours={setHours} minutes={minutes} setMinutes={setMinutes} />
             <div id='nav-buttons'>
                 <button className="navigation-button" onClick={handlePrevClick}>Go back</button>
                 <button className="navigation-button" onClick={handleNextClick}>Continue</button>
@@ -29,19 +34,17 @@ function SetTimer() {
     );
 }
 
-export default SetTimer;
-
-const TimeDialer = () => {
-    const [hours, setHours] = useState(2);
-    const [minutes, setMinutes] = useState(30);
-
+const TimeDialer = ({ hours, setHours, minutes, setMinutes }) => {
 
     const handleHrsUp = () => {
         setHours(hours + 1);
     };
 
     const handleHrsDown = () => {
-        setHours(hours - 1);
+        // hours can't be in negative
+        if (hours > 0) {
+            setHours(hours - 1);
+        }
     };
 
     const handleMinsUp = () => {
@@ -49,11 +52,13 @@ const TimeDialer = () => {
     };
 
     const handleMinsDown = () => {
-        setMinutes(minutes - 1);
+        // minutes can't be in negative
+        if (minutes > 0) {
+            setMinutes(minutes - 1);
+        }
     };
 
     return (
-
         <div id='settime'>
             <div id="hours" className='display'>
                 <button onClick={handleHrsUp}><FontAwesomeIcon icon={faAngleUp} /></button>
@@ -73,4 +78,7 @@ const TimeDialer = () => {
             </div>
         </div>
     );
-}
+};
+
+export default SetTimer;
+
