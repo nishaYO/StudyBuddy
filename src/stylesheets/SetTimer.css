@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+#timer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    /* background-color: black; */
+    background-color: white;
+    height: 100vh;
+    width: 100%;
+}
+
+#settime {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 100px;
+    background-color: #5d3c8c;
+    width: 500px;
+    height: 276px;
+    border: 2px solid #5d3c8c;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px #888888;
+}
+
+.display {
+    padding: 20px;
+    height: 152px;
+    /* background-color: white; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.display button {
+    font-size: 1em;
+    padding: 0.5em;
+    width: 65px;
+    border-radius: 6px;
+}
+
+.display #hrs-display,
+.display #mins-display {
+    font-size: 2em;
+    margin: 0.5em;
+}
+
+#nav-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navigation-button {
+    font-size: 24px;
+    color: #ffffff;
+    background-color: #5d3c8c;
+    padding: 20px 50px;
+    border: none;
+    border-radius: 10px;
+    bottom: 20px;
+    right: 20px;
+    transition: all 0.3s ease;
+}
+
+.navigation-button:hover {
+    cursor: pointer;
+    background-color: #724daa;
+    transform: scale(1.05);
+}
+
+#heading {
+    font-size: 35px;
+}
