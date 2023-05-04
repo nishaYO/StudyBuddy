@@ -36,25 +36,30 @@ function SetTimer() {
 
 const TimeDialer = ({ hours, setHours, minutes, setMinutes }) => {
 
+
     const handleHrsUp = () => {
-        setHours(hours + 1);
+        setHours(hours < 23 ? hours + 1 : 0);
     };
 
     const handleHrsDown = () => {
-        // hours can't be in negative
+        // hours between zero to 23
         if (hours > 0) {
             setHours(hours - 1);
+        } else {
+            setHours(23);
         }
     };
 
     const handleMinsUp = () => {
-        setMinutes(minutes + 1);
+        setMinutes(minutes < 59 ? minutes + 1 : 0);
     };
 
     const handleMinsDown = () => {
-        // minutes can't be in negative
+        // minutes between zero to 59
         if (minutes > 0) {
             setMinutes(minutes - 1);
+        } else {
+            setMinutes(59);
         }
     };
 
