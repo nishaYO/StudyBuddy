@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './stylesheets/SetTimer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 function SetTimer() {
-    const [hours, setHours] = useState(2);
-    const [minutes, setMinutes] = useState(30);
+
+    // executed whenever rendered (after refresh or navigation)
+    const [hours, setHours] = useState(parseInt(localStorage.getItem('hours')) || 2);
+    const [minutes, setMinutes] = useState(parseInt(localStorage.getItem('minutes')) || 30);
     const navigate = useNavigate();
+
+    // executed whenever hours or minutes value is changed
+    useEffect(() => {
+        localStorage.setItem('hours', hours);
+        localStorage.setItem('minutes', minutes);
+    }, [hours, minutes]);
 
     const handlePrevClick = () => {
         navigate('/main');
@@ -35,7 +43,6 @@ function SetTimer() {
 }
 
 const TimeDialer = ({ hours, setHours, minutes, setMinutes }) => {
-
 
     const handleHrsUp = () => {
         setHours(hours < 23 ? hours + 1 : 0);
@@ -86,4 +93,3 @@ const TimeDialer = ({ hours, setHours, minutes, setMinutes }) => {
 };
 
 export default SetTimer;
-
