@@ -74,7 +74,7 @@ const TimeDialer = ({ hours, setHours, minutes, setMinutes }) => {
         <div id='settime'>
             <div id="hours" className='display'>
                 <button onClick={handleHrsUp}><FontAwesomeIcon icon={faAngleUp} /></button>
-                <input id='hrs-display' type='number' value={hours} onChange={(e) => setHours(e.target.value)} />
+                <input id='hrs-display' type='number' value={hours} onChange={(e) => setHours(parseInt(e.target.value))} />
                 <button onClick={handleHrsDown}>
                     <FontAwesomeIcon icon={faAngleDown} />
                 </button>
@@ -83,7 +83,7 @@ const TimeDialer = ({ hours, setHours, minutes, setMinutes }) => {
                 <button onClick={handleMinsUp}>
                     <FontAwesomeIcon icon={faAngleUp} />
                 </button>
-                <input id='mins-display' type='number' value={minutes} onChange={(e) => setMinutes(e.target.value)} />
+                <input id='mins-display' type='number' value={minutes} onChange={(e) => setMinutes(parseInt(e.target.value))} />
                 <button onClick={handleMinsDown}>
                     <FontAwesomeIcon icon={faAngleDown} />
                 </button>
