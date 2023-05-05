@@ -9,9 +9,9 @@ function SetTimer() {
     // executed whenever rendered (after refresh or navigation)
     const [hours, setHours] = useState(parseInt(localStorage.getItem('hours')) || 2);
     const [minutes, setMinutes] = useState(parseInt(localStorage.getItem('minutes')) || 30);
+    const [endTime, setEndTime] = useState(0);
     const navigate = useNavigate();
 
-    // executed whenever hours or minutes value is changed
     useEffect(() => {
         localStorage.setItem('hours', hours);
         localStorage.setItem('minutes', minutes);
@@ -34,6 +34,9 @@ function SetTimer() {
         <div id="timer-container">
             <p id='heading'>Set The Session Duration</p>
             <TimeDialer hours={hours} setHours={setHours} minutes={minutes} setMinutes={setMinutes} />
+            <div id='session-end'>
+                The session ends at {endTime}
+            </div>
             <div id='nav-buttons'>
                 <button className="navigation-button" onClick={handlePrevClick}>Go back</button>
                 <button className="navigation-button" onClick={handleNextClick}>Continue</button>

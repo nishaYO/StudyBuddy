@@ -109,3 +109,11 @@ input[type=number] {
 #heading {
     font-size: 35px;
 }
+
+#session-end {
+    font-size: 20px;
+    color: #5d3c8c;
+    padding: 10px 20px;
+    background-color: #cecdcd;
+    border-radius: 20px;
+}
