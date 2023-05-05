@@ -7,7 +7,77 @@
     background-color: #050505;
     height: 100vh;
     width: 100%;
-    color: white;
+    color: #724daa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#add-breaks-box {
+    background-color: #dbdadd;
+    background-color: #724daa;
+    width: fit-content;
+    min-height: 50%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+#add-breaks {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #f3eff8;
+    width: 100%;
+    min-height: 30%;
+    height: fit-content;
+    margin: 20px;
+
+}
+
+input {
+    /* font-size: 2em; */
+    /* margin: 0.5em;
+    background: transparent;
+    border: none;
+    width: 100px;
+    padding: 0;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 5px;
+    color: rgb(0, 0, 0); */
+}
+
+/* removing the up and down arrows from the input box */
+/* input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button { */
+/* -webkit-appearance: none;
+    margin: 0; */
+/* } */
+
+/* removing the border when clicked upon the input boxes */
+/* input:focus {
+    outline: none;
+} */
+
+/* making number input look like regular text input in firefox */
+/* input {
+    -moz-appearance: textfield;
+    appearance: textfield;
+} */
+
+#delbtn,
+#addbtn {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    border: none;
 }
 
 #nav-buttons {
