@@ -7,14 +7,14 @@ import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 function SetTimer() {
 
     // executed whenever rendered (after refresh or navigation)
-    const [hours, setHours] = useState(parseInt(localStorage.getItem('hours')) || 2);
-    const [minutes, setMinutes] = useState(parseInt(localStorage.getItem('minutes')) || 30);
+    const [hours, setHours] = useState(parseInt(sessionStorage.getItem('hours')) || 2);
+    const [minutes, setMinutes] = useState(parseInt(sessionStorage.getItem('minutes')) || 30);
     const [endTime, setEndTime] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
-        localStorage.setItem('hours', hours);
-        localStorage.setItem('minutes', minutes);
+        sessionStorage.setItem('hours', hours);
+        sessionStorage.setItem('minutes', minutes);
     }, [hours, minutes]);
 
     const handlePrevClick = () => {
