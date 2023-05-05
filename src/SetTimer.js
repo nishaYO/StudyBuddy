@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './stylesheets/SetTimer.css';
@@ -9,9 +10,28 @@ function SetTimer() {
     // executed whenever rendered (after refresh or navigation)
     const [hours, setHours] = useState(parseInt(sessionStorage.getItem('hours')) || 2);
     const [minutes, setMinutes] = useState(parseInt(sessionStorage.getItem('minutes')) || 30);
-    const [endTime, setEndTime] = useState(0);
     const navigate = useNavigate();
 
+    // endTime = currentTime + currentlySet hours and minutes 
+    const [endTime, setEndTime] = useState("");
+
+    // function to format time as HH:MM
+    const formatTime = (date) => {
+        const hours = date.getHours().toString().padStart(2, "0");
+        const minutes = date.getMinutes().toString().padStart(2, "0");
+        return `${hours}:${minutes}`;
+    }
+
+    // update endTime whenever hours or minutes changes
+    useEffect(() => {
+        const currentTime = new Date();
+        // this setHours and setMinutes are methods of Date object different from the ones used earlier
+        currentTime.setHours(currentTime.getHours() + hours);
+        currentTime.setMinutes(currentTime.getMinutes() + minutes);
+        setEndTime(formatTime(currentTime));
+    }, [hours, minutes]);
+
+    // executed whenever hours or minutes value is changed
     useEffect(() => {
         sessionStorage.setItem('hours', hours);
         sessionStorage.setItem('minutes', minutes);
@@ -78,6 +98,7 @@ const TimeDialer = ({ hours, setHours, minutes, setMinutes }) => {
             <div id="hours" className='display'>
                 <button onClick={handleHrsUp}><FontAwesomeIcon icon={faAngleUp} /></button>
                 <input id='hrs-display' type='number' value={hours} onChange={(e) => setHours(parseInt(e.target.value))} />
+
                 <button onClick={handleHrsDown}>
                     <FontAwesomeIcon icon={faAngleDown} />
                 </button>
@@ -87,6 +108,7 @@ const TimeDialer = ({ hours, setHours, minutes, setMinutes }) => {
                     <FontAwesomeIcon icon={faAngleUp} />
                 </button>
                 <input id='mins-display' type='number' value={minutes} onChange={(e) => setMinutes(parseInt(e.target.value))} />
+
                 <button onClick={handleMinsDown}>
                     <FontAwesomeIcon icon={faAngleDown} />
                 </button>
@@ -96,3 +118,4 @@ const TimeDialer = ({ hours, setHours, minutes, setMinutes }) => {
 };
 
 export default SetTimer;
+
