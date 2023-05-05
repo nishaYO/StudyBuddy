@@ -31,7 +31,7 @@ const SetMusic = () => {
     };
 
     const handlePrevClick = () => {
-        navigate('/set-timer');
+        navigate('/set-breaks');
     };
 
     const handleNextClick = () => {

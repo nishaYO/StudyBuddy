@@ -46,7 +46,7 @@ function SetTimer() {
         if (hours === 0 && minutes === 0) {
             alert("Timer cannot be set for 0 hours 0 minutes!");
         } else {
-            navigate('/set-music');
+            navigate('/set-breaks');
         }
     };
 
