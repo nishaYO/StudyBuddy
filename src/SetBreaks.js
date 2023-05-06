@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import './stylesheets/SetBreaks.css';
 import { FaTrashAlt } from 'react-icons/fa';
@@ -7,7 +7,12 @@ import { FaPlus } from 'react-icons/fa';
 
 const SetBreaks = ({ totalDuration }) => {
 
-    console.log(totalDuration);
+    // Convert totalDuration from hh:mm format to total minutes
+    const [totalMinutes, setTotalMinutes] = useState(0);
+    useEffect(() => {
+        const [hours, minutes] = totalDuration.split(":");
+        setTotalMinutes(parseInt(hours) * 60 + parseInt(minutes));
+    }, [totalDuration]);
 
     const navigate = useNavigate();
 
@@ -33,6 +38,15 @@ const SetBreaks = ({ totalDuration }) => {
 
     const handleBreakChange = (event, index, field) => {
         const newBreaks = [...breaks];
+        if (field === "duration") {
+            const duration = parseInt(event.target.value);
+            if (duration > totalMinutes) {
+                return;
+            }
+            if (duration > 59) {
+                return;
+            }
+        }
         newBreaks[index][field] = event.target.value;
         setBreaks(newBreaks);
     };
