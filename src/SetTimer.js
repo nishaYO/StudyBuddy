@@ -5,7 +5,7 @@ import './stylesheets/SetTimer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
-function SetTimer() {
+function SetTimer({ totalDurationProp }) {
 
     // executed whenever rendered (after refresh or navigation)
     const [hours, setHours] = useState(parseInt(sessionStorage.getItem('hours')) || 2);
@@ -35,6 +35,7 @@ function SetTimer() {
     useEffect(() => {
         sessionStorage.setItem('hours', hours);
         sessionStorage.setItem('minutes', minutes);
+        totalDurationProp(`${hours}:${minutes}`);
     }, [hours, minutes]);
 
     const handlePrevClick = () => {

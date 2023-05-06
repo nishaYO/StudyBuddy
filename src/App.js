@@ -12,6 +12,7 @@ import SeeReports from './SeeReports';
 function App() {
 
   const [name, setName] = useState(localStorage.getItem('name'));
+  const [totalDuration, setTotalDuration] = useState(`2:30`);
 
   if (name) {
     return (
@@ -20,8 +21,8 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/main" element={<Main />} />
           <Route path="/start" element={<Start />} />
-          <Route path="/set-timer" element={<SetTimer />} />
-          <Route path="/set-breaks" element={<SetBreaks />} />
+          <Route path="/set-timer" element={<SetTimer totalDurationProp={setTotalDuration} />} />
+          <Route path="/set-breaks" element={<SetBreaks totalDuration={totalDuration} />} />
           <Route path="/set-music" element={<SetMusic />} />
           <Route path="/session-started" element={<SessionStarted />} />
           <Route path="/see-reports" element={<SeeReports />} />

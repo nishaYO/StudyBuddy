@@ -5,7 +5,10 @@ import './stylesheets/SetBreaks.css';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FaPlus } from 'react-icons/fa';
 
-const SetBreaks = () => {
+const SetBreaks = ({ totalDuration }) => {
+
+    console.log(totalDuration);
+
     const navigate = useNavigate();
 
     const handlePrevClick = () => {
@@ -17,7 +20,6 @@ const SetBreaks = () => {
     };
 
     const [breaks, setBreaks] = useState([{ duration: '', time: '', after: '' }]);
-    const [totalDuration, setTotalDuration] = useState(0);
 
     const addBreak = () => {
         setBreaks([...breaks, { duration: '', time: '', after: '' }]);
@@ -33,22 +35,6 @@ const SetBreaks = () => {
         const newBreaks = [...breaks];
         newBreaks[index][field] = event.target.value;
         setBreaks(newBreaks);
-    };
-
-    const calculateTotalDuration = () => {
-        let total = 0;
-        breaks.forEach((breakItem) => {
-            if (breakItem.duration && breakItem.after && breakItem.time) {
-                const durationInMinutes = parseInt(breakItem.duration);
-                const afterInHours = parseInt(breakItem.after);
-                const [timeHours, timeMinutes] = breakItem.time.split(':').map((value) => parseInt(value));
-                const startTimeInMinutes = timeHours * 60 + timeMinutes;
-                const breakStartTimeInMinutes = startTimeInMinutes + afterInHours * 60;
-                const breakEndTimeInMinutes = breakStartTimeInMinutes + durationInMinutes;
-                total += breakEndTimeInMinutes - startTimeInMinutes;
-            }
-        });
-        setTotalDuration(total);
     };
 
     return (
@@ -83,8 +69,6 @@ const SetBreaks = () => {
                     <button id='addbtn' onClick={addBreak}>
                         <FaPlus size={25} />
                     </button>
-                    {/* <button onClick={calculateTotalDuration}>Calculate Total Duration</button>
-                <div>Total Break Duration: {totalDuration} minutes</div> */}
                 </div>
 
             </div>
