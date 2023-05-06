@@ -57,20 +57,20 @@ const SetBreaks = () => {
             <div id='add-breaks-box'>
                 <div id='add-breaks'>
                     {breaks.map((breakItem, index) => (
-                        <div key={index}>
+                        <div key={index} className="break-item">
                             <input
                                 type="number"
-                                placeholder="Duration (minutes)"
+                                // placeholder="Duration (minutes)"
                                 value={breakItem.duration}
                                 onChange={(event) => handleBreakChange(event, index, 'duration')}
                             /> minutes break at <input
                                 type="text"
-                                placeholder="Time (hh:mm)"
+                                // placeholder="Time (hh:mm)"
                                 value={breakItem.time}
                                 onChange={(event) => handleBreakChange(event, index, 'time')}
                             /> after <input
                                 type="number"
-                                placeholder="After (hours)"
+                                // placeholder="After (hours)"
                                 value={breakItem.after}
                                 onChange={(event) => handleBreakChange(event, index, 'after')}
                             />hour{breakItem.after > 1 ? 's' : ''} into session.
@@ -89,8 +89,8 @@ const SetBreaks = () => {
 
             </div>
             <div id='nav-buttons'>
-                <button className="navigation-button" onClick={handlePrevClick}>Go back</button>
-                <button className="navigation-button" onClick={handleNextClick}>Continue</button>
+                <button className="navigation-button" id='prevbtn' onClick={handlePrevClick}>Go back</button>
+                <button className="navigation-button" id='nextbtn' onClick={handleNextClick}>Continue</button>
             </div>
         </div>
     );

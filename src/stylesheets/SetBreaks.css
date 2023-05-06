@@ -5,6 +5,7 @@
 
 #set-breaks {
     background-color: #050505;
+    /* background-color: white; */
     height: 100vh;
     width: 100%;
     color: #724daa;
@@ -12,6 +13,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+h1 {
+    color: #724daa;
+    font-size: 47px;
+    font-weight: normal
 }
 
 #add-breaks-box {
@@ -33,12 +40,20 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: #f3eff8;
+    background-color: #724daa;
     width: 100%;
     min-height: 30%;
     height: fit-content;
     margin: 20px;
 
+}
+
+.break-item {
+    background-color: rgba(255, 255, 255, 0.797);
+    color: black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
 }
 
 input {
@@ -80,14 +95,6 @@ input::-webkit-inner-spin-button { */
     border: none;
 }
 
-#nav-buttons {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-}
-
 .navigation-button {
     font-size: 24px;
     color: #ffffff;
@@ -95,8 +102,6 @@ input::-webkit-inner-spin-button { */
     padding: 20px 50px;
     border: none;
     border-radius: 10px;
-    bottom: 20px;
-    right: 20px;
     transition: all 0.3s ease;
 }
 
@@ -104,4 +109,16 @@ input::-webkit-inner-spin-button { */
     cursor: pointer;
     background-color: #724daa;
     transform: scale(1.05);
+}
+
+#prevbtn {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+#nextbtn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
 }
