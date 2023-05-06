@@ -41,9 +41,11 @@ const SetBreaks = ({ totalDuration }) => {
         if (field === "duration") {
             const duration = parseInt(event.target.value);
             if (duration > totalMinutes) {
+                alert('Break duration cannot be longer than total study duration');
                 return;
             }
             if (duration > 59) {
+                alert('Break duration cannot be longer than 59 minutes');
                 return;
             }
         }
