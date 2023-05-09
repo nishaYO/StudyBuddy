@@ -32,12 +32,14 @@ const SetBreaks = ({ totalDuration }) => {
 
     const removeBreak = (index) => {
         const newBreaks = [...breaks];
-        newBreaks.splice(index, 1);
+        newBreaks.splice(index, 1); // 1 shows the number of elements to be deleted starting from the given index
         setBreaks(newBreaks);
     };
 
     const handleBreakChange = (event, index, field) => {
         const newBreaks = [...breaks];
+
+        // put input validation on duration input 
         if (field === "duration") {
             const duration = parseInt(event.target.value);
             if (duration > totalMinutes) {
@@ -49,6 +51,7 @@ const SetBreaks = ({ totalDuration }) => {
                 return;
             }
         }
+
         newBreaks[index][field] = event.target.value;
         setBreaks(newBreaks);
     };

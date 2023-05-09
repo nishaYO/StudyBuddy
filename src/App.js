@@ -5,6 +5,7 @@ import Main from './Main';
 import Start from './Start';
 import SetTimer from './SetTimer';
 import SetBreaks from './SetBreaks';
+import TestSetBreaks from './testSetBreak';
 import SetMusic from './SetMusic';
 import SessionStarted from './SessionStarted';
 import SeeReports from './SeeReports';
@@ -23,6 +24,7 @@ function App() {
           <Route path="/start" element={<Start />} />
           <Route path="/set-timer" element={<SetTimer totalDurationProp={setTotalDuration} />} />
           <Route path="/set-breaks" element={<SetBreaks totalDuration={totalDuration} />} />
+          <Route path="/test-set-breaks" element={<TestSetBreaks totalDuration={totalDuration} />} />
           <Route path="/set-music" element={<SetMusic />} />
           <Route path="/session-started" element={<SessionStarted />} />
           <Route path="/see-reports" element={<SeeReports />} />
