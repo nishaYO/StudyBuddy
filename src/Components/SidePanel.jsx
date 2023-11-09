@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import logo from "../../public/logo2.png";
 
 function SidePanel() {
-  const [currentPage, setCurrentPage] = useState("Timer"); // Set the initial current page
 
-  const pages = ["Timer", "Breaks", "Music", "Session"];
+  const pages = ["Welcome", "Timer", "Breaks", "Music", "Session"];
+  const [currentPage, setCurrentPage] = useState(pages[0]);
 
   const handlePageClick = (page) => {
     setCurrentPage(page);

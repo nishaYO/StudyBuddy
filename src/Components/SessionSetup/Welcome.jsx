@@ -1,4 +1,4 @@
-function StarterPage({setUsername,handleSubmit}) {
+function Welcome({setUsername,handleSubmit}) {
  
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
@@ -21,4 +21,4 @@ function StarterPage({setUsername,handleSubmit}) {
 
 
 
-export default StarterPage;
+export default Welcome;
