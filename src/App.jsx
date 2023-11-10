@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Router, Route, Switch } from "wouter";
 import Welcome from "./Components/SessionSetup/Welcome";
 import Navbar from "./Components/Navbar";
-import UserPage from "./Components/UserPage";
 import SidePanel from "./Components/SidePanel";
 import SessionSetup from "./Components/Session";
 import SessionStarted from "./Components/SessionStarted";
@@ -32,14 +31,14 @@ function App() {
         <div className="flex-1 font-mono bg-[#FFF3DA] p-0 min-h-screen">
           <Navbar />
           <Switch>
-            <Route path="/">
+            {/* <Route path="/">
               {localstorageName ? (
                 <UserPage username={localstorageName} />
               ) : (
                 <Welcome setUsername={setUsername} handleSubmit={handleSubmit} />
               )}
-            </Route>
-            <Route path="/session-setup" component={SessionSetup} />
+            </Route> */}
+            <Route path="/" component={SessionSetup} />
             <Route path="/session-started" component={SessionStarted} />
             <Route path="/reports" component={Reports} />
             <Route path="/help" component={Help} />
