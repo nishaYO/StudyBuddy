@@ -30,12 +30,12 @@ function Session() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       {/* Main Box in the Center */}
-      <div className="bg-red-200 p-8 rounded-lg mb-8 w-3/4 h-3/5">
+      <div className="p-8 rounded-lg mb-8 w-3/4 h-3/5">
         {steps[currentStep]}
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex space-x-4">
+      {/* <div className="flex space-x-4">
         <button
           className="bg-purple-500 text-white px-4 py-2 rounded"
           onClick={handlePreviousClick}
@@ -50,16 +50,16 @@ function Session() {
         >
           Next
         </button>
-      </div>
+      </div> */}
 
       {/* Reports Button */}
-      <div className="absolute bottom-0 right-0 m-7 p-0">
+      {/* <div className="absolute bottom-0 right-0 m-7 p-0">
         <Link href="/reports">
           <button className="bg-purple-500 text-white px-4 py-2 rounded">
             Reports
           </button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

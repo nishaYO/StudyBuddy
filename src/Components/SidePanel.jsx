@@ -19,7 +19,7 @@ function SidePanel() {
   };
 
   return (
-    <div className="w-1/5 bg-[#D0BFFF] p-4 flex flex-col items-center">
+    <div className="w-1/5 bg-[#D0BFFF] p-4 flex flex-col items-center min-h-screen">
       <img src={logo} alt="Logo" className="w-20 h-auto mb-4" />
 
       <ul className="mt-8">
