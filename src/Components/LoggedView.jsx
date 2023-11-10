@@ -13,7 +13,7 @@ function LoggedView() {
       <Navbar />
       <div className="flex gap-2 ">
         <SidePanel />
-        <div className="ml-8 mt-2">
+        <div className="lg:ml-8 mt-2">
         <Switch>
           <Route path="/" component={SetTimer}/>
           <Route path="/set-brakes" component={SetBreaks}/>

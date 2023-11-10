@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const soundList = [
   {
     id: 1,
@@ -49,10 +51,17 @@ const effectList = [
 const combinedSounds = [...soundList,...effectList]
 
 function SetMusic() {
+  const [isPlaying,setIsPlaying] = useState(false)
+
   const playAudio = (song) => {
     const audio = new Audio(song);
-    audio.play();
+    audio.play()
   };
+
+  const PauseAudio = (song) => {
+    const audio = new Audio(song);
+  };
+
 
   return (
     <div className="grid gap-2 lg:grid-cols-3 overflow-auto">
@@ -62,7 +71,7 @@ function SetMusic() {
             src={audio.image}
             alt="image"
             onClick={() => playAudio(audio.audio)}
-            className="shadow-lg h-60  object-contain rounded-lg"
+            className="shadow-lg hh-auto w-60  object-contain rounded-lg"
           />
         </div>
       ))}
