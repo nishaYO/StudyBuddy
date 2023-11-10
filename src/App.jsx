@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Router, Route, Switch, Link } from "wouter";
+import { Router, Route, Switch } from "wouter";
 import Welcome from "./Components/SessionSetup/Welcome";
 import Navbar from "./Components/Navbar";
 import UserPage from "./Components/UserPage";
