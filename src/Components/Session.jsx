@@ -1,48 +1,67 @@
-import React from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import Welcome from "./SessionSetup/Welcome";
 import SetTimer from "./SessionSetup/SetTimer";
 import SetBreaks from "./SessionSetup/SetBreaks";
 import SetMusic from "./SessionSetup/SetMusic";
+import { useState } from "react";
 
-
-function SessionStarted() {
+function Session() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [location, navigate] = useLocation();
 
   // components for each step
-  const steps = [
-    <Welcome/>,
-    <SetTimer />,
-    <SetBreaks />,
-    <SetMusic />,
-  ];
+  const steps = [<Welcome />, <SetTimer />, <SetBreaks />, <SetMusic />];
 
+  const handleNextClick = () => {
+    // Increment step index
+    setCurrentStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
+    
+    // If at the last step, navigate to "/session-started"
+    if (currentStep === steps.length - 1) {
+      navigate("/session-started");
+    }
+  };
 
+  const handlePreviousClick = () => {
+    // Decrement step index
+    setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       {/* Main Box in the Center */}
-      <div className="bg-gray-200 p-8 rounded-lg mb-8 h-60">
-        <p>Hello, I am a nice SessionStarted component!</p>
+      <div className="bg-red-200 p-8 rounded-lg mb-8 w-3/4 h-3/5">
+        {steps[currentStep]}
       </div>
 
       {/* Navigation Buttons */}
       <div className="flex space-x-4">
-        <Link href="/session-setup">
-          <button className="bg-purple-500 text-white px-4 py-2 rounded">Previous</button>
-        </Link>
-        <Link href="/session-started">
-          <button className="bg-purple-500 text-white px-4 py-2 rounded">Next</button>
-        </Link>
+        <button
+          className="bg-purple-500 text-white px-4 py-2 rounded"
+          onClick={handlePreviousClick}
+          disabled={currentStep === 0}
+        >
+          Previous
+        </button>
+        <button
+          className="bg-purple-500 text-white px-4 py-2 rounded"
+          onClick={handleNextClick}
+          disabled={currentStep === -1}
+        >
+          Next
+        </button>
       </div>
 
       {/* Reports Button */}
       <div className="absolute bottom-0 right-0 m-7 p-0">
-          <Link href="/reports">
-            <button className="bg-purple-500 text-white px-4 py-2 rounded">Reports</button>
-          </Link>
-        </div>
+        <Link href="/reports">
+          <button className="bg-purple-500 text-white px-4 py-2 rounded">
+            Reports
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
 
-export default SessionStarted;
+export default Session;
