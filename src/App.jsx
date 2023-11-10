@@ -11,6 +11,7 @@ import Help from "./Components/Help";
 function App() {
   const [username, setUsername] = useState("");
   const [localstorageName, setLocalstoragename] = useState("");
+  const [totalDuration, setTotalDuration] = useState("2:30");
 
   // Function to get the username in local storage
   const handleSubmit = () => {
@@ -31,14 +32,7 @@ function App() {
         <div className="flex-1 font-mono bg-[#FFF3DA] p-0 min-h-screen">
           <Navbar />
           <Switch>
-            {/* <Route path="/">
-              {localstorageName ? (
-                <UserPage username={localstorageName} />
-              ) : (
-                <Welcome setUsername={setUsername} handleSubmit={handleSubmit} />
-              )}
-            </Route> */}
-            <Route path="/" component={SessionSetup} />
+            <Route path="/" component={() => <SessionSetup totalDurationProp={setTotalDuration} />} />
             <Route path="/session-started" component={SessionStarted} />
             <Route path="/reports" component={Reports} />
             <Route path="/help" component={Help} />

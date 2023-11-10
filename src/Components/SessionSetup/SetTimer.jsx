@@ -1,58 +1,80 @@
-import { useState, useEffect } from "react";
+// components/SetTimer.jsx
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'wouter';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
-function SetTimer({ username }) {
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [alarmTime, setAlarmTime] = useState("");
-  const [alarmSet, setAlarmSet] = useState(false);
+function SetTimer({ totalDurationProp }) {
+  const [hours, setHours] = useState(parseInt(sessionStorage.getItem('hours')) || 2);
+  const [minutes, setMinutes] = useState(parseInt(sessionStorage.getItem('minutes')) || 30);
+  const [location, navigate] = useLocation();
 
-  // Update the current time every second
+  const [endTime, setEndTime] = useState('');
+
+  const formatTime = (date) => {
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  };
+
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
+    const currentTime = new Date();
+    currentTime.setHours(currentTime.getHours() + hours);
+    currentTime.setMinutes(currentTime.getMinutes() + minutes);
+    setEndTime(formatTime(currentTime));
+  }, [hours, minutes]);
 
-    return () => clearInterval(intervalId);
-  }, []);
-
-  // Function to handle alarm input change
-  const handleAlarmChange = (event) => {
-    setAlarmTime(event.target.value);
-  };
-
-  // Function to set the alarm
-  const setAlarm = () => {
-    setAlarmSet(true);
-  };
-
-  // Function to clear the alarm
-  const clearAlarm = () => {
-    setAlarmSet(false);
-  };
-
-  // Check for alarm trigger
   useEffect(() => {
-    if (
-      alarmSet &&
-      alarmTime === `${currentTime.getHours()}:${currentTime.getMinutes()}`
-    ) {
-      alert("Alarm! Wake up!");
-      clearAlarm();
-    }
-  }, [alarmSet, alarmTime, currentTime]);
+    sessionStorage.setItem('hours', hours);
+    sessionStorage.setItem('minutes', minutes);
+    // totalDurationProp(`${hours}:${minutes}`);
+  }, [hours, minutes]);
 
   return (
-    <div className="flex flex-col items-center py-16">
-      <h2>Current Time: {currentTime.toLocaleTimeString()}</h2>
-      <label>
-        Set Alarm:
-        <input type="time" className="foucs:outline-none p-2 rounded-lg bg-transparent" value={alarmTime} onChange={handleAlarmChange} />
-      </label>
-     <div className="flex gap-2 items-center mt-4">
-     <button onClick={setAlarm} className="px-5 py-1.5 bg-[#BEADFA] rounded-lg ">Set Alarm</button>
-      <button onClick={clearAlarm} className="px-5 py-1.5 bg-[#BEADFA] rounded-lg">Clear Alarm</button>
-     </div>
+    <div className="flex flex-col justify-center">
+    {/* <div> */}
+      <p className="text-3xl font-bold mb-4">Set The Session Duration</p>
+      <TimeDialer hours={hours} setHours={setHours} minutes={minutes} setMinutes={setMinutes} />
+      <div className="text-lg mt-4 bg-[#D0BFFF]">
+        The session will end at {endTime}
+      </div>
     </div>
   );
 }
+
+const TimeDialer = ({ hours, setHours, minutes, setMinutes }) => {
+  const handleHrsUp = () => {
+    setHours(hours < 23 ? hours + 1 : 0);
+  };
+
+  const handleHrsDown = () => {
+    setHours(hours > 0 ? hours - 1 : 23);
+  };
+
+  const handleMinsUp = () => {
+    setMinutes(minutes < 59 ? minutes + 1 : 0);
+  };
+
+  const handleMinsDown = () => {
+    setMinutes(minutes > 0 ? minutes - 1 : 59);
+  };
+
+  return (
+    <div className="flex space-x-4 bg-[#D0BFFF] p-5">
+      <div className="flex flex-col items-center">
+        <p className="text-lg">hrs</p>
+        <button className="text-2xl" onClick={handleHrsUp}><FontAwesomeIcon icon={faAngleUp} /></button>
+        <input className="text-lg w-10 border border-gray-400 rounded p-1" type="number" value={hours.toString().padStart(2, '0')} onChange={(e) => setHours(parseInt(e.target.value))} />
+        <button className="text-2xl" onClick={handleHrsDown}><FontAwesomeIcon icon={faAngleDown} /></button>
+      </div>
+      <div className="flex flex-col items-center">
+        <p className="text-lg">mins</p>
+        <button className="text-2xl" onClick={handleMinsUp}><FontAwesomeIcon icon={faAngleUp} /></button>
+        <input className="text-lg w-10 border border-gray-400 rounded p-1" type="number" value={minutes.toString().padStart(2, '0')} onChange={(e) => setMinutes(parseInt(e.target.value))} />
+        <button className="text-2xl" onClick={handleMinsDown}><FontAwesomeIcon icon={faAngleDown} /></button>
+      </div>
+    </div>
+  );
+};
 
 export default SetTimer;
