@@ -10,7 +10,7 @@ function SidePanel() {
     {title: "Welcome",icon:faHome,path:"/"},
     {title: "Timer",icon:faHourglass,path:"/"},
     {title:"Breaks",icon:faMugHot,path:"/set-brakes"}, 
-    {title:"Music",icon:faMusic,path:"/"}, 
+    {title:"Music",icon:faMusic,path:"/set-music"}, 
     {title:"Session",icon:faBook,path:"/"}
   ];
   const [currentPage, setCurrentPage] = useState("Welcome");
@@ -20,7 +20,7 @@ function SidePanel() {
   };
 
   return (
-    <div className="w-1/5 bg-[#D0BFFF] p-4 flex flex-col items-center min-h-screen">
+    <div className="sticky top-0 overflow w-1/5 bg-[#D0BFFF] p-4 flex flex-col items-center h-screen">
       <img src={logo} alt="Logo" className="w-20 h-auto mb-4" />
 
       <ul className="mt-8">

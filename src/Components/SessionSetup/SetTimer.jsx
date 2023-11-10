@@ -31,7 +31,7 @@ function SetTimer({ totalDurationProp }) {
   }, [hours, minutes]);
 
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col">
     {/* <div> */}
       <p className="text-3xl font-bold mb-4">Set The Session Duration</p>
       <TimeDialer hours={hours} setHours={setHours} minutes={minutes} setMinutes={setMinutes} />

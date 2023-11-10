@@ -28,7 +28,7 @@ function NavbarIcons() {
 
 function Navbar() {
   return (
-    <div className="p-3 bg-white border-2 border-b-black flex items-center justify-between">
+    <div className="sticky top-0 right-0 z-50 p-3 bg-white border-2 border-b-black flex items-center justify-between">
       <div className="flex items-center space-x-4">
         <button className="bg-[#BEADFA] p-1 border-2 border-black">Streak: 0 Days</button>
         <NavbarIcons />
