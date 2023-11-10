@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import logo from "/logo2.png";
+import { Link } from "wouter";
 import { faHome,faMusic,faMugHot,faHourglass,faBook } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function SidePanel() {
 
   const pages = [
-    {title: "Welcome",icon:faHome},
-    {title: "Timer",icon:faHourglass},
-    {title:"Breaks",icon:faMugHot}, 
-    {title:"Music",icon:faMusic}, 
-    {title:"Session",icon:faBook}
+    {title: "Welcome",icon:faHome,path:"/"},
+    {title: "Timer",icon:faHourglass,path:"/"},
+    {title:"Breaks",icon:faMugHot,path:"/set-brakes"}, 
+    {title:"Music",icon:faMusic,path:"/"}, 
+    {title:"Session",icon:faBook,path:"/"}
   ];
   const [currentPage, setCurrentPage] = useState("Welcome");
 
@@ -24,7 +25,7 @@ function SidePanel() {
 
       <ul className="mt-8">
         {pages.map((page) => (
-          <li
+          <Link to={page.path}
             key={page.title}
             className={`py-4 cursor-pointer flex items-center gap-3 ${
               currentPage === page.title ? "font-bold text-black-500" : ""
@@ -33,7 +34,7 @@ function SidePanel() {
           >
             <span className="text-3xl hidden lg:flex">{page.title}</span>
             <FontAwesomeIcon title={page.title} className="text-2xl lg:hidden flex" icon={page.icon} />
-          </li>
+          </Link>
         ))}
       </ul>
     </div>
