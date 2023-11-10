@@ -28,9 +28,9 @@ function App() {
   return (
     <div className="bg-[#FFF3DA] min-h-screen">
       <Router>
-        {!localstorageName ? <div className="flex items-center justify-center min-h-screen">
-          <Welcome setUsername={setUsername} handleSubmit={handleSubmit} />
-        </div> : 
+        {!localstorageName ? 
+            <Welcome setUsername={setUsername} handleSubmit={handleSubmit} />
+        : 
           <LoggedView/>
         }
       </Router>
