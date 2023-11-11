@@ -53,6 +53,7 @@ const combinedSounds = [...soundList, ...effectList];
 
 function SetMusic() {
   const [playingId, setplayingId] = useState(null);
+  const [isPlaying,setIsPlaying] = useState(false)
   const playAudio = (song, id) => {
     if (playingId === id) {
       setplayingId(null);
