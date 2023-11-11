@@ -50,23 +50,22 @@ const effectList = [
 ];
 
 const combinedSounds = [...soundList, ...effectList];
-
 function SetMusic() {
-  const [playingId, setPlayingId] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null);
+  const [playingState, setPlayingState] = useState({}); // Track play/pause state for each song
+  const audioRefs = useRef({}); // Use refs to store audio elements for each song
 
   const playAudio = (song, id) => {
-    if (playingId === id) {
-      setPlayingId(null);
-      audioRef.current.pause();
-      setIsPlaying(false);
+    setPlayingState((prevPlayingState) => ({
+      ...prevPlayingState,
+      [id]: !prevPlayingState[id], // Toggle play/pause state
+    }));
+
+    if (playingState[id]) {
+      audioRefs.current[id].pause();
     } else {
-      setPlayingId(id);
       const audio = new Audio(song);
       audio.play();
-      setIsPlaying(true);
-      audioRef.current = audio;
+      audioRefs.current[id] = audio;
     }
   };
 
@@ -87,13 +86,12 @@ function SetMusic() {
             className="bg-white rounded-full h-14 w-14 opacity-75 backdrop-blur"
             onClick={() => playAudio(file.audio, file.id)}
           >
-            <FontAwesomeIcon icon={playingId === file.id ? faPause : faPlay} />
+            <FontAwesomeIcon icon={playingState[file.id] ? faPause : faPlay} />
           </button>
         </div>
       ))}
     </div>
   );
 }
-
 
 export default SetMusic;
