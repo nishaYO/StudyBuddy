@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 const soundList = [
@@ -52,17 +52,24 @@ const effectList = [
 const combinedSounds = [...soundList, ...effectList];
 
 function SetMusic() {
-  const [playingId, setplayingId] = useState(null);
-  const [isPlaying,setIsPlaying] = useState(false)
+  const [playingId, setPlayingId] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
   const playAudio = (song, id) => {
     if (playingId === id) {
-      setplayingId(null);
+      setPlayingId(null);
+      audioRef.current.pause();
+      setIsPlaying(false);
     } else {
-      setplayingId(id);
+      setPlayingId(id);
       const audio = new Audio(song);
       audio.play();
+      setIsPlaying(true);
+      audioRef.current = audio;
     }
   };
+
   return (
     <div className="flex flex-wrap justify-center items-center gap-3">
       {combinedSounds.map((file) => (
@@ -78,7 +85,7 @@ function SetMusic() {
         >
           <button
             className="bg-white rounded-full h-14 w-14 opacity-75 backdrop-blur"
-            onClick={() => playAudio(file.audio,file.id)}
+            onClick={() => playAudio(file.audio, file.id)}
           >
             <FontAwesomeIcon icon={playingId === file.id ? faPause : faPlay} />
           </button>
@@ -87,5 +94,6 @@ function SetMusic() {
     </div>
   );
 }
+
 
 export default SetMusic;
