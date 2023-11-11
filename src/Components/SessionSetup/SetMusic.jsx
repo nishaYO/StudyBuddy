@@ -1,5 +1,6 @@
 import { useState } from "react";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 const soundList = [
   {
     id: 1,
@@ -26,21 +27,21 @@ const soundList = [
 
 const effectList = [
   {
-    id: 1,
+    id: 4,
     name: "Rain",
     image: "https://media.giphy.com/media/1fnu914Z79qQpVi2xZ/giphy.gif",
     audio: "./soundsAndEffects/effects/effect_rain.mp3",
     volume: 0.5,
   },
   {
-    id: 2,
+    id: 5,
     name: "Fire",
     image: "https://media.giphy.com/media/rkSu72ptAZseQ/giphy.gif",
     audio: "./soundsAndEffects/effects/effect_fire.mp3",
     volume: 0.5,
   },
   {
-    id: 3,
+    id: 6,
     name: "Forest",
     image: "https://media.giphy.com/media/VFqafDSTxP0ic/giphy.gif",
     audio: "./soundsAndEffects/effects/effect_forest.mp3",
@@ -48,35 +49,38 @@ const effectList = [
   },
 ];
 
-const combinedSounds = [...soundList,...effectList]
+const combinedSounds = [...soundList, ...effectList];
 
 function SetMusic() {
-  const [isPlaying,setIsPlaying] = useState(false)
-
-  const playAudio = (song) => {
-    const audio = new Audio(song);
-    audio.play()
+  const [playingId, setplayingId] = useState(null);
+  const playAudio = (song, id) => {
+    if (playingId === id) {
+      setplayingId(null);
+    } else {
+      setplayingId(id);
+      const audio = new Audio(song);
+      audio.play();
+    }
   };
-
-  const PauseAudio = (song) => {
-    const audio = new Audio(song);
-  };
-
-
   return (
     <div className="flex flex-wrap justify-center items-center gap-3">
       {combinedSounds.map((file) => (
-        <div key={file.id} 
-        className="h-[200px] w-[200px] rounded-xl  flex items-center justify-center bg-white opacity-80"
-        style={{
-          backgroundImage: `url(${file.image})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center"
-        }}>
+        <div
+          key={file.id}
+          className="h-[200px] w-[200px] rounded-xl  flex items-center justify-center bg-white opacity-80"
+          style={{
+            backgroundImage: `url(${file.image})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
           <button
-            onClick={() => playAudio(file.audio)}
-          >Play</button>
+            className="bg-white rounded-full h-14 w-14 opacity-75 backdrop-blur"
+            onClick={() => playAudio(file.audio,file.id)}
+          >
+            <FontAwesomeIcon icon={playingId === file.id ? faPause : faPlay} />
+          </button>
         </div>
       ))}
     </div>
