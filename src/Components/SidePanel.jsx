@@ -20,7 +20,7 @@ function SidePanel() {
   };
 
   return (
-    <div className="sticky top-0 overflow w-1/5 bg-[#D0BFFF] p-4 flex flex-col items-center h-screen">
+    <div className="sticky top-0 overflow w-1/6 bg-[#D0BFFF] p-4 flex flex-col items-center h-screen">
       <img src={logo} alt="Logo" className="w-20 h-auto mb-4" />
 
       <ul className="mt-8">

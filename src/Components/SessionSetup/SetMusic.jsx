@@ -64,15 +64,19 @@ function SetMusic() {
 
 
   return (
-    <div className="grid gap-2 lg:grid-cols-3 overflow-auto">
-      {combinedSounds.map((audio) => (
-        <div key={audio.id} className="h-80 w-80 bg-[#DFCCFB] rounded-lg flex items-center justify-center">
-          <img
-            src={audio.image}
-            alt="image"
-            onClick={() => playAudio(audio.audio)}
-            className="shadow-lg hh-auto w-60  object-contain rounded-lg"
-          />
+    <div className="flex flex-wrap justify-center items-center gap-3">
+      {combinedSounds.map((file) => (
+        <div key={file.id} 
+        className="h-[200px] w-[200px] rounded-xl  flex items-center justify-center bg-white opacity-80"
+        style={{
+          backgroundImage: `url(${file.image})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center"
+        }}>
+          <button
+            onClick={() => playAudio(file.audio)}
+          >Play</button>
         </div>
       ))}
     </div>
