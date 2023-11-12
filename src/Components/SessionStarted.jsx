@@ -17,7 +17,8 @@ function SessionStarted() {
       >
         Previous
       </button>
-      <p>Hello, I am a nice SessionStarted component!</p>
+      <p>show a nice calendar type thing for entire session</p>
+      <p>After session completed, show start another session button. Good job text! See Reports button. Update total hours today and total hours yet, and update streak</p>
     </div>
   );
 }

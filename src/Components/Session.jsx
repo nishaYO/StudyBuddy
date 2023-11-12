@@ -27,6 +27,8 @@ function Session() {
     setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
   };
 
+  const isWelcomeStep = currentStep === 0;
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       {/* Main Box in the Center */}
@@ -36,6 +38,7 @@ function Session() {
 
       {/* Navigation Buttons */}
       <div className="flex space-x-4">
+      {!isWelcomeStep && (
         <button
           className="bg-purple-500 text-white px-4 py-2 rounded"
           onClick={handlePreviousClick}
@@ -43,6 +46,7 @@ function Session() {
         >
           Previous
         </button>
+        )}
         <button
           className="bg-purple-500 text-white px-4 py-2 rounded"
           onClick={handleNextClick}
