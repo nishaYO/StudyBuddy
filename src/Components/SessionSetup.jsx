@@ -7,6 +7,8 @@ import SidePanel from "./SidePanel";
 import Navbar from "./Navbar";
 import { useState } from "react";
 
+// this will return an object to the app.jsx with sessionDuration, sessionStartedTimeStamp, sessionIntervals array
+
 function SessionSetup() {
   const [currentStep, setCurrentStep] = useState(0);
   const [location, navigate] = useLocation();
@@ -17,10 +19,10 @@ function SessionSetup() {
   const handleNextClick = () => {
     // Increment step index
     setCurrentStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
-    
-    // If at the last step, navigate to "/session"
     if (currentStep === steps.length - 1) {
       navigate("/session");
+      sessionStarteTimeStamp = new Date();
+      // sessionDuration 
     }
   };
 

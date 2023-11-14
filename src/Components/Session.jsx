@@ -11,18 +11,33 @@ const sessionIntervals = [
   { hours: 0, minutes: 0, seconds: 13, type: 'study'},
 ];
 
-// if any activity on this website, except for countdown, like sessionindex change, reload by user, session ended, back button clicked, webiste closed then teh data should go to the backend
-
-// user event, session end, back button click => send data to backend
-
-// data to be sent=> sessionDuration and sessionIntervals and sessionStartedTimestamp and sessionEndedTimestamp; 
-
 function Session() {
   const [sessionDuration, setSessionDuration] = useState({ hours: 0, minutes: 1, seconds: 0 });
-  const [sessionIndex, setSessionIndex] = useState(2);
   const [location, navigate] = useLocation();
-  const sessionEnded = sessionDuration.hours === 0 && sessionDuration.minutes === 0 && sessionDuration.seconds === 0;
-  
+  const [sessionEnded, setSessionEnded] = useState(false);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSessionDuration((prevDuration) => {
+        const newDuration = { ...prevDuration };
+
+        if (newDuration.hours === 0 && newDuration.minutes === 0 && newDuration.seconds === 0) {
+          clearInterval(timer);
+          setSessionEnded(true);
+        } else if (newDuration.seconds === 0) {
+          newDuration.minutes -= 1;
+          newDuration.seconds = 59;
+        } else {
+          newDuration.seconds -= 1;
+        }
+
+        return newDuration;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="m-5">
       <button
@@ -38,7 +53,7 @@ function Session() {
         {sessionEnded ? (
           <SessionEnded />
         ) : (
-          <SessionStarted sessionIntervals={sessionIntervals} sessionIndex={sessionIndex} />
+          <SessionStarted sessionIntervals={sessionIntervals} sessionDuration={sessionDuration}/>
         )}
       </div>
     </div>
