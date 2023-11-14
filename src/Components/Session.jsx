@@ -1,68 +1,45 @@
-import { Link, useLocation } from "wouter";
-import Welcome from "./SessionSetup/Welcome";
-import SetTimer from "./SessionSetup/SetTimer";
-import SetBreaks from "./SessionSetup/SetBreaks";
-import SetMusic from "./SessionSetup/SetMusic";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "wouter";
+import SessionStarted from "./SessionStarted";
+import SessionEnded from "./SessionEnded";
+
+const sessionIntervals = [
+  { hours: 0, minutes: 0, seconds: 12, type: 'study'},
+  { hours: 0, minutes: 0, seconds: 5, type: 'break'},
+  { hours: 0, minutes: 0, seconds: 20, type: 'study'},
+  { hours: 0, minutes: 0, seconds: 10, type: 'break'},
+  { hours: 0, minutes: 0, seconds: 13, type: 'study'},
+];
+
+// if any activity on this website, except for countdown, like sessionindex change, reload by user, session ended, back button clicked, webiste closed then teh data should go to the backend
+
+// user event, session end, back button click => send data to backend
+
+// data to be sent=> sessionDuration and sessionIntervals and sessionStartedTimestamp and sessionEndedTimestamp; 
 
 function Session() {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [sessionDuration, setSessionDuration] = useState({ hours: 0, minutes: 1, seconds: 0 });
+  const [sessionIndex, setSessionIndex] = useState(2);
   const [location, navigate] = useLocation();
-
-  // components for each step
-  const steps = [<Welcome />, <SetTimer />, <SetBreaks />, <SetMusic />];
-
-  const handleNextClick = () => {
-    // Increment step index
-    setCurrentStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
-    
-    // If at the last step, navigate to "/session-started"
-    if (currentStep === steps.length - 1) {
-      navigate("/session-started");
-    }
-  };
-
-  const handlePreviousClick = () => {
-    // Decrement step index
-    setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
-  };
-
-  const isWelcomeStep = currentStep === 0;
-
+  const sessionEnded = sessionDuration.hours === 0 && sessionDuration.minutes === 0 && sessionDuration.seconds === 0;
+  
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      {/* Main Box in the Center */}
-      <div className="bg-red-200 p-8 rounded-lg mb-8 w-3/4 h-3/5">
-        {steps[currentStep]}
+    <div className="m-5">
+      <button
+        className="bg-[#D0BFFF] text-white px-4 py-2 m-2 rounded"
+        onClick={() => navigate('/')}
+      >
+        Back
+      </button>
+      <div className="bg-white flex flex-col items-center w-full lg:w-1/2 p-5 m-4 border-2 rounded-lg border-[#BEADFA] shadow-lg">
+        hello, this is the session page
       </div>
-
-      {/* Navigation Buttons */}
-      <div className="flex space-x-4">
-      {!isWelcomeStep && (
-        <button
-          className="bg-purple-500 text-white px-4 py-2 rounded"
-          onClick={handlePreviousClick}
-          disabled={currentStep === 0}
-        >
-          Previous
-        </button>
+      <div>
+        {sessionEnded ? (
+          <SessionEnded />
+        ) : (
+          <SessionStarted sessionIntervals={sessionIntervals} sessionIndex={sessionIndex} />
         )}
-        <button
-          className="bg-purple-500 text-white px-4 py-2 rounded"
-          onClick={handleNextClick}
-          disabled={currentStep === -1}
-        >
-          Next
-        </button>
-      </div>
-
-      {/* Reports Button */}
-      <div className="absolute bottom-0 right-0 m-7 p-0">
-        <Link href="/reports">
-          <button className="bg-purple-500 text-white px-4 py-2 rounded">
-            Reports
-          </button>
-        </Link>
       </div>
     </div>
   );

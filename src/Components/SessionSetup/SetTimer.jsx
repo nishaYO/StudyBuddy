@@ -16,18 +16,15 @@ function SetTimer({ totalDurationProp }) {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
   };
-
+  
   useEffect(() => {
     const currentTime = new Date();
     currentTime.setHours(currentTime.getHours() + hours);
     currentTime.setMinutes(currentTime.getMinutes() + minutes);
     setEndTime(formatTime(currentTime));
-  }, [hours, minutes]);
-
-  useEffect(() => {
     sessionStorage.setItem('hours', hours);
     sessionStorage.setItem('minutes', minutes);
-    // totalDurationProp(`${hours}:${minutes}`);
+    totalDurationProp=(`${hours}:${minutes}`);
   }, [hours, minutes]);
 
   return (
