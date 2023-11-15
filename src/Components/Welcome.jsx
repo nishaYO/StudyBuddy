@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "wouter";
-import SetTimer from "./SetTimer"; // Make sure to import SetTimer from the correct path
+import { useLocation } from 'wouter';
+import Navbar from "./Navbar";
 
 function AskName({ setUsername, handleSubmit }) {
   return (
@@ -32,6 +32,7 @@ function Welcome({ onStartSession }) {
   const [username, setUsername] = useState('');
   const [sessionMessage, setSessionMessage] = useState('');
   const [sessionStarted, setSessionStarted] = useState(false);
+  const [location, navigate] = useLocation();
 
   const handleSubmit = () => {
     localStorage.setItem('name', username);
@@ -59,16 +60,19 @@ function Welcome({ onStartSession }) {
     const storedName = localStorage.getItem('name') || '';
 
     return (
-      <>
-        <p>{`${greeting}! ${storedName}.`}</p>
-        <p>Let's start the session.</p>
-        {/* <button
-          className="mx-auto mt-3 px-5 py-2 bg-[#D0BFFF] hover:bg-[#BEADFA] rounded font-bold"
-          onClick={() => setSessionStarted(true)}
-        >
-          Make a session
-        </button> */}
-      </>
+      <div className='flex flex-col p-2 gap-2'>
+      <Navbar />
+      <div className='flex flex-col m-50'>
+          <p>{`${greeting}! ${storedName}.`}</p>
+          <p>Let's start the session.</p>
+          <button
+            className="mx-auto mt-3 px-5 py-2 bg-[#D0BFFF] hover:bg-[#BEADFA] rounded font-bold"
+            onClick={() => navigate('/session-setup')}
+            >
+            Make a session
+          </button>
+        </div>
+      </div>
     );
   };
 
@@ -89,17 +93,6 @@ function Welcome({ onStartSession }) {
       ) : (
         <AskName setUsername={setUsername} handleSubmit={handleSubmit} />
       )}
-
-      {sessionStarted && <SetTimer />}
-
-      {/* {!sessionStarted && (
-        <button
-          className="mx-auto mt-3 px-5 py-2 bg-[#D0BFFF] hover:bg-[#BEADFA] rounded font-bold"
-          onClick={handleStartSession}
-        >
-          Make a session
-        </button>
-      )} */}
     </div>
   );
 }

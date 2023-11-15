@@ -1,5 +1,4 @@
 import { Link, useLocation } from "wouter";
-import Welcome from "./SessionSetup/Welcome";
 import SetTimer from "./SessionSetup/SetTimer";
 import SetBreaks from "./SessionSetup/SetBreaks";
 import SetMusic from "./SessionSetup/SetMusic";
@@ -14,7 +13,7 @@ function SessionSetup() {
   const [location, navigate] = useLocation();
 
   // components for each step
-  const steps = [<Welcome />, <SetTimer />, <SetBreaks />, <SetMusic />];
+  const steps = [<SetTimer />, <SetBreaks />, <SetMusic />];
 
   const handleNextClick = () => {
     // Increment step index
@@ -29,9 +28,10 @@ function SessionSetup() {
   const handlePreviousClick = () => {
     // Decrement step index
     setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
+    if (currentStep === 0) {
+      navigate("/");
+    }
   };
-
-  const isWelcomeStep = currentStep === 0;
 
   return (
     <div className="flex-1 font-mono bg-[#FFF3DA] p-0 min-h-screen">
@@ -46,19 +46,15 @@ function SessionSetup() {
 
       {/* Navigation Buttons */}
       <div className="flex space-x-4">
-      {!isWelcomeStep && (
         <button
           className="bg-purple-500 text-white px-4 py-2 rounded"
           onClick={handlePreviousClick}
-          disabled={currentStep === 0}
         >
           Previous
         </button>
-        )}
         <button
           className="bg-purple-500 text-white px-4 py-2 rounded"
           onClick={handleNextClick}
-          disabled={currentStep === -1}
         >
           Next
         </button>

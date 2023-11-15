@@ -3,7 +3,7 @@ import logo from "../../public/logo2.png";
 
 function SidePanel() {
 
-  const pages = ["Welcome", "Timer", "Breaks", "Music", "Session"];
+  const pages = ["Timer", "Breaks", "Music"];
   const [currentPage, setCurrentPage] = useState(pages[0]);
 
   const handlePageClick = (page) => {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Router, Route, Switch } from "wouter";
-import Welcome from "./Components/SessionSetup/Welcome";
+import Welcome from "./Components/Welcome";
 import SessionSetup from "./Components/SessionSetup";
 import Session from "./Components/Session";
 import Reports from "./Components/Reports";
@@ -25,7 +25,8 @@ function App() {
   return (
     <Router>
           <Switch>
-            <Route path="/" component={() => <SessionSetup totalDurationProp={setTotalDuration} />} />
+            <Route path="/" component={() => <Welcome />} />
+            <Route path="/session-setup" component={() => <SessionSetup totalDurationProp={setTotalDuration} />} />
             <Route path="/session" component={Session} />
             <Route path="/reports" component={Reports} />
             <Route path="/help" component={Help} />
