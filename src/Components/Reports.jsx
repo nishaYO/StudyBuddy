@@ -3,11 +3,17 @@ import { useLocation } from 'wouter';
 
 function Reports() {
   const [location, navigate] = useLocation();
-  const [currentStreak, setCurrentStreak] = useState(0);
-  const [highestStreak, setHighestStreak] = useState(0);
-  const [highestHoursSession, setHighestHoursSession] = useState(0);
-  const [totalHours, setTotalHours] = useState(0);
-  const [todayHours, setTodayHours] = useState(0);
+
+  // sample reports object
+  // to be replaced by the object received from the backend when user navigates to this page.
+  const reports = {
+    "current Streak": 0,
+    "Highest Streak": 0,
+    "Highest Hours Session": 0,
+    "total Hours": 0,
+    "today total Hours": 0
+  }
+  
 
   const handlePreviousClick = () => {
     // todo: Navigate back to the previous page
@@ -23,12 +29,10 @@ function Reports() {
         Back
       </button>
         <h2 className=''>See your Reports📝</h2>
-      <div className="bg-white flex flex-col items-center w-full lg:w-1/2 p-5 m-4 border-2 rounded-lg border-[#BEADFA] shadow-lg">
-      <p className='m-5'>Current Streak: {currentStreak}</p>
-      <p className='m-5'>Highest Streak: {highestStreak}</p>
-      <p className='m-5'>Today's Hours: {todayHours}</p>
-      <p className='m-5'>Total Hours: {totalHours}</p>
-      <p className='m-5'>Highest Hours Session: {highestHoursSession}</p>
+        <div className="bg-white flex flex-col items-center w-full lg:w-1/2 p-5 m-4 border-2 rounded-lg border-[#BEADFA] shadow-lg">
+        {Object.keys(reports).map((key) => (
+          <p key={key} className='m-5'>{key.charAt(0).toUpperCase() + key.slice(1)}: {reports[key]}</p>
+        ))}
       </div>
     </div>
   );
