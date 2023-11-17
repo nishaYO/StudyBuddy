@@ -10,6 +10,8 @@ function Contact() {
   });
 
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -20,6 +22,10 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Reset previous messages
+    setError("");
+    setSuccess("");
 
     // Validate inputs
     if (formData.name.length < 2) {
@@ -37,6 +43,9 @@ function Contact() {
       return;
     }
 
+    // Set loading to true
+    setLoading(true);
+
     try {
       const response = await fetch(backend_endpoint, {
         method: 'POST',
@@ -47,15 +56,15 @@ function Contact() {
       });
 
       if (response.ok) {
-        console.log('Contact form submitted successfully!');
-        // You can handle success here (e.g., show a success message)
+        setSuccess('Contact form submitted successfully!');
       } else {
-        console.error('Failed to submit contact form');
-        // You can handle errors here (e.g., show an error message)
+        setError('Failed to submit contact form');
       }
     } catch (error) {
-      console.error('Error submitting contact form:', error);
-      // You can handle errors here (e.g., show an error message)
+      setError('Error submitting contact form:', error.message);
+    } finally {
+      // Set loading back to false after submission
+      setLoading(false);
     }
   };
 
@@ -110,12 +119,14 @@ function Contact() {
 
         <button
           type="submit"
-          className="p-2 bg-orange-300 text-white rounded text-sm"
+          className={`p-2 bg-orange-300 text-white rounded text-sm ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          disabled={loading}
         >
-          Submit
+          {loading ? 'Submitting...' : 'Submit'}
         </button>
 
         {error && <p className="text-red-500">{error}</p>}
+        {success && <p className="text-green-700 font-semibold">{success}</p>}
       </form>
     </div>
   );
