@@ -15,8 +15,8 @@ const SetBreaks = ({ totalDuration }) => {
     setBreaks([
       ...breaks,
       {
-        breakDuration: { hours: "", minutes: "", seconds: "" },
-        studyDuration: { hours: "", minutes: "", seconds: "" },
+        breakDuration: { hours: 0, minutes: 0, seconds: 0 },
+        studyDuration: { hours: 0, minutes: 0, seconds: 0 },
       },
     ]);
   };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../../public/logo2.png";
+import logo from "/logo2.png";
 
 function SidePanel() {
 
