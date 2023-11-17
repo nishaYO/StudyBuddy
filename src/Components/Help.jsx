@@ -1,13 +1,53 @@
-import React from "react";
- 
+import React, { useState } from "react";
+// require('dotenv').config();// Load environment variables from .env file
+const backend_endpoint = process.env.SERVER_ENDPOINT || 'http://localhost:5000/contact/submit';
+
 function Help() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(backend_endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log('Contact form submitted successfully!');
+        // You can handle success here (e.g., show a success message)
+      } else {
+        console.error('Failed to submit contact form');
+        // You can handle errors here (e.g., show an error message)
+      }
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      // You can handle errors here (e.g., show an error message)
+    }
+  };
+
   return (
     <div>
       <h1 className="text-3xl font-bold text-center font-mono">Help Page</h1>
 
       <div className="container mx-auto mt-8 p-8 w-3/4 bg-[#BEADFA] border border-[#BEADFA] rounded">
         <h1 className="text-4xl mb-6">Contact Us</h1>
-        <form className="space-y-4 ">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="flex flex-col">
             <label htmlFor="name" className="text-sm font-semibold">
               Name
@@ -16,6 +56,8 @@ function Help() {
               type="text"
               id="name"
               name="name"
+              value={formData.name}
+              onChange={handleChange}
               className="border rounded p-2 text-sm"
               placeholder="Your Name"
             />
@@ -29,6 +71,8 @@ function Help() {
               type="email"
               id="email"
               name="email"
+              value={formData.email}
+              onChange={handleChange}
               className="border rounded p-2 text-sm"
               placeholder="Your Email Address"
             />
@@ -41,6 +85,8 @@ function Help() {
             <textarea
               id="message"
               name="message"
+              value={formData.message}
+              onChange={handleChange}
               className="border rounded p-2 text-sm"
               placeholder="Your Message"
               rows="4"
@@ -63,9 +109,6 @@ function Help() {
           session or tracking your progress, Study Buddy makes studying
           straightforward and productive.
         </p>
-      </div>
-      <div>
-        
       </div>
     </div>
   );
