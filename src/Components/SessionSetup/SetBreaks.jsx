@@ -44,7 +44,6 @@ const SetBreaks = ({ totalDuration }) => {
                 <input
                   type="number"
                   placeholder="Hours"
-                  value={breakItem.breakDuration.hours}
                   onChange={(event) =>
                     handleBreakChange(event, index, "breakDuration.hours")
                   }
@@ -56,7 +55,6 @@ const SetBreaks = ({ totalDuration }) => {
                 <input
                   type="number"
                   placeholder="Minutes"
-                  value={breakItem.breakDuration.minutes}
                   onChange={(event) =>
                     handleBreakChange(event, index, "breakDuration.minutes")
                   }
@@ -68,7 +66,6 @@ const SetBreaks = ({ totalDuration }) => {
                 <input
                   type="number"
                   placeholder="Seconds"
-                  value={breakItem.breakDuration.seconds}
                   onChange={(event) =>
                     handleBreakChange(event, index, "breakDuration.seconds")
                   }
@@ -82,7 +79,6 @@ const SetBreaks = ({ totalDuration }) => {
                 <input
                   type="number"
                   placeholder="Hours"
-                  value={breakItem.studyDuration.hours}
                   onChange={(event) =>
                     handleBreakChange(event, index, "studyDuration.hours")
                   }
@@ -94,7 +90,6 @@ const SetBreaks = ({ totalDuration }) => {
                 <input
                   type="number"
                   placeholder="Minutes"
-                  value={breakItem.studyDuration.minutes}
                   onChange={(event) =>
                     handleBreakChange(event, index, "studyDuration.minutes")
                   }
@@ -106,7 +101,6 @@ const SetBreaks = ({ totalDuration }) => {
                 <input
                   type="number"
                   placeholder="Seconds"
-                  value={breakItem.studyDuration.seconds}
                   onChange={(event) =>
                     handleBreakChange(event, index, "studyDuration.seconds")
                   }
