@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-
-const backend_endpoint = 'http://localhost:5000/contact/submit';
+// Contact.jsx
+import React, { useState } from 'react';
+import { submitContactForm } from '../apis/contactData';
 
 function Contact() {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
+    name: '',
+    email: '',
+    message: '',
   });
 
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -24,22 +24,22 @@ function Contact() {
     e.preventDefault();
 
     // Reset previous messages
-    setError("");
-    setSuccess("");
+    setError('');
+    setSuccess('');
 
     // Validate inputs
     if (formData.name.length < 2) {
-      setError("Please enter a name with at least 2 characters");
+      setError('Please enter a name with at least 2 characters');
       return;
     }
 
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
-      setError("Please enter a valid email address");
+      setError('Please enter a valid email address');
       return;
     }
 
     if (formData.message.length < 2) {
-      setError("Please enter a message with at least 2 characters");
+      setError('Please enter a message with at least 2 characters');
       return;
     }
 
@@ -47,19 +47,9 @@ function Contact() {
     setLoading(true);
 
     try {
-      const response = await fetch(backend_endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await submitContactForm(formData);
 
-      if (response.ok) {
-        setSuccess('Contact form submitted successfully!');
-      } else {
-        setError('Failed to submit contact form');
-      }
+      setSuccess(response.message);
     } catch (error) {
       setError('Error submitting contact form:', error.message);
     } finally {

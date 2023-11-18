@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "wouter";
+import { fetchReports } from "../apis/reportsData";
 
 function Reports() {
   const [location, navigate] = useLocation();
   
-  // sample reports object
   const sampleReports = {
     "main-stats": {
       "current Streak": 0,
@@ -14,26 +14,23 @@ function Reports() {
       "today total Hours": 0,
     },
   };
+
   const [reports, setReports] = useState(sampleReports);
 
   useEffect(() => {
-    const fetchReports = async () => {
+    const fetchReportsData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/reports/fetch");
-        if (response.ok) {
-          const data = await response.json();
-          setReports(data.reports);
-        }
+        const data = await fetchReports();
+        setReports(data);
       } catch (error) {
         console.error("Error fetching reports:", error);
       }
     };
 
-    fetchReports();
+    fetchReportsData();
   }, []);
 
   const handlePreviousClick = () => {
-    // todo: Navigate back to the previous page
     navigate("/");
   };
 
@@ -51,8 +48,7 @@ function Reports() {
           <ul>
             {Object.keys(reports["main-stats"]).map((key) => (
               <li key={key} className="m-8">
-                {key.charAt(0).toUpperCase() + key.slice(1)}:{" "}
-                {reports["main-stats"][key]}
+                {key.charAt(0).toUpperCase() + key.slice(1)}: {reports["main-stats"][key]}
               </li>
             ))}
           </ul>
