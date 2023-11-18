@@ -11,7 +11,7 @@ import { useState } from "react";
 function SessionSetup() {
   const [currentStep, setCurrentStep] = useState(0);
   const [location, navigate] = useLocation();
-
+  
   // components for each step
   const steps = [<SetTimer />, <SetBreaks />, <SetMusic />];
 
@@ -40,7 +40,7 @@ function SessionSetup() {
         <SidePanel />
     <div className="flex flex-col items-center justify-center h-screen">
       {/* Main Box in the Center */}
-      <div className="bg-red-200 p-8 rounded-lg mb-8 w-3/4 h-3/5">
+      <div className="bg-red-200 p-3 rounded-lg mb-8 w-4/5 h-6/7">
         {steps[currentStep]}
       </div>
 

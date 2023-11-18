@@ -1,8 +1,8 @@
-const BASE_URL = "http://localhost:5000/session/process"; 
+const BASE_URL = "http://localhost:5000/session"; 
 
 export const sendSessionData = async (sessionData) => {
   try {
-    const response = await fetch(`${BASE_URL}`, {
+    const response = await fetch(`${BASE_URL}/process`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
