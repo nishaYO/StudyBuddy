@@ -12,8 +12,7 @@ import {
 // url example for this page : "sessionsetup/setmusic?song1=Meditation&volume1=50&song2=NatureSounds&volume2=75"
 
 function SetMusic({ sessionDuration }) {
-  const [soundVolumeState, setSoundVolumeState] = useState(50);
-  const [effectVolumeState, setEffectVolumeState] = useState(50);
+
   const [hoveredSoundIndex, setHoveredSoundIndex] = useState(false);
   const [hoveredEffectIndex, setHoveredEffectIndex] = useState(false);
 
@@ -133,7 +132,8 @@ function SetMusic({ sessionDuration }) {
       playingState: false,
     },
   ]);
-
+  const [soundVolumeState, setSoundVolumeState] = useState(soundList.map(() => 50));
+  const [effectVolumeState, setEffectVolumeState] = useState(effectList.map(() => 50));
   const playAudio = (song, id, index, isEffect) => {
     const list = isEffect ? effectList : soundList;
     const setList = isEffect ? setEffectList : setSoundList;
@@ -169,21 +169,27 @@ function SetMusic({ sessionDuration }) {
     const list = isEffect ? effectList : soundList;
     const setList = isEffect ? setEffectList : setSoundList;
     const setVolume = isEffect ? setEffectVolumeState : setSoundVolumeState;
-
+  
     setList((prevList) => {
       const newList = [...prevList];
       newList[index] = { ...newList[index], volume: newVolume / 100 };
       return newList;
     });
-
+  
+    const volumeState = isEffect ? effectVolumeState : soundVolumeState;
+    const setVolumeState = isEffect ? setEffectVolumeState : setSoundVolumeState;
+  
+    setVolumeState((prevVolumeState) => {
+      const newVolumeState = [...prevVolumeState];
+      newVolumeState[index] = newVolume;
+      return newVolumeState;
+    });
+  
     const audioId = list[index].id;
-
+  
     if (audioRefs.current[audioId]) {
       audioRefs.current[audioId].volume = newVolume / 100;
     }
-
-    // Update the volume state
-    setVolume(newVolume);
   };
 
   return (
@@ -222,7 +228,7 @@ function SetMusic({ sessionDuration }) {
                     type="range"
                     min="0"
                     max="100"
-                    value={soundVolumeState}
+                    value={soundVolumeState[index]}
                     onChange={(event) =>
                       handleVolumeChange(event, false, index)
                     }
@@ -275,7 +281,7 @@ function SetMusic({ sessionDuration }) {
                     type="range"
                     min="0"
                     max="100"
-                    value={effectVolumeState}
+                    value={effectVolumeState[index]}
                     onChange={(event) =>
                       handleVolumeChange(event, true, index)
                     }
