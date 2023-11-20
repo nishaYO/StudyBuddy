@@ -9,138 +9,181 @@ import {
   faVolumeUp,
 } from "@fortawesome/free-solid-svg-icons";
 
-const soundList = [
-  {
-    id: 1,
-    name: "Meditation",
-    image: "https://media.giphy.com/media/8pO7dRS7JRxigBSLKF/giphy.gif",
-    audio: "./soundsAndEffects/sounds/purrple-cat-crescent-moon.mp3",
-    volume: 0.5,
-  },
-  {
-    id: 2,
-    name: "Nature Sounds",
-    image: "https://media.giphy.com/media/Yg12tqyJwylsk/giphy.gif",
-    audio: "./soundsAndEffects/sounds/Ghostrifter-Official-Celestia.mp3",
-    volume: 0.5,
-  },
-  {
-    id: 3,
-    name: "Calm Music",
-    image: "https://media.giphy.com/media/q10hztkXiFFmhBbH2l/giphy.gif",
-    audio: "./soundsAndEffects/sounds/Lost-and-Found.mp3",
-    volume: 0.5,
-  },
-  {
-    id: 4,
-    name: "Drum",
-    image: "https://media.giphy.com/media/1w3KfcZeu8d0GsC89V/giphy.gif",
-    audio: "./soundsAndEffects/sounds/drum.mp3",
-    volume: 0.5,
-  },
-  {
-    id: 5,
-    name: "Seeking Peace",
-    image: "https://media.giphy.com/media/dNgK7Ws7y176U/giphy.gif",
-    audio: "./soundsAndEffects/sounds/seeking peace.mp3",
-    volume: 0.5,
-  },
-  {
-    id: 6,
-    name: "Otjanbird",
-    image: "https://media.giphy.com/media/l0IyirIYBWR4CwJWw/giphy.gif",
-    audio: "./soundsAndEffects/sounds/track_Otjanbird-Pt.-II.mp3",
-    volume: 0.5,
-  },
-];
+// url example for this page : "sessionsetup/setmusic?song1=Meditation&volume1=50&song2=NatureSounds&volume2=75"
 
-const effectList = [
-  {
-    id: 7,
-    name: "Rain",
-    image: "https://media.giphy.com/media/PbOaO2fedzQLm/giphy.gif",
-    audio: "./soundsAndEffects/effects/effect_rain.mp3",
-    volume: 0.5,
-  },
-  {
-    id: 8,
-    name: "Fire",
-    image: "https://media.giphy.com/media/mukI8MtW2BHhjj4INb/giphy.gif",
-    audio: "./soundsAndEffects/effects/effect_fire.mp3",
-    volume: 0.5,
-  },
-  {
-    id: 9,
-    name: "River",
-    image: "https://media.giphy.com/media/93lPhTvisYUenR7Uhb/giphy.gif",
-    audio: "./soundsAndEffects/effects/effect_river.mp3",
-    volume: 0.5,
-  },
-  {
-    id: 10,
-    name: "Nightfall",
-    image: "https://media.giphy.com/media/PUZY5bpax4yVpqfufb/giphy.gif",
-    audio: "./soundsAndEffects/effects/effect_nightFall.mp3",
-    volume: 0.5,
-  },
-  {
-    id: 11,
-    name: "Forest",
-    image: "https://media.giphy.com/media/KHh7jLrG6gIXBTnxsp/giphy.gif",
-    audio: "./soundsAndEffects/effects/effect_forest.mp3",
-    volume: 0.5,
-  },
-  {
-    id: 12,
-    name: "Waves",
-    image: "https://media.giphy.com/media/xT0GqcCJJJH12hJvGM/giphy.gif",
-    audio: "./soundsAndEffects/effects/effect_wavesHittingRocks.mp3",
-    volume: 0.5,
-  },
-];
+function SetMusic({ sessionDuration }) {
+  const [soundVolumeState, setSoundVolumeState] = useState(50);
+  const [effectVolumeState, setEffectVolumeState] = useState(50);
+  const [hoveredSoundIndex, setHoveredSoundIndex] = useState(false);
+  const [hoveredEffectIndex, setHoveredEffectIndex] = useState(false);
 
-function SetMusic() {
-  const [playingState, setPlayingState] = useState({});
-  const [volumeState, setVolumeState] = useState(100);
-  const [hoveredSoundIndex, setHoveredSoundIndex] = useState(null);
-  const [hoveredEffectIndex, setHoveredEffectIndex] = useState(null);
-  const [MusicFrequency, setMusicFrequency] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const audioRefs = useRef({});
 
-  const playAudio = (song, id, index) => {
-    setPlayingState((prevPlayingState) => ({
-      ...prevPlayingState,
-      [id]: !prevPlayingState[id],
-    }));
+  // creating states for the music items in sounds and effects
+  const [soundList, setSoundList] = useState([
+    {
+      id: 1,
+      name: "Meditation",
+      image: "https://media.giphy.com/media/8pO7dRS7JRxigBSLKF/giphy.gif",
+      audio: "./soundsAndEffects/sounds/purrple-cat-crescent-moon.mp3",
+      volume: 0.5,
+      frequency: 0,
+      playingState: false,
+    },
+    {
+      id: 2,
+      name: "Nature Sounds",
+      image: "https://media.giphy.com/media/Yg12tqyJwylsk/giphy.gif",
+      audio: "./soundsAndEffects/sounds/Ghostrifter-Official-Celestia.mp3",
+      volume: 0.5,
+      frequency: 0,
+      playingState: false,
+    },
+    {
+      id: 3,
+      name: "Calm Music",
+      image: "https://media.giphy.com/media/q10hztkXiFFmhBbH2l/giphy.gif",
+      audio: "./soundsAndEffects/sounds/Lost-and-Found.mp3",
+      volume: 0.5,
+      frequency: 0,
+      playingState: false,
+    },
+    {
+      id: 4,
+      name: "Drum",
+      image: "https://media.giphy.com/media/1w3KfcZeu8d0GsC89V/giphy.gif",
+      audio: "./soundsAndEffects/sounds/drum.mp3",
+      volume: 0.5,
+      frequency: 0,
+      playingState: false,
+    },
+    {
+      id: 5,
+      name: "Seeking Peace",
+      image: "https://media.giphy.com/media/dNgK7Ws7y176U/giphy.gif",
+      audio: "./soundsAndEffects/sounds/seeking peace.mp3",
+      volume: 0.5,
+      frequency: 0,
+      playingState: false,
+    },
+    {
+      id: 6,
+      name: "Otjanbird",
+      image: "https://media.giphy.com/media/l0IyirIYBWR4CwJWw/giphy.gif",
+      audio: "./soundsAndEffects/sounds/track_Otjanbird-Pt.-II.mp3",
+      volume: 0.5,
+      frequency: 0,
+      playingState: false,
+    },
+  ]);
 
-    if (playingState[id]) {
+  const [effectList, setEffectList] = useState([
+    {
+      id: 7,
+      name: "Rain",
+      image: "https://media.giphy.com/media/PbOaO2fedzQLm/giphy.gif",
+      audio: "./soundsAndEffects/effects/effect_rain.mp3",
+      volume: 0.5,
+      frequency: 0,
+      playingState: false,
+    },
+    {
+      id: 8,
+      name: "Fire",
+      image: "https://media.giphy.com/media/mukI8MtW2BHhjj4INb/giphy.gif",
+      audio: "./soundsAndEffects/effects/effect_fire.mp3",
+      volume: 0.5,
+      frequency: 0,
+      playingState: false,
+    },
+    {
+      id: 9,
+      name: "River",
+      image: "https://media.giphy.com/media/93lPhTvisYUenR7Uhb/giphy.gif",
+      audio: "./soundsAndEffects/effects/effect_river.mp3",
+      volume: 0.5,
+      frequency: 0,
+      playingState: false,
+    },
+    {
+      id: 10,
+      name: "Nightfall",
+      image: "https://media.giphy.com/media/PUZY5bpax4yVpqfufb/giphy.gif",
+      audio: "./soundsAndEffects/effects/effect_nightFall.mp3",
+      volume: 0.5,
+      frequency: 0,
+      playingState: false,
+    },
+    {
+      id: 11,
+      name: "Forest",
+      image: "https://media.giphy.com/media/KHh7jLrG6gIXBTnxsp/giphy.gif",
+      audio: "./soundsAndEffects/effects/effect_forest.mp3",
+      volume: 0.5,
+      frequency: 0,
+      playingState: false,
+    },
+    {
+      id: 12,
+      name: "Waves",
+      image: "https://media.giphy.com/media/xT0GqcCJJJH12hJvGM/giphy.gif",
+      audio: "./soundsAndEffects/effects/effect_wavesHittingRocks.mp3",
+      volume: 0.5,
+      frequency: 0,
+      playingState: false,
+    },
+  ]);
+
+  const playAudio = (song, id, index, isEffect) => {
+    const list = isEffect ? effectList : soundList;
+    const setList = isEffect ? setEffectList : setSoundList;
+
+    // prevlist is either soundlist or effectlist based on the above two values
+    setList((prevList) => {
+      // create a shallow copy of the array: prevList
+      const newList = [...prevList];
+      // toggle the playingState
+      newList[index] = {
+        ...newList[index],
+        playingState: !newList[index].playingState,
+      };
+      return newList;
+    });
+    let pauseTime = 0;
+    // play/pause/resume the song
+    if (list[index].playingState) {
+      // pause the song
       audioRefs.current[id].pause();
-      // Check if the item completed a full rotation (loop)
-      if (audioRefs.current[id].currentTime === 0) {
-        setMusicFrequency((prevFrequency) => {
-          const newFrequency = [...prevFrequency];
-          newFrequency[index] += 1;
-          return newFrequency;
-        });
-        console.log(MusicFrequency)
-      }
     } else {
+      // play the song on loop
       const audio = new Audio(song);
-      audio.volume = volumeState / 100; // Set initial volume
+      audio.volume = list[index].volume;
       audio.loop = true;
       audio.play();
       audioRefs.current[id] = audio;
     }
   };
 
-  const handleVolumeChange = (event) => {
+  const handleVolumeChange = (event, isEffect, index) => {
     const newVolume = parseInt(event.target.value, 10);
-    setVolumeState(newVolume);
-    Object.values(audioRefs.current).forEach((audio) => {
-      if (audio) {
-        audio.volume = newVolume / 100;
-      }
+    const list = isEffect ? effectList : soundList;
+    const setList = isEffect ? setEffectList : setSoundList;
+    const setVolume = isEffect ? setEffectVolumeState : setSoundVolumeState;
+
+    setList((prevList) => {
+      const newList = [...prevList];
+      newList[index] = { ...newList[index], volume: newVolume / 100 };
+      return newList;
     });
+
+    const audioId = list[index].id;
+
+    if (audioRefs.current[audioId]) {
+      audioRefs.current[audioId].volume = newVolume / 100;
+    }
+
+    // Update the volume state
+    setVolume(newVolume);
   };
 
   return (
@@ -165,22 +208,24 @@ function SetMusic() {
           >
             <button
               className="bg-white rounded-full h-10 w-10 opacity-75 backdrop-blur"
-              onClick={() => playAudio(file.audio, file.id, index)}
+              onClick={() => playAudio(file.audio, file.id, index, false)}
             >
               <FontAwesomeIcon
-                icon={playingState[file.id] ? faPause : faPlay}
+                icon={file.playingState ? faPause : faPlay}
                 size="sm"
               />
             </button>
             <div className="absolute bottom-0 left-0 right-0 p-2 flex items-center justify-center opacity-100 transition-opacity duration-300 hover:opacity-100 bg-black bg-opacity-80">
-              {hoveredSoundIndex === index ? (
+              {index === hoveredSoundIndex ? (
                 <>
                   <input
                     type="range"
                     min="0"
                     max="100"
-                    value={volumeState}
-                    onChange={handleVolumeChange}
+                    value={soundVolumeState}
+                    onChange={(event) =>
+                      handleVolumeChange(event, false, index)
+                    }
                     className="w-5/6 h-2 bg-gray-300 rounded-full appearance-none outline-none"
                   />
                 </>
@@ -216,22 +261,24 @@ function SetMusic() {
           >
             <button
               className="bg-white rounded-full h-10 w-10 opacity-75 backdrop-blur"
-              onClick={() => playAudio(file.audio, file.id, index)}
+              onClick={() => playAudio(file.audio, file.id, index, true)}
             >
               <FontAwesomeIcon
-                icon={playingState[file.id] ? faPause : faPlay}
+                icon={file.playingState ? faPause : faPlay}
                 size="sm"
               />
             </button>
             <div className="absolute bottom-0 left-0 right-0 p-2 flex items-center justify-center opacity-100 transition-opacity duration-300 hover:opacity-100 bg-black bg-opacity-80">
-              {hoveredEffectIndex === index ? (
+              {index === hoveredEffectIndex ? (
                 <>
                   <input
                     type="range"
                     min="0"
                     max="100"
-                    value={volumeState}
-                    onChange={handleVolumeChange}
+                    value={effectVolumeState}
+                    onChange={(event) =>
+                      handleVolumeChange(event, true, index)
+                    }
                     className="w-5/6 h-2 bg-gray-300 rounded-full appearance-none outline-none"
                   />
                 </>
@@ -251,4 +298,3 @@ function SetMusic() {
 }
 
 export default SetMusic;
-
