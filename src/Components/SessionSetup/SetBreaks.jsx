@@ -29,24 +29,24 @@ const SetBreaks = ({ totalDuration }) => {
     newBreaks.splice(index, 1);
     dispatch(setBreaks(newBreaks));
   };
-
+ 
   const handleBreakChange = (event, index, field) => {
-    const newBreaks = [...breaks];
-    const { value } = event.target;
-  
-    // Ensure the nested properties exist before updating
-    newBreaks[index] = {
-      ...newBreaks[index],
-      [field]: {
-        ...newBreaks[index][field],
-        hours: field === "breakDuration" ? value : newBreaks[index][field].hours,
-        minutes: field === "breakDuration" ? value : newBreaks[index][field].minutes,
-        seconds: field === "breakDuration" ? value : newBreaks[index][field].seconds,
-      },
-    };
+    const newBreaks = breaks.map((breakItem, i) => {
+      if (i === index) {
+        return {
+          ...breakItem,
+          breakDuration: {
+            ...breakItem.breakDuration,
+            [field]: parseInt(event.target.value, 10) || 0,
+          },
+        };
+      }
+      return breakItem;
+    });
   
     dispatch(setBreaks(newBreaks));
   };
+  
 
   return (
     <div className="container mx-auto mt-8 p-8 bg-gray-100 ">
