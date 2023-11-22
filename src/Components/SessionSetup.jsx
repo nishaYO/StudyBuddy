@@ -5,10 +5,13 @@ import SetMusic from "./SessionSetup/SetMusic";
 import SidePanel from "./SidePanel";
 import Navbar from "./Navbar";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 // this will return an object to the app.jsx with sessionDuration, sessionStartedTimeStamp, sessionIntervals array
 
 function SessionSetup() {
+  const breaks = useSelector((state) => state.breaks)
+  console.log(breaks);
   const [currentStep, setCurrentStep] = useState(0);
   const [location, navigate] = useLocation();
   

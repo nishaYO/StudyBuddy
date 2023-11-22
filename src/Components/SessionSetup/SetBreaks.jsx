@@ -1,37 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { setBreaks } from "../../redux/breakslice";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const SetBreaks = ({ totalDuration }) => {
-  const [breaks, setBreaks] = useState([
-    {
-      breakDuration: { hours: "", minutes: "", seconds: "" },
-      studyDuration: { hours: "", minutes: "", seconds: "" },
-    },
-  ]);
-  
+  const dispatch = useDispatch();
+  const breaks = useSelector((state) => state.breaks);
+
+  useEffect(() => {
+    console.log(breaks);
+  }, [breaks]);
 
   const addBreak = () => {
-    setBreaks([
+    const newBreaks = [
       ...breaks,
       {
-        breakDuration: { hours: "", minutes: "", seconds: "" },
-        studyDuration: { hours: "", minutes: "", seconds: "" },
+        breakDuration: { hours: '', minutes: '', seconds: '' },
+        studyDuration: { hours: '', minutes: '', seconds: '' },
       },
-    ]);
-    console.log(breaks)
+    ];
+    dispatch(setBreaks(newBreaks));
   };
 
   const removeBreak = (index) => {
     const newBreaks = [...breaks];
     newBreaks.splice(index, 1);
-    setBreaks(newBreaks);
+    dispatch(setBreaks(newBreaks));
   };
 
   const handleBreakChange = (event, index, field) => {
     const newBreaks = [...breaks];
-    newBreaks[index][field] = event.target.value;
-    setBreaks(newBreaks);
+    const { value } = event.target;
+  
+    // Ensure the nested properties exist before updating
+    newBreaks[index] = {
+      ...newBreaks[index],
+      [field]: {
+        ...newBreaks[index][field],
+        hours: field === "breakDuration" ? value : newBreaks[index][field].hours,
+        minutes: field === "breakDuration" ? value : newBreaks[index][field].minutes,
+        seconds: field === "breakDuration" ? value : newBreaks[index][field].seconds,
+      },
+    };
+  
+    dispatch(setBreaks(newBreaks));
   };
 
   return (
