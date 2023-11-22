@@ -4,15 +4,16 @@ import { faTrashAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { setBreaks } from "../../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
 
-
 const SetBreaks = ({ totalDuration }) => {
   const dispatch = useDispatch();
   const breaks = useSelector((state) => state.breaks);
 
   useEffect(() => {
+    // Log breaks to the console whenever it changes
     console.log(breaks);
   }, [breaks]);
 
+  // Function to add a new break
   const addBreak = () => {
     const newBreaks = [
       ...breaks,
@@ -24,15 +25,18 @@ const SetBreaks = ({ totalDuration }) => {
     dispatch(setBreaks(newBreaks));
   };
 
+  // Function to remove a break at a specific index
   const removeBreak = (index) => {
     const newBreaks = [...breaks];
     newBreaks.splice(index, 1);
     dispatch(setBreaks(newBreaks));
   };
  
+  // Function to handle changes in break durations
   const handleBreakChange = (event, index, field) => {
     const newBreaks = breaks.map((breakItem, i) => {
       if (i === index) {
+        // Update the specific field in the break duration
         return {
           ...breakItem,
           breakDuration: {
@@ -46,7 +50,6 @@ const SetBreaks = ({ totalDuration }) => {
   
     dispatch(setBreaks(newBreaks));
   };
-  
 
   return (
     <div className="container mx-auto mt-8 p-8 bg-gray-100 ">
