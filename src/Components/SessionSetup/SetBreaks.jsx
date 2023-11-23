@@ -1,37 +1,54 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { setBreaks } from "../../redux/breakslice";
+import { useDispatch, useSelector } from "react-redux";
 
 const SetBreaks = ({ totalDuration }) => {
-  const [breaks, setBreaks] = useState([
-    {
-      breakDuration: { hours: "", minutes: "", seconds: "" },
-      studyDuration: { hours: "", minutes: "", seconds: "" },
-    },
-  ]);
-  
+  const dispatch = useDispatch();
+  const breaks = useSelector((state) => state.breaks);
 
+  useEffect(() => {
+    // Log breaks to the console whenever it changes
+    console.log(breaks);
+  }, [breaks]);
+
+  // Function to add a new break
   const addBreak = () => {
-    setBreaks([
+    const newBreaks = [
       ...breaks,
       {
-        breakDuration: { hours: "", minutes: "", seconds: "" },
-        studyDuration: { hours: "", minutes: "", seconds: "" },
+        breakDuration: { hours: '', minutes: '', seconds: '' },
+        studyDuration: { hours: '', minutes: '', seconds: '' },
       },
-    ]);
-    console.log(breaks)
+    ];
+    dispatch(setBreaks(newBreaks));
   };
 
+  // Function to remove a break at a specific index
   const removeBreak = (index) => {
     const newBreaks = [...breaks];
     newBreaks.splice(index, 1);
-    setBreaks(newBreaks);
+    dispatch(setBreaks(newBreaks));
   };
-
+ 
+  // Function to handle changes in break durations
   const handleBreakChange = (event, index, field) => {
-    const newBreaks = [...breaks];
-    newBreaks[index][field] = event.target.value;
-    setBreaks(newBreaks);
+    const newBreaks = breaks.map((breakItem, i) => {
+      if (i === index) {
+        // Update the specific field in the break duration
+        return {
+          ...breakItem,
+          breakDuration: {
+            ...breakItem.breakDuration,
+            [field]: parseInt(event.target.value, 10) || 0,
+          },
+        };
+      }
+      return breakItem;
+    });
+  
+    dispatch(setBreaks(newBreaks));
   };
 
   return (
