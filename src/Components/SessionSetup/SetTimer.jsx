@@ -7,56 +7,59 @@ import { useDispatch, useSelector } from "react-redux";
 function SetTimer() {
   const sessionDuration = useSelector((state) => state.sessionDuration);
   const dispatch = useDispatch();
-  const [hours, setHours] = useState(sessionDuration.hours);
-  const [minutes, setMinutes] = useState(sessionDuration.minutes);
 
   // Update Redux state when input values change
-  const handleSessionDurationChange = () => {
-    dispatch(setSessionDuration({ hours, minutes }));
+  const handleSessionDurationChange = (newHours, newMinutes) => {
+    dispatch(setSessionDuration({ hours: newHours, minutes: newMinutes }));
   };
 
   return (
     <div className="flex flex-col justify-center">
       <p className="text-3xl font-bold mb-4">Set The Session Duration</p>
       <TimeDialer
-        hours={hours}
-        setHours={setHours}
-        minutes={minutes}
-        setMinutes={setMinutes}
+        hours={sessionDuration.hours}
+        minutes={sessionDuration.minutes}
         onSessionDurationChange={handleSessionDurationChange}
       />
       <div className="text-lg mt-4 bg-[#D0BFFF]">
-        The session will end after {`${hours} hours ${minutes} mins.`}
+        The session will end after{" "}
+        {`${sessionDuration.hours} hours ${sessionDuration.minutes} mins.`}
       </div>
     </div>
   );
 }
 
-const TimeDialer = ({
-  hours,
-  setHours,
-  minutes,
-  setMinutes,
-  onSessionDurationChange,
-}) => {
+const TimeDialer = ({ hours, minutes, onSessionDurationChange }) => {
+// arrow handler functions 
   const handleHrsUp = () => {
-    setHours(hours < 23 ? hours + 1 : 0);
-    onSessionDurationChange();
+    onSessionDurationChange((hours + 1) % 24, minutes);
   };
 
   const handleHrsDown = () => {
-    setHours(hours > 0 ? hours - 1 : 23);
-    onSessionDurationChange();
+    onSessionDurationChange(hours === 0 ? 23 : hours - 1, minutes);
   };
 
   const handleMinsUp = () => {
-    setMinutes(minutes < 59 ? minutes + 1 : 0);
-    onSessionDurationChange();
+    onSessionDurationChange(hours, (minutes + 1) % 60);
   };
 
   const handleMinsDown = () => {
-    setMinutes(minutes > 0 ? minutes - 1 : 59);
-    onSessionDurationChange();
+    onSessionDurationChange(hours, minutes === 0 ? 59 : minutes - 1);
+  };
+
+  // type in input box handlers 
+  const handleHoursInputChange = (e) => {
+    const typedHours = parseInt(e.target.value);
+    if (!isNaN(typedHours)) {
+      onSessionDurationChange(typedHours % 24, minutes);
+    }
+  };
+
+  const handleMinutesInputChange = (e) => {
+    const typedMinutes = parseInt(e.target.value);
+    if (!isNaN(typedMinutes)) {
+      onSessionDurationChange(hours, typedMinutes % 60);
+    }
   };
 
   return (
@@ -70,7 +73,8 @@ const TimeDialer = ({
           className="text-lg w-10 border border-gray-400 rounded p-1"
           type="number"
           value={hours.toString().padStart(2, "0")}
-          onChange={(e) => setHours(parseInt(e.target.value))}
+          onChange={handleHoursInputChange}
+          onBlur={handleHoursInputChange}
         />
         <button className="text-2xl" onClick={handleHrsDown}>
           <FontAwesomeIcon icon={faAngleDown} />
@@ -85,7 +89,8 @@ const TimeDialer = ({
           className="text-lg w-10 border border-gray-400 rounded p-1"
           type="number"
           value={minutes.toString().padStart(2, "0")}
-          onChange={(e) => setMinutes(parseInt(e.target.value))}
+          onChange={handleMinutesInputChange}
+          onBlur={handleMinutesInputChange}
         />
         <button className="text-2xl" onClick={handleMinsDown}>
           <FontAwesomeIcon icon={faAngleDown} />
