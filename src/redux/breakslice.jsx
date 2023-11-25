@@ -1,4 +1,3 @@
-// breaksSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 // Creating a Redux slice for managing break durations

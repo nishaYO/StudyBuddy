@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 // this will return an object to the app.jsx with sessionDuration, sessionStartedTimeStamp, sessionIntervals array
 
 function SessionSetup() {
-  const breaks = useSelector((state) => state.breaks)
+  const breaks = useSelector((state) => state.breaks) //extract breaks state from redux store 
   console.log(breaks);
   const [currentStep, setCurrentStep] = useState(0);
   const [location, navigate] = useLocation();
