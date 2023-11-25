@@ -21,16 +21,16 @@ function SetTimer() {
         minutes={sessionDuration.minutes}
         onSessionDurationChange={handleSessionDurationChange}
       />
-      <div className="text-lg mt-4 bg-[#D0BFFF]">
-        The session will end after{" "}
-        {`${sessionDuration.hours} hours ${sessionDuration.minutes} mins.`}
+      <div className="text-lg bg-[#D0BFFF] p-3 rounded-md shadow-sm m-2">
+        The session will end after
+        {` ${sessionDuration.hours} hours ${sessionDuration.minutes} mins.`}
       </div>
     </div>
   );
 }
 
 const TimeDialer = ({ hours, minutes, onSessionDurationChange }) => {
-// arrow handler functions 
+  // arrow handler functions
   const handleHrsUp = () => {
     onSessionDurationChange((hours + 1) % 24, minutes);
   };
@@ -47,7 +47,7 @@ const TimeDialer = ({ hours, minutes, onSessionDurationChange }) => {
     onSessionDurationChange(hours, minutes === 0 ? 59 : minutes - 1);
   };
 
-  // type in input box handlers 
+  // type in input box handlers
   const handleHoursInputChange = (e) => {
     const typedHours = parseInt(e.target.value);
     if (!isNaN(typedHours)) {
@@ -63,7 +63,7 @@ const TimeDialer = ({ hours, minutes, onSessionDurationChange }) => {
   };
 
   return (
-    <div className="flex space-x-4 bg-[#D0BFFF] p-5">
+    <div className="flex space-x-4 bg-[#D0BFFF] p-5 rounded-md shadow-sm m-2">
       <div className="flex flex-col items-center">
         <p className="text-lg">hrs</p>
         <button className="text-2xl" onClick={handleHrsUp}>
