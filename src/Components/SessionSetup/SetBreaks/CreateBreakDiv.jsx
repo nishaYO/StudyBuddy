@@ -1,6 +1,6 @@
 import React from "react";
 
-const CreateBreakDiv = ({top, gridWidth}) => {
+const CreateBreakDiv = ({top, breakDivHeight, gridWidth}) => {
   const breakDivWidth = gridWidth - (gridWidth) / 100;
   return (
     <div
@@ -8,7 +8,7 @@ const CreateBreakDiv = ({top, gridWidth}) => {
         position: "absolute",
         top: `${top}px`,
         width: `${breakDivWidth}px`,
-         height: "15px",
+        height: `${breakDivHeight}px`,
         backgroundColor: "orange",
         marginLeft: `${gridWidth / 200 }px`,
         cursor: "pointer",

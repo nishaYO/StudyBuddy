@@ -5,6 +5,8 @@ import { setBreaks } from "../../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
 import CalculateGridHeight from "./SetBreaks/CalculateGridHeight";
 import CreateBreakDiv from "./SetBreaks/CreateBreakDiv";
+import ConvertPixelToTime from "./SetBreaks/ConvertPixelToTime";
+
 
 // grid and timeline and current timeline, grid click handle
 // create break divs , div click handle
@@ -15,12 +17,31 @@ const SetBreaks = () => {
   const breaks = useSelector((state) => state.breaks);
   const [breakDivs, setBreakDivs] = useState([]);
 
-  const handleMouseDown = (event) => {
+  const handleGridClick = (event) => {
     const rect = event.target.getBoundingClientRect();
     const y = Math.round(event.nativeEvent.clientY - rect.top);
-    const newBreakDivs = [...breakDivs, { y }];
-    setBreakDivs(newBreakDivs);
+    addBreak(y);
   };
+
+const addBreak=(y)=>{
+  // add a break to breaks array 
+  const breakStartTime = ConvertPixelToTime(y);
+  const defaultBreakDuration = 15;
+  const newBreak = {
+    breakDuration: {hours: '0', minutes: defaultBreakDuration, seconds:'0'},
+    breakStartTime: {hours: breakStartTime.hours, minutes: breakStartTime.minutes, seconds: breakStartTime.seconds }
+  }
+  dispatch(setBreaks([...breaks, newBreak]));
+  // create a breakDiv and add it to the breakDivs array to show in the grid
+  addBreakDiv(y, defaultBreakDuration);
+};
+
+const addBreakDiv = (y, duration)=>{
+  const newBreakDivs = [...breakDivs, { y, duration }];
+  setBreakDivs(newBreakDivs);
+  console.log("breakDivs:",breakDivs);
+  console.log("breaks:",breaks);
+}
 
   const gridHeight = CalculateGridHeight();
   const gridWidth = 500;
@@ -37,10 +58,10 @@ const SetBreaks = () => {
         left: 0,
         top: 0,
       }}
-      onMouseDown={handleMouseDown}
+      onMouseDown={handleGridClick}
     >
       {breakDivs.map((breakDiv, index) => (
-        <CreateBreakDiv key={index} top={breakDiv.y} gridWidth={gridWidth}/>
+        <CreateBreakDiv key={index} top={breakDiv.y} breakDivHeight={breakDiv.duration} gridWidth={gridWidth}/>
       ))}
     </div>
   );
