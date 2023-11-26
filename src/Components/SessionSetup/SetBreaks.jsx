@@ -23,11 +23,12 @@ const SetBreaks = () => {
   };
 
   const gridHeight = CalculateGridHeight();
+  const gridWidth = 500;
   return (
     <div
       style={{
         backgroundColor: "lightblue",
-        width: "500px",
+        width: `${gridWidth}px`,
         height: gridHeight,
         margin: "auto",
         marginTop: "10vh",
@@ -39,7 +40,7 @@ const SetBreaks = () => {
       onMouseDown={handleMouseDown}
     >
       {breakDivs.map((breakDiv, index) => (
-        <CreateBreakDiv key={index} top={breakDiv.y} />
+        <CreateBreakDiv key={index} top={breakDiv.y} gridWidth={gridWidth}/>
       ))}
     </div>
   );
