@@ -3,150 +3,46 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { setBreaks } from "../../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
+import CalculateGridHeight from "./SetBreaks/CalculateGridHeight";
+import CreateBreakDiv from "./SetBreaks/CreateBreakDiv";
 
-const SetBreaks = ({ totalDuration }) => {
+// grid and timeline and current timeline, grid click handle
+// create break divs , div click handle
+// popup page, onchange in inputs
+
+const SetBreaks = () => {
   const dispatch = useDispatch();
   const breaks = useSelector((state) => state.breaks);
+  const [breakDivs, setBreakDivs] = useState([]);
 
-  useEffect(() => {
-    // Log breaks to the console whenever it changes
-    console.log(breaks);
-  }, [breaks]);
-
-  // Function to add a new break
-  const addBreak = () => {
-    const newBreaks = [
-      ...breaks,
-      {
-        breakDuration: { hours: '', minutes: '', seconds: '' },
-        studyDuration: { hours: '', minutes: '', seconds: '' },
-      },
-    ];
-    dispatch(setBreaks(newBreaks));
+  const handleMouseDown = (event) => {
+    const rect = event.target.getBoundingClientRect();
+    const y = Math.round(event.nativeEvent.clientY - rect.top);
+    const newBreakDivs = [...breakDivs, { y }];
+    setBreakDivs(newBreakDivs);
   };
 
-  // Function to remove a break at a specific index
-  const removeBreak = (index) => {
-    const newBreaks = [...breaks];
-    newBreaks.splice(index, 1);
-    dispatch(setBreaks(newBreaks));
-  };
- 
-  // Function to handle changes in break durations
-  const handleBreakChange = (event, index, field) => {
-    const newBreaks = breaks.map((breakItem, i) => {
-      if (i === index) {
-        // Update the specific field in the break duration
-        return {
-          ...breakItem,
-          breakDuration: {
-            ...breakItem.breakDuration,
-            [field]: parseInt(event.target.value, 10) || 0,
-          },
-        };
-      }
-      return breakItem;
-    });
-  
-    dispatch(setBreaks(newBreaks));
-  };
-
+  const gridHeight = CalculateGridHeight();
   return (
-    <div className="container mx-auto mt-8 p-8 bg-gray-100 ">
-      <h1 className="text-4xl font-bold mb-6">Set The Breaks</h1>
-      <div className="space-y-4 font-mono  bg-[#FFF3DA] ">
-        {breaks.map((breakItem, index) => (
-          <div key={index} className="space-y-2 border-2 rounded-lg border-[#BEADFA]">
-            <div className="flex items-center space-x-2">
-              <div className="flex items-center space-x-2">
-                <input
-                  type="number"
-                  placeholder="Hours"
-                  onChange={(event) =>
-                    handleBreakChange(event, index, "breakDuration.hours")
-                  }
-                  className="border rounded p-2 text-sm w-1/4"
-                />
-                <span>hours</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <input
-                  type="number"
-                  placeholder="Minutes"
-                  onChange={(event) =>
-                    handleBreakChange(event, index, "breakDuration.minutes")
-                  }
-                  className="border rounded p-2 text-sm w-1/4"
-                />
-                <span>minutes</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <input
-                  type="number"
-                  placeholder="Seconds"
-                  onChange={(event) =>
-                    handleBreakChange(event, index, "breakDuration.seconds")
-                  }
-                  className="border rounded p-2 text-sm w-1/4"
-                />
-                <span>seconds</span>
-              </div>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="flex items-center space-x-2">
-                <input
-                  type="number"
-                  placeholder="Hours"
-                  onChange={(event) =>
-                    handleBreakChange(event, index, "studyDuration.hours")
-                  }
-                  className="border rounded p-2 text-sm w-1/4"
-                />
-                <span>hours</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <input
-                  type="number"
-                  placeholder="Minutes"
-                  onChange={(event) =>
-                    handleBreakChange(event, index, "studyDuration.minutes")
-                  }
-                  className="border rounded p-2 text-sm w-1/4"
-                />
-                <span>minutes</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <input
-                  type="number"
-                  placeholder="Seconds"
-                  onChange={(event) =>
-                    handleBreakChange(event, index, "studyDuration.seconds")
-                  }
-                  className="border rounded p-2 text-sm w-1/4"
-                />
-                <span>seconds</span>
-              </div>
-              <button
-                onClick={() => removeBreak(index)}
-                className="p-2 bg-red-500 text-white rounded text-sm"
-              >
-                <FontAwesomeIcon icon={faTrashAlt} />
-              </button>
-            </div>
-          </div>
-        ))}
-        <button
-          onClick={addBreak}
-          className="p-2 bg-green-500 text-white rounded text-sm"
-        >
-          <FontAwesomeIcon icon={faPlus} />
-        </button>
-      </div>
+    <div
+      style={{
+        backgroundColor: "lightblue",
+        width: "500px",
+        height: gridHeight,
+        margin: "auto",
+        marginTop: "10vh",
+        marginLeft: "10vw",
+        position: "relative",
+        left: 0,
+        top: 0,
+      }}
+      onMouseDown={handleMouseDown}
+    >
+      {breakDivs.map((breakDiv, index) => (
+        <CreateBreakDiv key={index} top={breakDiv.y} />
+      ))}
     </div>
   );
-  
-  
-  
 };
 
 export default SetBreaks;
