@@ -3,23 +3,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { setBreaks } from "../../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
-import CalculateGridHeight from "./SetBreaks/CalculateGridHeight";
-import CreateBreakDiv from "./SetBreaks/CreateBreakDiv";
-import ConvertPixelToTime from "./SetBreaks/ConvertPixelToTime";
-
-// grid and timeline and current timeline, grid click handle
-// create break divs , div click handle
-// popup page, onchange in inputs
+import CalculateGridHeight from "./SetBreaksComponents/CalculateGridHeight";
+import CreateBreakDiv from "./SetBreaksComponents/CreateBreakDiv";
+import ConvertPixelToTime from "./SetBreaksComponents/ConvertPixelToTime";
+import PopUp from "./SetBreaksComponents/PopUp";
 
 const SetBreaks = () => {
   const dispatch = useDispatch();
   const breaks = useSelector((state) => state.breaks);
   const [breakDivs, setBreakDivs] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleGridClick = (event) => {
-    const rect = event.target.getBoundingClientRect();
-    const y = Math.round(event.nativeEvent.clientY - rect.top);
-    addBreak(y);
+    if (!isPopupOpen) {
+      const rect = event.target.getBoundingClientRect();
+      const y = Math.round(event.nativeEvent.clientY - rect.top);
+      addBreak(y);
+    }
   };
 
   const addBreak = (y) => {
@@ -48,6 +48,14 @@ const SetBreaks = () => {
     setBreakDivs(newBreakDivs);
   };
 
+  const handlePopupClose = () => {
+    setIsPopupOpen(false);
+  };
+
+  const handleDivClick = () => {
+    setIsPopupOpen(true);
+  };
+
   const gridHeight = CalculateGridHeight();
   const gridWidth = 500;
   return (
@@ -71,8 +79,10 @@ const SetBreaks = () => {
           top={breakDiv.y}
           breakDivHeight={breakDiv.duration}
           gridWidth={gridWidth}
+          onClick={handleDivClick}
         />
       ))}
+      {isPopupOpen && <PopUp onClose={handlePopupClose} />}
     </div>
   );
 };
