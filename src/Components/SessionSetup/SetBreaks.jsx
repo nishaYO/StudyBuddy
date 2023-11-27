@@ -19,7 +19,6 @@ const SetBreaks = () => {
       const y = Math.round(event.nativeEvent.clientY - rect.top);
       addBreak(y);
     }
-    console.log("Grid clicked!")
   };
 
   const addBreak = (y) => {
@@ -39,7 +38,6 @@ const SetBreaks = () => {
       },
     };
     dispatch(setBreaks([...breaks, newBreak]));
-    console.log("Breaks Array:", breaks);
   };
 
   const handlePopupClose = () => {
@@ -71,6 +69,7 @@ const SetBreaks = () => {
       breaks.map((breakItem, index) => (
         <CreateBreakDiv
           key={index}
+          index={index}
           top={ConvertTimeToPixel({timeObject: breakItem.breakStartTime})}
           breakDivHeight={ConvertTimeToPixel({timeObject: breakItem.breakDuration})}
           gridWidth={gridWidth}

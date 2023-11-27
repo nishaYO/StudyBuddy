@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import PopUp from "./PopUp";
 
 const CreateBreakDiv = ({
+  index,
   top,
   breakDivHeight,
   gridWidth,
   onClick,
   popUpClose,
 }) => {
+  console.log("index: ", index);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const handlePopupClose = () => {
     setIsPopupOpen(false);
     popUpClose();
   };
-
+  
   const breakDivWidth = gridWidth - gridWidth / 100;
   const handleBreakDivClick = (event) => {
     event.stopPropagation();
