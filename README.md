@@ -50,4 +50,5 @@ All the Pages are here:
 - "/reports" => see study stats
 - "/help" => contact us & know more
 
-
+in session components, the session completed component will render when the session completed as expected. And the 
+session ended component is when the user abruptly leaves the session before the session duration ended.

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const sessionDuration = createSlice({
   name: 'sessionDuration', 
-  initialState: {hours: '3', minutes: '30', seconds: '0'},
+  initialState: {hours: '0', minutes: '0', seconds: '7'},
   reducers: {
     
     setSessionDuration: (state, action) => {

@@ -1,13 +1,21 @@
-import React from 'react';
-import Countdown from './SessionComponents/Countdown';
+import React, { useState, useEffect } from "react";
+import SessionStarted from "./SessionComponents/SessionStarted";
+import SessionCompleted from "./SessionComponents/SessionCompleted";
 
 const SessionTest = () => {
-  const timeObject = { hours: '0', minutes: '0', seconds: '05' };
+  const [sessionCompleted, setSessionCompleted] = useState(false);
+
+  const handleSessionCompleted = () => {
+    setSessionCompleted(true);
+  };
 
   return (
-    <div>
-      <div>SessionTest</div>
-      <Countdown timeObject={timeObject} />
+    <div className="flex items-center justify-center h-screen w-100">
+      {sessionCompleted ? (
+        <SessionCompleted />
+      ) : (
+        <SessionStarted handleSessionCompleted={handleSessionCompleted} />
+      )}
     </div>
   );
 };
