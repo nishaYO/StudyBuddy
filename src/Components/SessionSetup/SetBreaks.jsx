@@ -3,15 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { setBreaks } from "../../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
-import CalculateGridHeight from "./SetBreaksComponents/CalculateGridHeight";
 import CreateBreakDiv from "./SetBreaksComponents/CreateBreakDiv";
 import ConvertPixelToTime from "./SetBreaksComponents/ConvertPixelToTime";
-import PopUp from "./SetBreaksComponents/PopUp";
+import ConvertTimeToPixel from "./SetBreaksComponents/ConvertTimeToPixel";
 
 const SetBreaks = () => {
   const dispatch = useDispatch();
   const breaks = useSelector((state) => state.breaks);
-  const [breakDivs, setBreakDivs] = useState([]);
+  const sessionDuration = useSelector((state) => state.sessionDuration);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleGridClick = (event) => {
@@ -20,6 +19,7 @@ const SetBreaks = () => {
       const y = Math.round(event.nativeEvent.clientY - rect.top);
       addBreak(y);
     }
+    console.log("Grid clicked!")
   };
 
   const addBreak = (y) => {
@@ -39,13 +39,7 @@ const SetBreaks = () => {
       },
     };
     dispatch(setBreaks([...breaks, newBreak]));
-    // create a breakDiv and add it to the breakDivs array to show in the grid
-    addBreakDiv(y, defaultBreakDuration);
-  };
-
-  const addBreakDiv = (y, duration) => {
-    const newBreakDivs = [...breakDivs, { y, duration }];
-    setBreakDivs(newBreakDivs);
+    console.log("Breaks Array:", breaks);
   };
 
   const handlePopupClose = () => {
@@ -56,7 +50,8 @@ const SetBreaks = () => {
     setIsPopupOpen(true);
   };
 
-  const gridHeight = CalculateGridHeight();
+  const gridHeight = ConvertTimeToPixel({timeObject:{hours: '3', minutes: '30', seconds: '0'}});
+
   const gridWidth = 500;
   return (
     <div
@@ -72,17 +67,20 @@ const SetBreaks = () => {
         top: 0,
       }}
       onMouseDown={handleGridClick}
-    >
-      {breakDivs.map((breakDiv, index) => (
+    >{
+      breaks.map((breakItem, index) => (
         <CreateBreakDiv
           key={index}
-          top={breakDiv.y}
-          breakDivHeight={breakDiv.duration}
+          top={ConvertTimeToPixel({timeObject: breakItem.breakStartTime})}
+          breakDivHeight={ConvertTimeToPixel({timeObject: breakItem.breakDuration})}
           gridWidth={gridWidth}
           onClick={handleDivClick}
+          popUpClose={handlePopupClose}
         />
-      ))}
-      {isPopupOpen && <PopUp onClose={handlePopupClose} />}
+      ))
+    }
+    
+    
     </div>
   );
 };
