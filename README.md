@@ -43,3 +43,11 @@ The /session-setup and /session pages will send following info to the backend:
 Streak will be determined on the basis of the study goal entered in the welcome page by the user. For example if the user sets the goal to be 4 hours, then 
 the streak will only be updated when the user study 4+= hrs during a day. The goal will be customizable later as well.
 
+All the Pages are here:
+- "/" => welcome page  
+- "/session-setup" => set session details like music, timer, breaks
+- "/session" => session started and session ended page
+- "/reports" => see study stats
+- "/help" => contact us & know more
+
+

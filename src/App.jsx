@@ -4,6 +4,7 @@ import SessionSetup from "./Components/SessionSetup";
 import Session from "./Components/Session";
 import Reports from "./Components/Reports";
 import Help from "./Components/Help";
+import SessionTest from "./Components/SessionTest";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
             <Route path="/session" component={Session} />
             <Route path="/reports" component={Reports} />
             <Route path="/help" component={Help} />
+            <Route path="/session-test" component={SessionTest} />
           </Switch>
     </Router>
   );
