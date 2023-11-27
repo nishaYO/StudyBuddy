@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
-import SetTimer from "./SessionSetup/SetTimer";
-import SetBreaks from "./SessionSetup/SetBreaks";
-import SetMusic from "./SessionSetup/SetMusic";
+import SetTimer from "./SessionSetupComponents/SetTimer";
+import SetBreaks from "./SessionSetupComponents/SetBreaks";
+import SetMusic from "./SessionSetupComponents/SetMusic";
 import SidePanel from "./SidePanel";
 import Navbar from "./Navbar";
 import { useState } from "react";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "wouter";
-import SessionStarted from "./SessionStarted";
-import SessionEnded from "./SessionEnded";
+import SessionStarted from "./SessionComponents/SessionStarted";
+import SessionEnded from "./SessionComponents/SessionEnded";
 import { sendSessionData } from "../apis/sessionData";
 
 const sampleSessionData = {
