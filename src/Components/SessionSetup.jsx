@@ -6,11 +6,10 @@ import SidePanel from "./SidePanel";
 import Navbar from "./Navbar";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-
-// this will return an object to the app.jsx with sessionDuration, sessionStartedTimeStamp, sessionIntervals array
+import { addLastSessionInterval } from "./SetSessionIntervals";
 
 function SessionSetup() {
-  const breaks = useSelector((state) => state.breaks) //extract breaks state from redux store 
+  const breaks = useSelector((state) => state.breaks) 
   const [currentStep, setCurrentStep] = useState(0);
   const [location, navigate] = useLocation();
   
@@ -23,7 +22,11 @@ function SessionSetup() {
     if (currentStep === steps.length - 1) {
       navigate("/session");
       sessionStarteTimeStamp = new Date();
-      // sessionDuration 
+    }
+
+    // when all breaks set, add the last session interval
+    if (currentStep=== 1) {
+      addLastSessionInterval(); 
     }
   };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Countdown = ({ timeObject }) => {
+const Countdown = ({ timeObject, onCountdownEnd }) => {
   const { hours, minutes, seconds } = timeObject;
   const initialTimeInSeconds =
     parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
@@ -14,6 +14,7 @@ const Countdown = ({ timeObject }) => {
           return prevTime - 1;
         } else {
           clearInterval(interval); // Stop the interval when time reaches 0
+          onCountdownEnd();
           console.log("Countdown reached zero!");
           return 0;
         }

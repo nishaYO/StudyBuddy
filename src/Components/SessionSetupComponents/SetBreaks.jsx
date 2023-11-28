@@ -1,30 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
 import { setBreaks } from "../../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
 import CreateBreakDiv from "./SetBreaksComponents/CreateBreakDiv";
 import ConvertPixelToTime from "./SetBreaksComponents/ConvertPixelToTime";
 import ConvertTimeToPixel from "./SetBreaksComponents/ConvertTimeToPixel";
+import { addSessionIntervals } from "../SetSessionIntervals";
+
 
 const SetBreaks = () => {
   const dispatch = useDispatch();
   const breaks = useSelector((state) => state.breaks);
-  const sessionDuration = useSelector((state) => state.sessionDuration);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
+  const defaultBreakDuration = 15;
   const handleGridClick = (event) => {
     if (!isPopupOpen) {
       const rect = event.target.getBoundingClientRect();
       const y = Math.round(event.nativeEvent.clientY - rect.top);
       addBreak(y);
+      addSessionIntervals(y, defaultBreakDuration);
     }
   };
+
 
   const addBreak = (y) => {
     // add a break to breaks array
     const breakStartTime = ConvertPixelToTime({ totalMinutes: y });
-    const defaultBreakDuration = 15;
+
     const newBreak = {
       breakDuration: {
         hours: "0",
@@ -48,7 +49,9 @@ const SetBreaks = () => {
     setIsPopupOpen(true);
   };
 
-  const gridHeight = ConvertTimeToPixel({timeObject:{hours: '3', minutes: '30', seconds: '0'}});
+  const gridHeight = ConvertTimeToPixel({
+    timeObject: { hours: "3", minutes: "30", seconds: "0" },
+  });
 
   const gridWidth = 500;
   return (
@@ -65,21 +68,20 @@ const SetBreaks = () => {
         top: 0,
       }}
       onMouseDown={handleGridClick}
-    >{
-      breaks.map((breakItem, index) => (
+    >
+      {breaks.map((breakItem, index) => (
         <CreateBreakDiv
           key={index}
           index={index}
-          top={ConvertTimeToPixel({timeObject: breakItem.breakStartTime})}
-          breakDivHeight={ConvertTimeToPixel({timeObject: breakItem.breakDuration})}
+          top={ConvertTimeToPixel({ timeObject: breakItem.breakStartTime })}
+          breakDivHeight={ConvertTimeToPixel({
+            timeObject: breakItem.breakDuration,
+          })}
           gridWidth={gridWidth}
           onClick={handleDivClick}
           popUpClose={handlePopupClose}
         />
-      ))
-    }
-    
-    
+      ))}
     </div>
   );
 };

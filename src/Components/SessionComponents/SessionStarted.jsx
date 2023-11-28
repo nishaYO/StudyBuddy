@@ -6,10 +6,13 @@ import BreakTime from "./BreakTime";
 const SessionStarted = ({handleSessionCompleted}) => {
   const studyDuration = {hours: '0', minutes: '30', seconds: '0'};
   const breakDuration = {hours: '0', minutes: '30', seconds: '0'};
-  
+  // take breaks array here from the break slice redux state.
+  const [studyTime, setStudyTime] = useState(true);
+
+
   return (
     <div className="w-4/5 h-4/5 flex items-center justify-center h-screen w-100">
-      {/* <StudyTime studyDuration={studyDuration} /> */}
+      <StudyTime studyDuration={studyDuration} />
       <BreakTime breakDuration={breakDuration} />
     </div>
 

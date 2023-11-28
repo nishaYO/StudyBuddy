@@ -32,10 +32,10 @@ const sampleSessionData = {
 
 const sessionIntervals = [
   { hours: 0, minutes: 0, seconds: 12, type: "study" },
-  { hours: 0, minutes: 0, seconds: 4, type: "break" }, // -1 from each element's seconds is done deliberately as switching to and rendering next element consumes one 1 each time.
-  { hours: 0, minutes: 0, seconds: 19, type: "study" },
-  { hours: 0, minutes: 0, seconds: 9, type: "break" },
-  { hours: 0, minutes: 0, seconds: 12, type: "study" },
+  { hours: 0, minutes: 0, seconds: 5, type: "break" },
+  { hours: 0, minutes: 0, seconds: 20, type: "study" },
+  { hours: 0, minutes: 0, seconds: 10, type: "break" },
+  { hours: 0, minutes: 0, seconds: 13, type: "study" },
 ];
 
 
