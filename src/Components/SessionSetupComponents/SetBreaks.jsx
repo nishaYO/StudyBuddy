@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { setBreaks } from "../../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
+import { setBreaks } from "../../redux/breakslice";
+import { setSessionIntervals } from "./../../redux/sessionIntervals";
 import CreateBreakDiv from "./SetBreaksComponents/CreateBreakDiv";
 import ConvertPixelToTime from "./SetBreaksComponents/ConvertPixelToTime";
 import ConvertTimeToPixel from "./SetBreaksComponents/ConvertTimeToPixel";
-import { addSessionIntervals } from "../SetSessionIntervals";
-
 
 const SetBreaks = () => {
   const dispatch = useDispatch();
   const breaks = useSelector((state) => state.breaks);
+  const sessionIntervals = useSelector((state) => state.sessionIntervals);
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const defaultBreakDuration = 15;
   const handleGridClick = (event) => {
@@ -17,10 +18,9 @@ const SetBreaks = () => {
       const rect = event.target.getBoundingClientRect();
       const y = Math.round(event.nativeEvent.clientY - rect.top);
       addBreak(y);
-      addSessionIntervals(y, defaultBreakDuration);
+      addSessionIntervals(y);
     }
   };
-
 
   const addBreak = (y) => {
     // add a break to breaks array
@@ -40,6 +40,30 @@ const SetBreaks = () => {
     };
     dispatch(setBreaks([...breaks, newBreak]));
   };
+ 
+  const addSessionIntervals = (y) => {
+    const studyDuration = ConvertPixelToTime({ totalMinutes: y });
+    const studyInterval = {
+      hours: studyDuration.hours,
+      minutes: studyDuration.minutes,
+      seconds: studyDuration.seconds,
+      type: "study",
+    };
+    const breakInterval = {
+      hours: '0',
+      minutes: defaultBreakDuration,
+      seconds: '0',
+      type: "break",
+    };
+  
+    const newSessionIntervals =
+      y === 0
+        ? [breakInterval]
+        : [...sessionIntervals, studyInterval, breakInterval];
+  
+    dispatch(setSessionIntervals(newSessionIntervals));
+  };
+  
 
   const handlePopupClose = () => {
     setIsPopupOpen(false);

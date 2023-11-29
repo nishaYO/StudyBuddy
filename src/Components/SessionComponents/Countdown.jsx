@@ -6,7 +6,6 @@ const Countdown = ({ timeObject, onCountdownEnd }) => {
     parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
 
   const [timeRemaining, setTimeRemaining] = useState(initialTimeInSeconds);
-  console.log("timeObject: ",timeObject);
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeRemaining((prevTime) => {

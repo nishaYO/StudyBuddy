@@ -24,7 +24,7 @@ const StudyTime = ({ studyDuration, onStudyDurationEnd }) => {
       </div>
       <Countdown
         timeObject={studyDuration}
-        onCountDownEnd={handleCountdownEnded}
+        onCountdownEnd={handleCountdownEnded}
       />
     </div>
   );

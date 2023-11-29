@@ -10,7 +10,7 @@ function SetTimer() {
 
   // Update Redux state when input values change
   const handleSessionDurationChange = (newHours, newMinutes) => {
-    dispatch(setSessionDuration({ hours: newHours, minutes: newMinutes }));
+    dispatch(setSessionDuration({ hours: newHours, minutes: newMinutes, seconds: 0 }));
   };
 
   return (

@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import StudyTime from "./StudyTime";
 import BreakTime from "./BreakTime";
-import { useSelector } from "react-redux";
 
 const SessionStarted = ({ handleSessionCompleted }) => {
   const sessionIntervals = useSelector((state) => state.sessionIntervals);
+  const [counter, setCounter] = useState(0);
   const currentSessionInterval = sessionIntervals[counter];
+  console.log(sessionIntervals);
   const [isStudyTime, setIsStudyTime] = useState(
     currentSessionInterval.type == "study" ? true : false
   );
 
-  const [counter, setCounter] = useState(0);
   const initialDuration = {
     hours: currentSessionInterval.hours,
     minutes: currentSessionInterval.minutes,
