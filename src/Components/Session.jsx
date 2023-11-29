@@ -30,14 +30,6 @@ const sampleSessionData = {
   musicFrequencyArray: [1, 0, 1, 0, 1, 0],
 };
 
-const sessionIntervals = [
-  { hours: 0, minutes: 0, seconds: 12, type: "study" },
-  { hours: 0, minutes: 0, seconds: 5, type: "break" },
-  { hours: 0, minutes: 0, seconds: 20, type: "study" },
-  { hours: 0, minutes: 0, seconds: 10, type: "break" },
-  { hours: 0, minutes: 0, seconds: 13, type: "study" },
-];
-
 
 function Session() {
   const [sessionDuration, setSessionDuration] = useState({

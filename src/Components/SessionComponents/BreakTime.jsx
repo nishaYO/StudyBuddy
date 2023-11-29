@@ -3,11 +3,9 @@ import Countdown from "./Countdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
-const BreakTime = ({ breakDuration }) => {
-  const [breakEnded, setBreakEnded] = useState(false);
+const BreakTime = ({ breakDuration, onBreakDurationEnd }) => {
   const handleCountdownEnded = () => {
-    setBreakEnded(true);
-    // todo: swap to the studyTime component
+    onBreakDurationEnd();
   };
 
   const handlePlayClick = () => {

@@ -3,12 +3,9 @@ import Countdown from "./Countdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPause } from "@fortawesome/free-solid-svg-icons";
 
-const StudyTime = ({ studyDuration }) => {
-  const [studyEnded, setStudyEnded] = useState(false);
-  // take the redux breaks array state 
+const StudyTime = ({ studyDuration, onStudyDurationEnd }) => {
   const handleCountdownEnded = () => {
-    setStudyEnded(true);
-    // todo: swap to the studyTime component
+    onStudyDurationEnd();
   };
   const handlePauseClick = () => {
     handleCountdownEnded();
@@ -27,7 +24,7 @@ const StudyTime = ({ studyDuration }) => {
       </div>
       <Countdown
         timeObject={studyDuration}
-        onCountdownEnd={handleCountdownEnded}
+        onCountDownEnd={handleCountdownEnded}
       />
     </div>
   );
