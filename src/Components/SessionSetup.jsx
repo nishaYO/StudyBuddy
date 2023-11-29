@@ -5,48 +5,13 @@ import SetMusic from "./SessionSetupComponents/SetMusic";
 import SidePanel from "./SidePanel";
 import Navbar from "./Navbar";
 import { useState } from "react";
-import { setSessionIntervals } from "./../redux/sessionIntervals";
-import { useDispatch, useSelector } from "react-redux";
 
 function SessionSetup() {
-  const dispatch = useDispatch();
-  const sessionIntervals = useSelector((state) => state.sessionIntervals);
-  const sessionDuration = useSelector((state) => state.sessionDuration);
-  console.log("Session intervals:", sessionIntervals);
-  console.log("Session Duration:", sessionDuration);
-  const breaks = useSelector((state) => state.breaks);
   const [currentStep, setCurrentStep] = useState(0);
   const [location, navigate] = useLocation();
 
   // components for each step
   const steps = [<SetTimer />, <SetBreaks />, <SetMusic />];
-  const addLastSessionInterval = () => {
-    // total duration of all existing intervals
-    const totalIntervalDuration = sessionIntervals.reduce(
-      (acc, interval) => {
-        return {
-          hours: acc.hours + parseInt(interval[0].hours),
-          minutes: acc.minutes + parseInt(interval[0].minutes),
-          seconds: acc.seconds + parseInt(interval[0].seconds),
-        };
-      },
-      { hours: 0, minutes: 0, seconds: 0 }
-    );
-
-    // last interval duration = total Session Duration - total intervals duration
-    const lastIntervalDuration = {
-      hours: String(sessionDuration.hours - totalIntervalDuration.hours),
-      minutes: String(sessionDuration.minutes - totalIntervalDuration.minutes),
-      seconds: String(sessionDuration.seconds - totalIntervalDuration.seconds),
-    };
-  
-    const lastInterval = {
-      ...lastIntervalDuration,
-      type: "study",
-    };
-  
-    dispatch(setSessionIntervals([...sessionIntervals, lastInterval]));
-  };
 
   const handleNextClick = () => {
     // Increment step index
@@ -54,11 +19,6 @@ function SessionSetup() {
     if (currentStep === steps.length - 1) {
       navigate("/session");
       const sessionStartedTimeStamp = new Date();
-    }
-
-    // when all breaks set, add the last session interval
-    if (currentStep === 1) {
-      addLastSessionInterval();
     }
   };
 
