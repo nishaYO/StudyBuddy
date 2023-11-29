@@ -59,8 +59,8 @@ function Contact() {
   };
 
   return (
-    <div>
-      <h1 className="text-4xl mb-6">Contact Us</h1>
+    <div className='p-3 h-screen w-1/2 flex items-center justify-center flex-col'>
+      <h1 className="text-4xl mb-3">Contact Us</h1>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div className="flex flex-col">
           <label htmlFor="name" className="text-sm font-semibold">
