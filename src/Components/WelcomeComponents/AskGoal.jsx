@@ -16,8 +16,8 @@ function AskGoal({ handleGoalSubmit }) {
           type="text"
           onChange={(e) => setStudyGoal(e.target.value)}
           placeholder="Please Enter Study Goal..."
-          className="mt-14 w-80 border border-[#BEADFA] p-3 rounded-lg"
-        />hrs
+          className="mt-14 w-80 border border-[#BEADFA] p-3 rounded-lg outline-none"
+        />
         <button
           onClick={handleGoalSubmit}
           className="mx-auto mt-3 px-5 py-2 bg-[#D0BFFF] hover:bg-[#BEADFA] rounded font-bold"
