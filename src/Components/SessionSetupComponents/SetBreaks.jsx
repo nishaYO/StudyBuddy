@@ -13,17 +13,21 @@ const SetBreaks = () => {
   const sessionDuration = useSelector((state) => state.sessionDuration);
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isAddingIntervals, setIsAddingIntervals] = useState(false);
   const defaultBreakDuration = 10;
-  const handleGridClick = (event) => {
-    if (!isPopupOpen) {
+  
+  const handleGridClick = async (event) => {
+    if (!isPopupOpen && !isAddingIntervals) {
       const rect = event.target.getBoundingClientRect();
       const y = Math.round(event.nativeEvent.clientY - rect.top);
-      addBreak(y);
-      addSessionIntervals(y);
+      setIsAddingIntervals(true);
+      await addBreak(y);
+      await addSessionIntervals(y);
+      setIsAddingIntervals(false);
     }
   };
 
-  const addBreak = (y) => {
+  const addBreak = async (y) => {
     // add a break to breaks array
     const breakStartTime = ConvertPixelToTime({ totalMinutes: y });
 
@@ -39,11 +43,12 @@ const SetBreaks = () => {
         seconds: breakStartTime.seconds,
       },
     };
-    dispatch(setBreaks([...breaks, newBreak]));
+    await dispatch(setBreaks([...breaks, newBreak]));
   };
-
-  const addSessionIntervals = (y) => {
-    const studyDuration = ConvertPixelToTime({ totalMinutes: y-1 });
+  // use promist instead of await twice above
+  // add study duration considering the previously added session intervals for start of study time
+  const addSessionIntervals = async (y) => {
+    const studyDuration = ConvertPixelToTime({ totalMinutes: y - 1 });
     const studyInterval = {
       hours: studyDuration.hours,
       minutes: studyDuration.minutes,
@@ -62,7 +67,7 @@ const SetBreaks = () => {
         ? [breakInterval]
         : [...sessionIntervals, studyInterval, breakInterval];
 
-    dispatch(setSessionIntervals(newSessionIntervals));
+    await dispatch(setSessionIntervals(newSessionIntervals));
   };
 
   const handlePopupClose = () => {
@@ -80,35 +85,35 @@ const SetBreaks = () => {
   const gridWidth = 500;
   return (
     <div>
-    <h2>SetBreaks</h2>
-    <div
-      style={{
-        backgroundColor: "lightblue",
-        width: `${gridWidth}px`,
-        height: gridHeight,
-        margin: "auto",
-        marginTop: "10vh",
-        marginLeft: "10vw",
-        position: "relative",
-        left: 0,
-        top: 0,
-      }}
-      onMouseDown={handleGridClick}
+      <h2>SetBreaks</h2>
+      <div
+        style={{
+          backgroundColor: "lightblue",
+          width: `${gridWidth}px`,
+          height: gridHeight,
+          margin: "auto",
+          marginTop: "10vh",
+          marginLeft: "10vw",
+          position: "relative",
+          left: 0,
+          top: 0,
+        }}
+        onMouseDown={handleGridClick}
       >
-      {breaks.map((breakItem, index) => (
-        <CreateBreakDiv
-        key={index}
-        index={index}
-        top={ConvertTimeToPixel({ timeObject: breakItem.breakStartTime })}
-        breakDivHeight={ConvertTimeToPixel({
-          timeObject: breakItem.breakDuration,
-        })}
-        gridWidth={gridWidth}
-        onClick={handleDivClick}
-        popUpClose={handlePopupClose}
-        />
+        {breaks.map((breakItem, index) => (
+          <CreateBreakDiv
+            key={index}
+            index={index}
+            top={ConvertTimeToPixel({ timeObject: breakItem.breakStartTime })}
+            breakDivHeight={ConvertTimeToPixel({
+              timeObject: breakItem.breakDuration,
+            })}
+            gridWidth={gridWidth}
+            onClick={handleDivClick}
+            popUpClose={handlePopupClose}
+          />
         ))}
-        </div>
+      </div>
     </div>
   );
 };
