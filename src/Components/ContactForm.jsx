@@ -57,68 +57,65 @@ function Contact() {
       setLoading(false);
     }
   };
-
+  // input style
+  const inputStyle = "w-full p-3 rounded-lg border border-black outline-none border-b-4 border-r-4 transition-transform duration-300 delay-200 transform focus:scale-105"
   return (
-    <div>
-      <h1 className="text-4xl mb-6">Contact Us</h1>
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div className="flex flex-col">
-          <label htmlFor="name" className="text-sm font-semibold">
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="border rounded p-2 text-sm"
-            placeholder="Your Name"
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label htmlFor="email" className="text-sm font-semibold">
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="border rounded p-2 text-sm"
-            placeholder="Your Email Address"
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label htmlFor="message" className="text-sm font-semibold">
-            Message
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            className="border rounded p-2 text-sm"
-            placeholder="Your Message"
-            rows="4"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className={`p-2 bg-orange-300 text-white rounded text-sm ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-          disabled={loading}
-        >
-          {loading ? 'Submitting...' : 'Submit'}
-        </button>
-
-        {error && <p className="text-red-500">{error}</p>}
-        {success && <p className="text-green-700 font-semibold">{success}</p>}
-      </form>
-    </div>
+    <div className="container mx-auto p-6">
+    <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
+  
+    <form className="max-w-md mx-auto" onSubmit={handleSubmit}>
+      <div className="mb-4">
+        <label htmlFor="name" className="block text-gray-500">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          className={`${inputStyle}`}
+          placeholder="Your Name"
+        />
+      </div>
+  
+      <div className="mb-4">
+        <label htmlFor="email" className="block text-gray-500">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          className={`${inputStyle}`}
+          placeholder="Your Email Address"
+        />
+      </div>
+  
+      <div className="mb-4">
+        <label htmlFor="message" className="block text-gray-500">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          className={`${inputStyle}`}
+          placeholder="Your Message"
+          rows="4"
+        />
+      </div>
+  
+      <button
+        type="submit"
+        className={`w-full p-3 bg-[#BEADFA] text-white rounded-md text-sm ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+        disabled={loading}
+      >
+        {loading ? 'Submitting...' : 'Submit'}
+      </button>
+  
+      {error && <p className="text-red-500 mt-3">{error}</p>}
+      {success && <p className="text-green-700 font-semibold mt-3">{success}</p>}
+    </form>
+  </div>
+  
   );
 }
 
