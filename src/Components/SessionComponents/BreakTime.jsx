@@ -14,7 +14,8 @@ const BreakTime = ({ breakDuration, onBreakDurationEnd }) => {
   };
 
   return (
-    <div className="bg-purple-500 rounded-lg p-8 text-center w-4/5 h-3/5 flex flex-col items-center justify-center h-screen w-100 gap-4">
+    <div className="bg-purple-500 rounded-lg p-8 text-center w-[600px] h-[400px] flex flex-col items-center justify-center gap-4">
+
       <div className="flex items-center justify-center h-screen w-100 gap-4">
         <h2 className="text-5xl font-bold m-7 ">Break Time</h2>
         <button

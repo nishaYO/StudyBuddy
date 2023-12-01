@@ -32,13 +32,22 @@ function NavbarIcons() {
 
 function Navbar() {
   return (
-    <div className="p-3 bg-white border-2 border-b-black flex items-center justify-between">
+    <div className="p-3 bg-white border-2 border-b-black flex items-center justify-between relative">
       <div className="flex items-center space-x-4">
         <button className="bg-[#BEADFA] p-1 border-2 border-black">Streak: 0 Days</button>
         <NavbarIcons />
       </div>
+      {/* Reports Button */}
+      <div className="absolute bottom-0 right-0 m-1 p-0">
+        <Link href="/reports">
+          <button className="bg-purple-500 text-white px-4 py-2 rounded">
+            Reports
+          </button>
+        </Link>
+      </div>
     </div>
   );
+  
 }
 
 export default Navbar;

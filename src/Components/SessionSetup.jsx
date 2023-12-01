@@ -114,14 +114,7 @@ function SessionSetup() {
             </button>
           </div>
 
-          {/* Reports Button */}
-          <div className="absolute bottom-0 right-0 m-7 p-0">
-            <Link href="/reports">
-              <button className="bg-purple-500 text-white px-4 py-2 rounded">
-                Reports
-              </button>
-            </Link>
-          </div>
+          
         </div>
       </div>
     </div>
