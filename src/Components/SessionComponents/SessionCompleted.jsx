@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./../Navbar";
 import { useLocation } from "wouter";
 import { useSelector } from "react-redux";
+import Confetti from "react-confetti";
 
 const SessionCompleted = () => {
   const [location, navigate] = useLocation();
   const sessionIntervals = useSelector((state) => state.sessionIntervals);
-  
+  const [name, setName] = useState("");
+
+  // Retrieve name from local storage on component mount
+  useEffect(() => {
+    const storedName = localStorage.getItem("name");
+    if (storedName) {
+      setName(storedName);
+    }
+  }, []);
+
   const calculateTotalStudyDuration = () => {
     return sessionIntervals
       .filter((interval) => interval.type === "study")
@@ -21,18 +31,17 @@ const SessionCompleted = () => {
         { hours: 0, minutes: 0, seconds: 0 }
       );
   };
-  
 
   const totalStudyDuration = 2;
-
 
   return (
     <div className="flex flex-col h-screen bg-red-100 w-[1600px]">
       <Navbar />
       <div className="flex items-center justify-center h-screen">
-        <div className="bg-white p-8 rounded shadow-md text-center mx-auto">
+        <Confetti numberOfPieces={200} recycle={false} />
+        <div className="bg-white p-8 rounded shadow-md text-center mx-auto relative">
           <h2 className="text-3xl font-semibold mb-4">
-            Congratulations for completing the session!
+            Congratulations for completing the session, {name}!
           </h2>
           <div className="flex justify-center mb-4">
             <button

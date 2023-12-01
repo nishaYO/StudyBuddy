@@ -22,7 +22,7 @@ function Welcome() {
   };
 
   const storedName = localStorage.getItem("name");
-  const storedGoal = localStorage.getItem("studyGoal");
+  const storedGoal = localStorage.getItem("streakGoal");
 
   const isFirstTimeVisit = storedName && storedGoal? false : true;
 

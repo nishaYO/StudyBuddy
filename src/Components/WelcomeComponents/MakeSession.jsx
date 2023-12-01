@@ -18,7 +18,8 @@ const makeSessionMessage = () => {
 
 function MakeSession({ handleStartSession }) {
   const storedName = localStorage.getItem("name") || "";
-  const storedGoal = localStorage.getItem("studyGoal") || "";
+  const storedGoal = JSON.parse(localStorage.getItem("streakGoal")) || { hours: "04", minutes: "0" };
+
   const greeting = makeSessionMessage();
 
   return (
@@ -27,7 +28,7 @@ function MakeSession({ handleStartSession }) {
       <div className="flex flex-col items-center justify-center p-2 gap-20 min-h-screen ">
         <div className="flex flex-col items-center bg-[#BEADFA] p-6 rounded-lg w-full lg:w-1/2">
           <p className="text-2xl font-semibold mb-4">{`${greeting}! ${storedName}.`}</p>
-          <p className="text-lg mb-2">Your daily study goal: {storedGoal}hrs</p>
+          <p className="text-lg mb-2">Your daily study goal: {storedGoal.hours}hrs {storedGoal.minutes}minutes</p>
           <p className="text-lg mb-4">Let's start the session.</p>
           <button
             className="px-6 py-3 bg-[#D0BFFF] hover:bg-[#BEADFA] border border-white rounded-md font-bold text-lg"

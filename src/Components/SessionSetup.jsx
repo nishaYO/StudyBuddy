@@ -8,7 +8,10 @@ import { useState } from "react";
 import { setSessionIntervals } from "./../redux/sessionIntervals";
 import { useDispatch, useSelector } from "react-redux";
 
+  // todo: if input values are 0, 0 in the hours and minutes input elements in settimer component which is the first one to render, there should be a notification to the user that the sessionduration can't be zero
+// the sessionDuration is a redux state acutally with something like this as strucuture: {hours: '1', minutes: '6', seconds: '0'}
 function SessionSetup() {
+
   const [currentStep, setCurrentStep] = useState(0);
   const [sessionIntervalCompleted, setSessionIntervalCompleted] = useState(false);
   const [location, navigate] = useLocation();
@@ -59,26 +62,36 @@ function SessionSetup() {
   console.log("Session Duration:", sessionDuration);
   // components for each step
   const steps = [<SetTimer />, <SetBreaks />, <SetMusic />];
-
   const handleNextClick = async () => {
-    setCurrentStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
-
-    if (currentStep === steps.length - 1) {
-      // Increment step index
-      if (sessionIntervalCompleted) {
-        navigate("/session");
-        setSessionIntervalCompleted(false);
+    if (currentStep === 0) {
+      // Check if both hours and minutes are zero in SetTimer component
+      const { hours, minutes } = sessionDuration;
+      if (parseInt(hours, 10) === 0 && parseInt(minutes, 10) === 0) {
+        alert("Session duration cannot be zero!");
+        return;
+      } else {
+        setCurrentStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
       }
-    }
-
-    if (currentStep === 1) {
-      if (sessionIntervals.length !== breaks.length * 2 + 1) {
-        await addLastSessionInterval();
-        setSessionIntervalCompleted(true);
+    } else {
+      setCurrentStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
+  
+      if (currentStep === steps.length - 1) {
+        // Increment step index
+        if (sessionIntervalCompleted) {
+          navigate("/session");
+          setSessionIntervalCompleted(false);
+        }
+      }
+  
+      if (currentStep === 1) {
+        if (sessionIntervals.length !== breaks.length * 2 + 1) {
+          await addLastSessionInterval();
+          setSessionIntervalCompleted(true);
+        }
       }
     }
   };
-
+  
   const handlePreviousClick = () => {
     // Decrement step index
     setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
