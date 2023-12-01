@@ -23,7 +23,7 @@ const SessionCompleted = () => {
   };
   
 
-  const totalStudyDuration = calculateTotalStudyDuration();
+  const totalStudyDuration = 2;
 
 
   return (

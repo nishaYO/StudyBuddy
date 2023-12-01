@@ -10,17 +10,18 @@ import { useDispatch, useSelector } from "react-redux";
 
 function SessionSetup() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [sessionIntervalCompleted, setSessionIntervalCompleted] =
-    useState(false);
+  const [sessionIntervalCompleted, setSessionIntervalCompleted] = useState(false);
   const [location, navigate] = useLocation();
+
+  // sample sessionInterval
+  // [
+  // {hours: '1', minutes: '6', seconds: '0', type: 'study'}
+  // {hours: '0', minutes: '1', seconds: '0', type: 'break'}
+  // {hours: '0', minutes: '32', seconds: '0', type: 'study'}
+  // {hours: '0', minutes: '1', seconds: '0', type: 'break'}
+  // ]
+
   const addLastSessionInterval = async () => {
-    // sample sessionInterval
-    // [
-    // {hours: '1', minutes: '6', seconds: '0', type: 'study'}
-    // {hours: '0', minutes: '1', seconds: '0', type: 'break'}
-    // {hours: '0', minutes: '32', seconds: '0', type: 'study'}
-    // {hours: '0', minutes: '1', seconds: '0', type: 'break'}
-    // ]
 
     // total duration of all existing intervals
     const totalIntervalDuration = sessionIntervals.reduce(
@@ -48,6 +49,8 @@ function SessionSetup() {
 
     await dispatch(setSessionIntervals([...sessionIntervals, lastInterval]));
   };
+
+
   const dispatch = useDispatch();
   const sessionIntervals = useSelector((state) => state.sessionIntervals);
   const sessionDuration = useSelector((state) => state.sessionDuration);

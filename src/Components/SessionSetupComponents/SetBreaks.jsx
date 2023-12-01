@@ -15,15 +15,21 @@ const SetBreaks = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAddingIntervals, setIsAddingIntervals] = useState(false);
   const defaultBreakDuration = 10;
-  
-  const handleGridClick = async (event) => {
+
+  const handleGridClick = (event) => {
     if (!isPopupOpen && !isAddingIntervals) {
       const rect = event.target.getBoundingClientRect();
       const y = Math.round(event.nativeEvent.clientY - rect.top);
       setIsAddingIntervals(true);
-      await addBreak(y);
-      await addSessionIntervals(y);
-      setIsAddingIntervals(false);
+
+      Promise.all([addBreak(y), addSessionIntervals(y)])
+        .then(() => {
+          setIsAddingIntervals(false);
+        })
+        .catch((error) => {
+          console.error("Error during promise execution:", error);
+          setIsAddingIntervals(false);
+        });
     }
   };
 
@@ -45,14 +51,24 @@ const SetBreaks = () => {
     };
     await dispatch(setBreaks([...breaks, newBreak]));
   };
-  // use promist instead of await twice above
-  // add study duration considering the previously added session intervals for start of study time
+
   const addSessionIntervals = async (y) => {
     const studyDuration = ConvertPixelToTime({ totalMinutes: y - 1 });
+    // total duration of all existing intervals
+    const totalIntervalDuration = sessionIntervals.reduce(
+      (acc, interval) => {
+        return {
+          hours: acc.hours + parseInt(interval.hours),
+          minutes: acc.minutes + parseInt(interval.minutes),
+          seconds: acc.seconds + parseInt(interval.seconds),
+        };
+      },
+      { hours: 0, minutes: 0, seconds: 0 }
+    );
     const studyInterval = {
-      hours: studyDuration.hours,
-      minutes: studyDuration.minutes,
-      seconds: studyDuration.seconds,
+      hours: Math.abs(totalIntervalDuration.hours - studyDuration.hours),
+      minutes: Math.abs(totalIntervalDuration.minutes - studyDuration.minutes),
+      seconds: Math.abs(totalIntervalDuration.seconds - studyDuration.seconds),
       type: "study",
     };
     const breakInterval = {
