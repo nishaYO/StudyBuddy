@@ -85,6 +85,13 @@ const SetBreaks = () => {
 
     await dispatch(setSessionIntervals(newSessionIntervals));
   };
+  const getNumsForTimeline = () => {
+    let num = sessionDuration.hours;
+    if (sessionDuration.minutes!=0) {
+      num+=1;
+    }
+    return Array.from({ length: num+1}, (_, index) => index);
+  };
 
   const handlePopupClose = () => {
     setIsPopupOpen(false);
@@ -99,9 +106,11 @@ const SetBreaks = () => {
   });
 
   const gridWidth = 500;
+  const Nums = getNumsForTimeline();
   return (
     <div>
       <h2>SetBreaks</h2>
+      {/* Grid */}
       <div
         style={{
           backgroundColor: "lightblue",
@@ -116,6 +125,29 @@ const SetBreaks = () => {
         }}
         onMouseDown={handleGridClick}
       >
+        {/* timeline */}
+      {Nums.map((time, index) => (
+        <div
+          key={index}
+          style={{
+            position: "absolute",
+            top: index * 60 - 15 + "px",
+            left: "-60px",
+            width: "50px",
+            textAlign: "right",
+            borderBottom: "1px solid #000",
+            lineHeight: "14px",
+            paddingRight: "560px",
+          }}
+        >
+          {time}
+          {index === 0 && (
+            <>
+            </>
+          )}
+        </div>
+      ))}
+        {/* break containers */}
         {breaks.map((breakItem, index) => (
           <CreateBreakDiv
             key={index}
