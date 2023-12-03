@@ -1,40 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreaks } from "../../redux/breakslice";
-import { setSessionIntervals } from "./../../redux/sessionIntervals";
 import CreateBreakDiv from "./SetBreaksComponents/CreateBreakDiv";
 import ConvertPixelToTime from "./SetBreaksComponents/ConvertPixelToTime";
 import ConvertTimeToPixel from "./SetBreaksComponents/ConvertTimeToPixel";
 
 const SetBreaks = () => {
   const dispatch = useDispatch();
-  const initialBreaks = useSelector((state) => state.breaks);
-  const sessionIntervals = useSelector((state) => state.sessionIntervals);
-  const sessionDuration = useSelector((state) => state.sessionDuration);
-  const [breaks, setBreaks] = useState(initialBreaks);
+  const breaks = useSelector((state) => state.breaks);
+  const initialSessionDuration = useSelector((state) => state.sessionDuration);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const defaultBreakDuration = 10;
+  const [localSessionDuration, setLocalSessionDuration] = useState(
+    initialSessionDuration
+  );
 
-  const handleGridClick = (event) => {
+
+  useEffect(() => {
+    setLocalSessionDuration(initialSessionDuration);
+  }, [initialSessionDuration]);
+
+ 
+  const handleGridClick = async (event) => {
     if (!isPopupOpen) {
       const rect = event.target.getBoundingClientRect();
       const y = Math.round(event.nativeEvent.clientY - rect.top);
 
-      Promise.all([addBreak(y)])
-        .then(() => {
-          setIsAddingIntervals(false);
-        })
-        .catch((error) => {
-          console.error("Error during promise execution:", error);
-          setIsAddingIntervals(false);
-        });
+      await addBreak(y);
+      setIsPopupOpen(true);
     }
   };
 
   const addBreak = async (y) => {
-    // add a break to breaks array
     const breakStartTime = ConvertPixelToTime({ totalMinutes: y });
-
     const newBreak = {
       breakDuration: {
         hours: "0",
@@ -47,12 +45,13 @@ const SetBreaks = () => {
         seconds: breakStartTime.seconds,
       },
     };
-    await dispatch(setBreaks([...breaks, newBreak]));
+    
+    dispatch(setBreaks([...breaks, newBreak]));
   };
 
   const getNumsForTimeline = () => {
-    let num = sessionDuration.hours;
-    if (sessionDuration.minutes != 0) {
+    let num = localSessionDuration.hours;
+    if (localSessionDuration.minutes != 0) {
       num += 1;
     }
     return Array.from({ length: num + 1 }, (_, index) => index);
@@ -66,12 +65,13 @@ const SetBreaks = () => {
     setIsPopupOpen(true);
   };
 
+  const gridWidth = 500;
   const gridHeight = ConvertTimeToPixel({
-    timeObject: sessionDuration,
+    timeObject: localSessionDuration,
   });
 
-  const gridWidth = 500;
   const Nums = getNumsForTimeline();
+
   return (
     <div>
       <h2>SetBreaks</h2>
