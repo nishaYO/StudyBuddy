@@ -8,21 +8,19 @@ import ConvertTimeToPixel from "./SetBreaksComponents/ConvertTimeToPixel";
 
 const SetBreaks = () => {
   const dispatch = useDispatch();
-  const breaks = useSelector((state) => state.breaks);
+  const initialBreaks = useSelector((state) => state.breaks);
   const sessionIntervals = useSelector((state) => state.sessionIntervals);
   const sessionDuration = useSelector((state) => state.sessionDuration);
-
+  const [breaks, setBreaks] = useState(initialBreaks);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isAddingIntervals, setIsAddingIntervals] = useState(false);
   const defaultBreakDuration = 10;
 
   const handleGridClick = (event) => {
-    if (!isPopupOpen && !isAddingIntervals) {
+    if (!isPopupOpen) {
       const rect = event.target.getBoundingClientRect();
       const y = Math.round(event.nativeEvent.clientY - rect.top);
-      setIsAddingIntervals(true);
 
-      Promise.all([addBreak(y), addSessionIntervals(y)])
+      Promise.all([addBreak(y)])
         .then(() => {
           setIsAddingIntervals(false);
         })
@@ -52,45 +50,12 @@ const SetBreaks = () => {
     await dispatch(setBreaks([...breaks, newBreak]));
   };
 
-  const addSessionIntervals = async (y) => {
-    const studyDuration = ConvertPixelToTime({ totalMinutes: y - 1 });
-    // total duration of all existing intervals
-    const totalIntervalDuration = sessionIntervals.reduce(
-      (acc, interval) => {
-        return {
-          hours: acc.hours + parseInt(interval.hours),
-          minutes: acc.minutes + parseInt(interval.minutes),
-          seconds: acc.seconds + parseInt(interval.seconds),
-        };
-      },
-      { hours: 0, minutes: 0, seconds: 0 }
-    );
-    const studyInterval = {
-      hours: Math.abs(totalIntervalDuration.hours - studyDuration.hours),
-      minutes: Math.abs(totalIntervalDuration.minutes - studyDuration.minutes),
-      seconds: Math.abs(totalIntervalDuration.seconds - studyDuration.seconds),
-      type: "study",
-    };
-    const breakInterval = {
-      hours: "0",
-      minutes: defaultBreakDuration.toString(),
-      seconds: "0",
-      type: "break",
-    };
-
-    const newSessionIntervals =
-      y === 0
-        ? [breakInterval]
-        : [...sessionIntervals, studyInterval, breakInterval];
-
-    await dispatch(setSessionIntervals(newSessionIntervals));
-  };
   const getNumsForTimeline = () => {
     let num = sessionDuration.hours;
-    if (sessionDuration.minutes!=0) {
-      num+=1;
+    if (sessionDuration.minutes != 0) {
+      num += 1;
     }
-    return Array.from({ length: num+1}, (_, index) => index);
+    return Array.from({ length: num + 1 }, (_, index) => index);
   };
 
   const handlePopupClose = () => {
@@ -126,27 +91,24 @@ const SetBreaks = () => {
         onMouseDown={handleGridClick}
       >
         {/* timeline */}
-      {Nums.map((time, index) => (
-        <div
-          key={index}
-          style={{
-            position: "absolute",
-            top: index * 60 - 15 + "px",
-            left: "-60px",
-            width: "50px",
-            textAlign: "right",
-            borderBottom: "1px solid #000",
-            lineHeight: "14px",
-            paddingRight: "560px",
-          }}
-        >
-          {time}
-          {index === 0 && (
-            <>
-            </>
-          )}
-        </div>
-      ))}
+        {Nums.map((time, index) => (
+          <div
+            key={index}
+            style={{
+              position: "absolute",
+              top: index * 60 - 15 + "px",
+              left: "-60px",
+              width: "50px",
+              textAlign: "right",
+              borderBottom: "1px solid #000",
+              lineHeight: "14px",
+              paddingRight: "560px",
+            }}
+          >
+            {time}
+            {index === 0 && <></>}
+          </div>
+        ))}
         {/* break containers */}
         {breaks.map((breakItem, index) => (
           <CreateBreakDiv

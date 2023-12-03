@@ -6,26 +6,22 @@ import SidePanel from "./SidePanel";
 import Navbar from "./Navbar";
 import { useState } from "react";
 import { setSessionIntervals } from "./../redux/sessionIntervals";
+import { setBreaks } from "./../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
-
-  // todo: if input values are 0, 0 in the hours and minutes input elements in settimer component which is the first one to render, there should be a notification to the user that the sessionduration can't be zero
-// the sessionDuration is a redux state acutally with something like this as strucuture: {hours: '1', minutes: '6', seconds: '0'}
+// create local states for redux states and update them whenver they are changed and dispatched.
 function SessionSetup() {
-
-  const [currentStep, setCurrentStep] = useState(0);
-  const [sessionIntervalCompleted, setSessionIntervalCompleted] = useState(false);
   const [location, navigate] = useLocation();
 
-  // sample sessionInterval
-  // [
-  // {hours: '1', minutes: '6', seconds: '0', type: 'study'}
-  // {hours: '0', minutes: '1', seconds: '0', type: 'break'}
-  // {hours: '0', minutes: '32', seconds: '0', type: 'study'}
-  // {hours: '0', minutes: '1', seconds: '0', type: 'break'}
-  // ]
+  const [currentStep, setCurrentStep] = useState(0);
+  const [sessionIntervalCompleted, setSessionIntervalCompleted] =
+    useState(false);
 
   const addLastSessionInterval = async () => {
-
+    // sessionintervals and sessionduration
+    const sessionIntervals = await useSelector(
+      (state) => state.sessionIntervals
+    );
+    const sessionDuration = await useSelector((state) => state.sessionDuration);
     // total duration of all existing intervals
     const totalIntervalDuration = sessionIntervals.reduce(
       (acc, interval) => {
@@ -37,31 +33,120 @@ function SessionSetup() {
       },
       { hours: 0, minutes: 0, seconds: 0 }
     );
-    console.log("totalIntervalDuration", totalIntervalDuration);
+
     // last interval duration = total Session Duration - total intervals duration
     const lastIntervalDuration = {
       hours: String(sessionDuration.hours - totalIntervalDuration.hours),
       minutes: String(sessionDuration.minutes - totalIntervalDuration.minutes),
       seconds: String(sessionDuration.seconds - totalIntervalDuration.seconds),
-    };
-
-    const lastInterval = {
-      ...lastIntervalDuration,
       type: "study",
     };
 
-    await dispatch(setSessionIntervals([...sessionIntervals, lastInterval]));
+    return lastIntervalDuration;
   };
 
+  const sortBreaks = async () => {
+    // sorting using bubble sort
+    // sorting on the basis of breakStartTime of each breakItem.
+    // sorting from low to high : the lowest break start time will have index 0.
+    try {
+      // Get the breaks from the Redux store
+      const breaks = await useSelector((state) => state.breaks);
+
+      // Sort using bubble sort based on breakStartTime
+      for (let i = 0; i < breaks.length - 1; i++) {
+        for (let j = 0; j < breaks.length - i - 1; j++) {
+          const startTime = await ConvertTimeToPixel(breaks[j].breakStartTime);
+          const nextStartTime = await ConvertTimeToPixel(
+            breaks[j + 1].breakStartTime
+          );
+
+          if (startTime > nextStartTime) {
+            // Swap breaks
+            const temp = breaks[j];
+            breaks[j] = breaks[j + 1];
+            breaks[j + 1] = temp;
+          }
+        }
+      }
+
+      dispatch(setBreaks([...breaks]));
+    } catch (error) {
+      console.error("Error while sorting breaks:", error);
+    }
+  };
+
+  const addSessionIntervals = async () => {
+    try {
+      await sortBreaks();
+      const breaks = await useSelector((state) => state.breaks);
+      const newSessionIntervals = [];
+      for (let index = 0; index < breaks.length; index++) {
+        const breakItem = breaks[index];
+
+        // create study interval
+        const studyDuration = breakItem.breakStartTime;
+
+        // total duration of all existing intervals
+        const totalIntervalDuration = sessionIntervals.reduce(
+          (acc, interval) => {
+            return {
+              hours: acc.hours + parseInt(interval.hours),
+              minutes: acc.minutes + parseInt(interval.minutes),
+              seconds: acc.seconds + parseInt(interval.seconds),
+            };
+          },
+          { hours: 0, minutes: 0, seconds: 0 }
+        );
+
+        const studyInterval = {
+          hours: Math.abs(totalIntervalDuration.hours - studyDuration.hours),
+          minutes: Math.abs(
+            totalIntervalDuration.minutes - studyDuration.minutes
+          ),
+          seconds: Math.abs(
+            totalIntervalDuration.seconds - studyDuration.seconds
+          ),
+          type: "study",
+        };
+
+        // create break interval
+        const breakDuration = breakItem.breakDuration;
+        const breakInterval = {
+          hours: breakDuration.hours,
+          minutes: breakDuration.minutes,
+          seconds: breakDuration.seconds,
+          type: "break",
+        };
+
+        // add both the intervals to the sessionIntervals
+        if (ConvertTimeToPixel({ timeObject: studyDuration }) !== "0px") {
+          newSessionIntervals.push(studyInterval);
+        }
+        newSessionIntervals.push(breakInterval);
+      }
+
+      const lastInterval = await addLastSessionInterval();
+      if (ConvertTimeToPixel({ timeObject: lastInterval }) !== "0px") {
+        newSessionIntervals.push(lastInterval);
+      }
+
+      dispatch(setSessionIntervals(newSessionIntervals));
+    } catch (error) {
+      console.error("Error adding session intervals:", error);
+    }
+  };
 
   const dispatch = useDispatch();
   const sessionIntervals = useSelector((state) => state.sessionIntervals);
   const sessionDuration = useSelector((state) => state.sessionDuration);
-  const breaks = useSelector((state) => state.breaks);
+
   console.log("Session intervals:", sessionIntervals);
   console.log("Session Duration:", sessionDuration);
+
   // components for each step
   const steps = [<SetTimer />, <SetBreaks />, <SetMusic />];
+
   const handleNextClick = async () => {
     if (currentStep === 0) {
       // Check if both hours and minutes are zero in SetTimer component
@@ -74,7 +159,7 @@ function SessionSetup() {
       }
     } else {
       setCurrentStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
-  
+
       if (currentStep === steps.length - 1) {
         // Increment step index
         if (sessionIntervalCompleted) {
@@ -82,16 +167,15 @@ function SessionSetup() {
           setSessionIntervalCompleted(false);
         }
       }
-  
+
+      // build sessionIntervals after setting all breaks and clicking next
       if (currentStep === 1) {
-        if (sessionIntervals.length !== breaks.length * 2 + 1) {
-          await addLastSessionInterval();
-          setSessionIntervalCompleted(true);
-        }
+        await addSessionIntervals();
+        setSessionIntervalCompleted(true);
       }
     }
   };
-  
+
   const handlePreviousClick = () => {
     // Decrement step index
     setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
@@ -126,8 +210,6 @@ function SessionSetup() {
               Next
             </button>
           </div>
-
-          
         </div>
       </div>
     </div>
