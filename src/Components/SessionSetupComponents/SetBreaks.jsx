@@ -112,7 +112,6 @@ const SetBreaks = () => {
         {/* break containers */}
         {breaks.map((breakItem, index) => (
           <CreateBreakDiv
-            key={index}
             index={index}
             top={ConvertTimeToPixel({ timeObject: breakItem.breakStartTime })}
             breakDivHeight={ConvertTimeToPixel({

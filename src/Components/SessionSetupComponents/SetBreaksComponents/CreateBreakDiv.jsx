@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import PopUp from "./PopUp";
+import { setBreaks } from "../../../redux/breakslice";
+import ConvertPixelToTime from "./ConvertPixelToTime";
+import { useDispatch, useSelector } from "react-redux";
 
 const CreateBreakDiv = ({
   index,
@@ -10,19 +13,40 @@ const CreateBreakDiv = ({
   popUpClose,
 }) => {
   console.log("index: ", index);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(true);
+  const dispatch = useDispatch();
+  const breaks = useSelector((state) => state.breaks);
+
   const handlePopupClose = () => {
     setIsPopupOpen(false);
     popUpClose();
   };
-  
+
   const breakDivWidth = gridWidth - gridWidth / 100;
+
   const handleBreakDivClick = (event) => {
     event.stopPropagation();
     setIsPopupOpen(true);
     onClick();
   };
 
+  const updateBreak = (field, subField, value) => {
+    // update the breakDivHeight in jsx : onhold
+    // console.log(breakDivheight and breaks array)
+    // Update the breaks array
+    const updatedBreaks = [...breaks];
+    updatedBreaks[index][field][subField] = value;
+    dispatch(setBreaks(updatedBreaks));
+    console.log("updated breaks executed....");
+    console.log("Updated breaks array:", updatedBreaks);
+    console.log("Updated breakDivHeight:", breakDivHeight);
+  };
+
+  const breakHeightNumeric = parseInt(breakDivHeight, 10); 
+  const currentBreakDuration = ConvertPixelToTime({ totalMinutes: breakHeightNumeric });
+  
+  console.log("Break Div Height:", breakDivHeight);
+  console.log("Current Break Duration:", currentBreakDuration);
   return (
     <div>
       <div
@@ -39,7 +63,16 @@ const CreateBreakDiv = ({
         }}
         onMouseDown={handleBreakDivClick}
       ></div>
-      {isPopupOpen && <PopUp onClose={handlePopupClose} />}
+      {isPopupOpen && (
+        <PopUp
+          onClose={handlePopupClose}
+          index={index}
+          updateBreak={(field, subField, value) =>
+            updateBreak(field, subField, value)
+          }
+          currentBreakDuration={currentBreakDuration}
+        />
+      )}
     </div>
   );
 };
