@@ -142,8 +142,8 @@ function SessionSetup() {
   const sessionIntervals = useSelector((state) => state.sessionIntervals);
   const sessionDuration = useSelector((state) => state.sessionDuration);
 
-  console.log("Session intervals:", sessionIntervals);
-  console.log("Session Duration:", sessionDuration);
+  // console.log("Session intervals:", sessionIntervals);
+  // console.log("Session Duration:", sessionDuration);
 
   // components for each step
   const steps = [<SetTimer />, <SetBreaks />, <SetMusic />];

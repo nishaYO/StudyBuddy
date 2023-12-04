@@ -40,7 +40,7 @@ const SessionStarted = ({ handleSessionCompleted, handleSessionEnded }) => {
   const sessionIntervals = useSelector((state) => state.sessionIntervals);
   const [counter, setCounter] = useState(0);
   const currentSessionInterval = sessionIntervals[counter];
-  console.log(sessionIntervals);
+  // console.log(sessionIntervals);
   const [isStudyTime, setIsStudyTime] = useState(
     currentSessionInterval.type == "study" ? true : false
   );
@@ -82,7 +82,7 @@ const SessionStarted = ({ handleSessionCompleted, handleSessionEnded }) => {
 
   const handleVolumeControlDotMove = (event) => {
     const dotPosition = event.clientX;
-    console.log("Volume control dot moved to:", dotPosition);
+    // console.log("Volume control dot moved to:", dotPosition);
   };
   const handleEndSessionClick = () => {
     handleSessionEnded();

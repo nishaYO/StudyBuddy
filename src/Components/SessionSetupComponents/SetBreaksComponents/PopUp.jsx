@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { setBreaks } from "../../../redux/breakslice";
+import { useDispatch, useSelector } from "react-redux";
 
-const PopUp = ({ onClose, index, updateBreak, currentBreakDuration }) => {
+const PopUp = ({ onClose, index, currentBreakDuration }) => {
   const popupStyle = {
     position: "fixed",
     top: "50%",
@@ -12,9 +14,31 @@ const PopUp = ({ onClose, index, updateBreak, currentBreakDuration }) => {
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   };
 
-  const [localCurrentBreakDuration, setLocalCurrentBreakDuration] = useState(
-    currentBreakDuration
-  );
+  const [localCurrentBreakDuration, setLocalCurrentBreakDuration] =
+    useState(currentBreakDuration);
+
+  const dispatch = useDispatch();
+  const breaks = useSelector((state) => state.breaks);
+
+  const updateBreakDuration = (newHours, newMinutes) => {
+
+    // Update the breaks array
+    const updatedBreaks = breaks.map((breakItem, i) => {
+      if (i === index) {
+        return {
+          ...breakItem,
+          breakDuration: {
+            hours: newHours,
+            minutes: newMinutes,
+          },
+        };
+      }
+      return breakItem;
+    });
+
+    dispatch(setBreaks(updatedBreaks));
+    // console.log("Updated breaks array:", updatedBreaks);
+  };
 
   const handleHoursInputChange = (event) => {
     const { value } = event.target;
@@ -22,35 +46,33 @@ const PopUp = ({ onClose, index, updateBreak, currentBreakDuration }) => {
       ...prevDuration,
       hours: value,
     }));
-    console.log(localCurrentBreakDuration)
   };
-  
+
   const handleMinutesInputChange = (event) => {
     const { value } = event.target;
     setLocalCurrentBreakDuration((prevDuration) => ({
       ...prevDuration,
       minutes: value,
     }));
-    console.log(localCurrentBreakDuration)
   };
-  
+
   const handleSaveClick = () => {
     // Close the popup
     onClose();
-    // Call handleHoursInputChange and handleMinutesInputChange with respective values
+
+
     handleHoursInputChange({
       target: { value: localCurrentBreakDuration.hours },
     });
     handleMinutesInputChange({
       target: { value: localCurrentBreakDuration.minutes },
     });
-    console.log("in save handler" , localCurrentBreakDuration)
-  
-    // Execute the updateBreak function with the latest values
-    updateBreak("breakDuration", "hours", localCurrentBreakDuration.hours);
-    updateBreak("breakDuration", "minutes", localCurrentBreakDuration.minutes);
+
+    updateBreakDuration(
+      localCurrentBreakDuration.hours,
+      localCurrentBreakDuration.minutes
+    );
   };
-  
 
   return (
     <div style={popupStyle}>
