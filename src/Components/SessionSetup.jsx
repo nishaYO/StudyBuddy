@@ -8,7 +8,7 @@ import { useState } from "react";
 import { setSessionIntervals } from "./../redux/sessionIntervals";
 import { setBreaks } from "./../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
-
+import ConvertTimeToPixel from "./SessionSetupComponents/SetBreaksComponents/ConvertTimeToPixel";
 // todo: create local states for redux states and update them whenver they are changed and dispatched.
 function SessionSetup() {
   const [location, navigate] = useLocation();
@@ -18,12 +18,7 @@ function SessionSetup() {
     useState(false);
 
   const addLastSessionInterval = async () => {
-    // sessionintervals and sessionduration
-    const sessionIntervals = await useSelector(
-      (state) => state.sessionIntervals
-    );
-    const sessionDuration = await useSelector((state) => state.sessionDuration);
-    // total duration of all existing intervals
+     // total duration of all existing intervals
     const totalIntervalDuration = sessionIntervals.reduce(
       (acc, interval) => {
         return {
@@ -47,43 +42,41 @@ function SessionSetup() {
   };
 
   const sortBreaks = async () => {
-    // sorting using bubble sort
-    // sorting on the basis of breakStartTime of each breakItem.
-    // sorting from low to high : the lowest break start time will have index 0.
+  // sorting on the basis of breakStartTime of each breakItem.
+  // sorting from low to high : the lowest break start time will have index 0.
     try {
-      // Get the breaks from the Redux store
-      const breaks = await useSelector((state) => state.breaks);
-
-      // Sort using bubble sort based on breakStartTime
-      for (let i = 0; i < breaks.length - 1; i++) {
-        for (let j = 0; j < breaks.length - i - 1; j++) {
-          const startTime = await ConvertTimeToPixel(breaks[j].breakStartTime);
-          const nextStartTime = await ConvertTimeToPixel(
-            breaks[j + 1].breakStartTime
-          );
-
-          if (startTime > nextStartTime) {
-            // Swap breaks
-            const temp = breaks[j];
-            breaks[j] = breaks[j + 1];
-            breaks[j + 1] = temp;
-          }
+      const newSortedBreaks = [];
+  
+      for (let i = 0; i < breaks.length; i++) {
+        const startTime = parseInt(breaks[i].breakStartTime.hours) * 60 + parseInt(breaks[i].breakStartTime.minutes);
+        let insertIndex = 0;
+        while (
+          insertIndex < newSortedBreaks.length &&
+          startTime > parseInt(newSortedBreaks[insertIndex].breakStartTime.hours) * 60 + parseInt(newSortedBreaks[insertIndex].breakStartTime.minutes)
+        ) {
+          insertIndex++;
         }
+  
+        // Insert the break at the correct position
+        newSortedBreaks.splice(insertIndex, 0, breaks[i]);
       }
-
-      dispatch(setBreaks([...breaks]));
+  
+      dispatch(setBreaks(newSortedBreaks));
+      return newSortedBreaks;
     } catch (error) {
       console.error("Error while sorting breaks:", error);
     }
   };
+  
+  
+  
 
   const addSessionIntervals = async () => {
     try {
-      await sortBreaks();
-      const breaks = await useSelector((state) => state.breaks);
+      const sortedBreaks = await sortBreaks();
       const newSessionIntervals = [];
-      for (let index = 0; index < breaks.length; index++) {
-        const breakItem = breaks[index];
+      for (let index = 0; index < sortedBreaks.length; index++) {
+        const breakItem = sortedBreaks[index];
 
         // create study interval
         const studyDuration = breakItem.breakStartTime;
@@ -116,7 +109,7 @@ function SessionSetup() {
         const breakInterval = {
           hours: breakDuration.hours,
           minutes: breakDuration.minutes,
-          seconds: breakDuration.seconds,
+          seconds: '0',
           type: "break",
         };
 
@@ -141,9 +134,10 @@ function SessionSetup() {
   const dispatch = useDispatch();
   const sessionIntervals = useSelector((state) => state.sessionIntervals);
   const sessionDuration = useSelector((state) => state.sessionDuration);
-
-  // console.log("Session intervals:", sessionIntervals);
-  // console.log("Session Duration:", sessionDuration);
+  const breaks = useSelector((state) => state.breaks);
+ 
+  console.log("Session intervals:", sessionIntervals);
+  console.log("Session Duration:", sessionDuration);
 
   // components for each step
   const steps = [<SetTimer />, <SetBreaks />, <SetMusic />];

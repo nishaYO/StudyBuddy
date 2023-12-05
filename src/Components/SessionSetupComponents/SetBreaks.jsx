@@ -15,12 +15,10 @@ const SetBreaks = () => {
     initialSessionDuration
   );
 
-
   useEffect(() => {
     setLocalSessionDuration(initialSessionDuration);
   }, [initialSessionDuration]);
 
- 
   const handleGridClick = async (event) => {
     if (!isPopupOpen) {
       const rect = event.target.getBoundingClientRect();
@@ -45,7 +43,7 @@ const SetBreaks = () => {
         seconds: breakStartTime.seconds,
       },
     };
-    
+
     dispatch(setBreaks([...breaks, newBreak]));
   };
 
@@ -112,6 +110,7 @@ const SetBreaks = () => {
         {/* break containers */}
         {breaks.map((breakItem, index) => (
           <CreateBreakDiv
+            key={index} //don't remove it as it is needed in a list to make all items unique
             index={index}
             top={ConvertTimeToPixel({ timeObject: breakItem.breakStartTime })}
             breakDivHeight={ConvertTimeToPixel({
