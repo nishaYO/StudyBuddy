@@ -21,7 +21,6 @@ const PopUp = ({ onClose, index, currentBreakDuration }) => {
   const breaks = useSelector((state) => state.breaks);
 
   const updateBreakDuration = (newHours, newMinutes) => {
-
     // Update the breaks array
     const updatedBreaks = breaks.map((breakItem, i) => {
       if (i === index) {
@@ -56,21 +55,35 @@ const PopUp = ({ onClose, index, currentBreakDuration }) => {
     }));
   };
 
+  const handleDeleteBreak = () => {
+    onClose();
+    const updatedBreaks = breaks.filter((_, i) => i !== index);
+    dispatch(setBreaks(updatedBreaks));
+  };
+
   const handleSaveClick = () => {
+    // make exceeding values in popup reduce to max sessionduration length
+    
+    // Treat empty input values as '00'
+    const hours = localCurrentBreakDuration.hours || "00";
+    const minutes = localCurrentBreakDuration.minutes || "00";
+    if (parseInt(hours) + parseInt(minutes) == 0) {
+      handleDeleteBreak();
+      return;
+    }
     // Close the popup
     onClose();
 
-
     handleHoursInputChange({
-      target: { value: localCurrentBreakDuration.hours },
+      target: { value: hours },
     });
     handleMinutesInputChange({
-      target: { value: localCurrentBreakDuration.minutes },
+      target: { value: minutes },
     });
 
     updateBreakDuration(
-      localCurrentBreakDuration.hours,
-      localCurrentBreakDuration.minutes
+      hours,
+      minutes
     );
   };
 
@@ -102,6 +115,12 @@ const PopUp = ({ onClose, index, currentBreakDuration }) => {
         className="mt-4 ml-2 rounded-md bg-blue-500 text-white px-4 py-2 border-none"
       >
         Save
+      </button>
+      <button
+        onClick={handleDeleteBreak}
+        className="mt-4 ml-2 rounded-md bg-blue-500 text-white px-4 py-2 border-none"
+      >
+        Delete
       </button>
     </div>
   );

@@ -77,6 +77,22 @@ function SessionSetup() {
       const newSessionIntervals = [];
       for (let index = 0; index < sortedBreaks.length; index++) {
         const breakItem = sortedBreaks[index];
+
+        // create break interval
+        const breakDuration = breakItem.breakDuration;
+        if (
+          parseInt(breakDuration.hours) + parseInt(breakDuration.minutes) ==
+          0
+        ) {
+          continue;
+        }
+        const breakInterval = {
+          hours: breakDuration.hours,
+          minutes: breakDuration.minutes,
+          seconds: "0",
+          type: "break",
+        };
+
         // create study interval
         const studyDuration = breakItem.breakStartTime;
 
@@ -102,15 +118,6 @@ function SessionSetup() {
           type: "study",
         };
 
-        // create break interval
-        const breakDuration = breakItem.breakDuration;
-        const breakInterval = {
-          hours: breakDuration.hours,
-          minutes: breakDuration.minutes,
-          seconds: "0",
-          type: "break",
-        };
-
         // add both the intervals to the sessionIntervals
         if (
           parseInt(studyInterval.hours) + parseInt(studyInterval.minutes) !=
@@ -120,7 +127,7 @@ function SessionSetup() {
         }
         newSessionIntervals.push(breakInterval);
       }
-
+      // ---------------------------------------------
       const lastInterval = await addLastSessionInterval(newSessionIntervals);
       if (ConvertTimeToPixel({ timeObject: lastInterval }) !== "0px") {
         newSessionIntervals.push(lastInterval);
