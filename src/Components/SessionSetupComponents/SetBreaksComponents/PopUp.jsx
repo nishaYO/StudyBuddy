@@ -12,26 +12,38 @@ const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
     transform: "translate(-50%, -50%)",
     backgroundColor: "yellow",
     padding: "1rem",
-    width: "400px",
+    width: "440px",
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   };
-
+  const parsedBreakStartTime = parseInt(breakStartTime) || 0;
+  const currentBreakStartTime = ConvertPixelToTime({
+    totalMinutes: parsedBreakStartTime,
+  });
+  
   let [localCurrentBreakDuration, setLocalCurrentBreakDuration] =
     useState(currentBreakDuration);
+
+  let [localCurrentBreakStartTime, setLocalCurrentBreakStartTime] = useState(
+    currentBreakStartTime
+  );
 
   const dispatch = useDispatch();
   const breaks = useSelector((state) => state.breaks);
   const sessionDuration = useSelector((state) => state.sessionDuration);
 
-  const updateBreakDuration = (newHours, newMinutes) => {
+  const updateBreaks = (newDuration, newStartTime) => {
     // Update the breaks array
     const updatedBreaks = breaks.map((breakItem, i) => {
       if (i === index) {
         return {
           ...breakItem,
           breakDuration: {
-            hours: newHours,
-            minutes: newMinutes,
+            hours: newDuration.hours,
+            minutes: newDuration.minutes,
+          },
+          breakStartTime: {
+            hours: newStartTime.hours,
+            minutes: newStartTime.minutes,
           },
         };
       }
@@ -41,8 +53,7 @@ const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
     dispatch(setBreaks(updatedBreaks));
     // console.log("Updated breaks array:", updatedBreaks);
   };
-
-  const handleHoursInputChange = (event) => {
+  const handleDurationHoursInputChange = (event) => {
     const { value } = event.target;
     setLocalCurrentBreakDuration((prevDuration) => ({
       ...prevDuration,
@@ -50,10 +61,25 @@ const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
     }));
   };
 
-  const handleMinutesInputChange = (event) => {
+  const handleDurationMinutesInputChange = (event) => {
     const { value } = event.target;
     setLocalCurrentBreakDuration((prevDuration) => ({
       ...prevDuration,
+      minutes: value,
+    }));
+  };
+  const handleStartTimeHoursInputChange = (event) => {
+    const { value } = event.target;
+    setLocalCurrentBreakStartTime((prevStartTime) => ({
+      ...prevStartTime,
+      hours: value,
+    }));
+  };
+
+  const handleStartTimeMinutesInputChange = (event) => {
+    const { value } = event.target;
+    setLocalCurrentBreakStartTime((prevStartTime) => ({
+      ...prevStartTime,
       minutes: value,
     }));
   };
@@ -69,58 +95,103 @@ const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
     const parsedBreakDuration = ConvertTimeToMinutes({
       timeObject: localCurrentBreakDuration,
     });
-    const parsedSessionDuration =
-    ConvertTimeToMinutes({ timeObject: sessionDuration
-    })
+    const parsedSessionDuration = ConvertTimeToMinutes({
+      timeObject: sessionDuration,
+    });
     const parsedBreakStartTime = parseInt(breakStartTime);
     if (parsedBreakDuration + parsedBreakStartTime > parsedSessionDuration) {
       const newBreakDuration = parsedSessionDuration - parsedBreakStartTime;
-      localCurrentBreakDuration = ConvertPixelToTime({totalMinutes: newBreakDuration});
-      console.log("breakDuration: ", newBreakDuration)
-      console.log("localCurrentBreakDuration: ", localCurrentBreakDuration)
+      localCurrentBreakDuration = ConvertPixelToTime({
+        totalMinutes: newBreakDuration,
+      });
+      console.log("breakDuration: ", newBreakDuration);
+      console.log("localCurrentBreakDuration: ", localCurrentBreakDuration);
     }
 
     // Treat empty input values as '00'
-    const hours = localCurrentBreakDuration.hours || "00";
-    const minutes = localCurrentBreakDuration.minutes || "00";
-    if (parseInt(hours) + parseInt(minutes) == 0) {
+    const durationHours = localCurrentBreakDuration.hours || "00";
+    const durationMinutes = localCurrentBreakDuration.minutes || "00";
+    if (parseInt(durationHours) + parseInt(durationMinutes) == 0) {
       handleDeleteBreak();
       return;
     }
     // Close the popup
     onClose();
 
-    handleHoursInputChange({
-      target: { value: hours },
+    handleDurationHoursInputChange({
+      target: { value: durationHours },
     });
-    handleMinutesInputChange({
-      target: { value: minutes },
+    handleDurationMinutesInputChange({
+      target: { value: durationMinutes },
+    });
+    
+    
+    // startTime update
+    const startHours = parseInt(localCurrentBreakStartTime.hours) || 0;
+    const startMinutes = parseInt(localCurrentBreakStartTime.minutes) || 0;
+
+    handleStartTimeHoursInputChange({
+      target: { value: startHours },
+    });
+    handleStartTimeMinutesInputChange({
+      target: { value: startMinutes },
     });
 
-    updateBreakDuration(hours, minutes);
+    // update the breaks array state
+    updateBreaks(
+      {
+        hours: durationHours,
+        minutes: durationMinutes,
+      },
+      {
+        hours: startHours,
+        minutes: startMinutes,
+      }
+    );
   };
 
   return (
     <div style={popupStyle}>
       <div>
         <div>
-          Set Break Duration
-          <input
-            className="border rounded p-2 text-sm m-2"
-            type="text"
-            id="breakDuration.hours"
-            value={localCurrentBreakDuration.hours}
-            onChange={(e) => handleHoursInputChange(e)}
-          />
-          hrs
-          <input
-            className="border rounded p-2 text-sm m-2"
-            type="text"
-            id="breakDuration.minutes"
-            value={localCurrentBreakDuration.minutes}
-            onChange={(e) => handleMinutesInputChange(e)}
-          />
-          mins
+          <div>
+            <h3>set breakDuration </h3>
+            <input
+              className="border rounded p-2 text-sm m-2"
+              type="text"
+              id="breakDuration.hours"
+              value={localCurrentBreakDuration.hours}
+              onChange={(e) => handleDurationHoursInputChange(e)}
+            />
+            hrs
+            <input
+              className="border rounded p-2 text-sm m-2"
+              type="text"
+              id="breakDuration.minutes"
+              value={localCurrentBreakDuration.minutes}
+              onChange={(e) => handleDurationMinutesInputChange(e)}
+            />
+            mins
+          </div>
+          <div>
+            <h3>set breakStartTime</h3>
+            <input
+              className="border rounded p-2 text-sm m-2"
+              type="text"
+              id="startTime.hours"
+              value={localCurrentBreakStartTime.hours}
+              onChange={(e) => handleStartTimeHoursInputChange(e)}
+            />
+            hrs
+            <input
+              className="border rounded p-2 text-sm m-2"
+              type="text"
+              id="startTime.minutes"
+              value={localCurrentBreakStartTime.minutes}
+              onChange={(e) => handleStartTimeMinutesInputChange(e)}
+            />
+            mins
+          </div>
         </div>
       </div>
       <button
