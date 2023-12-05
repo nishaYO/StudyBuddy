@@ -50,9 +50,10 @@ const CreateBreakDiv = ({
       ></div>
       {isPopupOpen && (
         <PopUp
-          onClose={handlePopupClose}
-          index={index}
-          currentBreakDuration={currentBreakDuration}
+        onClose={handlePopupClose}
+        index={index}
+        currentBreakDuration={currentBreakDuration}
+        breakStartTime={top}
         />
       )}
     </div>

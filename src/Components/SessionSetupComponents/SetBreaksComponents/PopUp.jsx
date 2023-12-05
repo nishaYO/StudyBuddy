@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { setBreaks } from "../../../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
+import ConvertPixelToTime from "./ConvertPixelToTime";
+import ConvertTimeToMinutes from "./../../../utils/ConvertTimeToMinutes";
 
-const PopUp = ({ onClose, index, currentBreakDuration }) => {
+const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
   const popupStyle = {
     position: "fixed",
     top: "50%",
@@ -14,11 +16,12 @@ const PopUp = ({ onClose, index, currentBreakDuration }) => {
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   };
 
-  const [localCurrentBreakDuration, setLocalCurrentBreakDuration] =
+  let [localCurrentBreakDuration, setLocalCurrentBreakDuration] =
     useState(currentBreakDuration);
 
   const dispatch = useDispatch();
   const breaks = useSelector((state) => state.breaks);
+  const sessionDuration = useSelector((state) => state.sessionDuration);
 
   const updateBreakDuration = (newHours, newMinutes) => {
     // Update the breaks array
@@ -63,7 +66,20 @@ const PopUp = ({ onClose, index, currentBreakDuration }) => {
 
   const handleSaveClick = () => {
     // make exceeding values in popup reduce to max sessionduration length
-    
+    const parsedBreakDuration = ConvertTimeToMinutes({
+      timeObject: localCurrentBreakDuration,
+    });
+    const parsedSessionDuration =
+    ConvertTimeToMinutes({ timeObject: sessionDuration
+    })
+    const parsedBreakStartTime = parseInt(breakStartTime);
+    if (parsedBreakDuration + parsedBreakStartTime > parsedSessionDuration) {
+      const newBreakDuration = parsedSessionDuration - parsedBreakStartTime;
+      localCurrentBreakDuration = ConvertPixelToTime({totalMinutes: newBreakDuration});
+      console.log("breakDuration: ", newBreakDuration)
+      console.log("localCurrentBreakDuration: ", localCurrentBreakDuration)
+    }
+
     // Treat empty input values as '00'
     const hours = localCurrentBreakDuration.hours || "00";
     const minutes = localCurrentBreakDuration.minutes || "00";
@@ -81,10 +97,7 @@ const PopUp = ({ onClose, index, currentBreakDuration }) => {
       target: { value: minutes },
     });
 
-    updateBreakDuration(
-      hours,
-      minutes
-    );
+    updateBreakDuration(hours, minutes);
   };
 
   return (

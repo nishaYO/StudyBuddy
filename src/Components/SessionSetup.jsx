@@ -9,6 +9,8 @@ import { setSessionIntervals } from "./../redux/sessionIntervals";
 import { setBreaks } from "./../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
 import ConvertTimeToPixel from "./SessionSetupComponents/SetBreaksComponents/ConvertTimeToPixel";
+import ConvertTimeToMinutes from "./../utils/ConvertTimeToMinutes";
+
 // todo: create local states for redux states and update them whenver they are changed and dispatched.
 function SessionSetup() {
   const [location, navigate] = useLocation();
@@ -47,15 +49,11 @@ function SessionSetup() {
       const newSortedBreaks = [];
 
       for (let i = 0; i < breaks.length; i++) {
-        const startTime =
-          parseInt(breaks[i].breakStartTime.hours) * 60 +
-          parseInt(breaks[i].breakStartTime.minutes);
+        const startTime = { timeObject: breaks[i].breakStartTime } ;
         let insertIndex = 0;
         while (
           insertIndex < newSortedBreaks.length &&
-          startTime >
-            parseInt(newSortedBreaks[insertIndex].breakStartTime.hours) * 60 +
-              parseInt(newSortedBreaks[insertIndex].breakStartTime.minutes)
+          startTime > ConvertTimeToMinutes({ timeObject: newSortedBreaks[insertIndex].breakStartTime })
         ) {
           insertIndex++;
         }
@@ -81,7 +79,8 @@ function SessionSetup() {
         // create break interval
         const breakDuration = breakItem.breakDuration;
         if (
-          parseInt(breakDuration.hours) + parseInt(breakDuration.minutes) ==
+          ConvertTimeToMinutes({ timeObject: breakDuration
+           }) ==
           0
         ) {
           continue;
@@ -120,16 +119,15 @@ function SessionSetup() {
 
         // add both the intervals to the sessionIntervals
         if (
-          parseInt(studyInterval.hours) + parseInt(studyInterval.minutes) !=
+          ConvertTimeToMinutes({ timeObject: studyInterval }) !=
           0
         ) {
           newSessionIntervals.push(studyInterval);
         }
         newSessionIntervals.push(breakInterval);
       }
-      // ---------------------------------------------
       const lastInterval = await addLastSessionInterval(newSessionIntervals);
-      if (ConvertTimeToPixel({ timeObject: lastInterval }) !== "0px") {
+      if (ConvertTimeToMinutes({ timeObject: lastInterval }) !== 0) {
         newSessionIntervals.push(lastInterval);
       }
 
@@ -154,7 +152,7 @@ function SessionSetup() {
     if (currentStep === 0) {
       // Check if both hours and minutes are zero in SetTimer component
       const { hours, minutes } = sessionDuration;
-      if (parseInt(hours, 10) === 0 && parseInt(minutes, 10) === 0) {
+      if (ConvertTimeToMinutes({ timeObject: sessionDuration }) === 0) {
         alert("Session duration cannot be zero!");
         return;
       } else {
