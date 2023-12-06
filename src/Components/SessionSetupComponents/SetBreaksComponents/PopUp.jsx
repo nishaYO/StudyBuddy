@@ -40,10 +40,12 @@ const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
           breakDuration: {
             hours: newDuration.hours,
             minutes: newDuration.minutes,
+            seconds: '0',
           },
           breakStartTime: {
             hours: newStartTime.hours,
             minutes: newStartTime.minutes,
+            seconds: '0',
           },
         };
       }
@@ -51,7 +53,6 @@ const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
     });
 
     dispatch(setBreaks(updatedBreaks));
-    // console.log("Updated breaks array:", updatedBreaks);
   };
   const handleDurationHoursInputChange = (event) => {
     const { value } = event.target;

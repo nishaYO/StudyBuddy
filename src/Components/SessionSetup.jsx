@@ -19,6 +19,15 @@ function SessionSetup() {
   const [sessionIntervalCompleted, setSessionIntervalCompleted] =
     useState(false);
 
+  function formatTime(input) {
+    let { hours, minutes, seconds } = input;
+    // Convert excess minutes to hours
+    hours += Math.floor(minutes / 60);
+    minutes = minutes % 60;
+    seconds = seconds % 60;
+    return { hours, minutes, seconds };
+  }
+
   const addLastSessionInterval = async (newSessionIntervals) => {
     // total duration of all existing intervals
     const totalIntervalDuration = newSessionIntervals.reduce(
@@ -43,27 +52,16 @@ function SessionSetup() {
   };
 
   const sortBreaks = async () => {
-    // sorting on the basis of breakStartTime of each breakItem.
-    // sorting from low to high : the lowest break start time will have index 0.
     try {
-      const newSortedBreaks = [];
-
-      for (let i = 0; i < breaks.length; i++) {
-        const startTime = { timeObject: breaks[i].breakStartTime } ;
-        let insertIndex = 0;
-        while (
-          insertIndex < newSortedBreaks.length &&
-          startTime > ConvertTimeToMinutes({ timeObject: newSortedBreaks[insertIndex].breakStartTime })
-        ) {
-          insertIndex++;
-        }
-
-        // Insert the break at the correct position
-        newSortedBreaks.splice(insertIndex, 0, breaks[i]);
-      }
-
-      dispatch(setBreaks(newSortedBreaks));
-      return newSortedBreaks;
+      const sortedBreaks = [...breaks];
+      sortedBreaks.sort((a, b) => {
+        const timeA = ConvertTimeToMinutes({ timeObject: a.breakStartTime });
+        const timeB = ConvertTimeToMinutes({ timeObject: b.breakStartTime });
+        return timeA - timeB;
+      });
+      console.log("sortedBreaks:", sortedBreaks);
+      dispatch(setBreaks(sortedBreaks));
+      return sortedBreaks;
     } catch (error) {
       console.error("Error while sorting breaks:", error);
     }
@@ -73,16 +71,13 @@ function SessionSetup() {
     try {
       const sortedBreaks = await sortBreaks();
       const newSessionIntervals = [];
+
       for (let index = 0; index < sortedBreaks.length; index++) {
         const breakItem = sortedBreaks[index];
 
         // create break interval
         const breakDuration = breakItem.breakDuration;
-        if (
-          ConvertTimeToMinutes({ timeObject: breakDuration
-           }) ==
-          0
-        ) {
+        if (ConvertTimeToMinutes({ timeObject: breakDuration }) == 0) {
           continue;
         }
         const breakInterval = {
@@ -94,9 +89,9 @@ function SessionSetup() {
 
         // create study interval
         const studyDuration = breakItem.breakStartTime;
-
+        console.log("studyDuration: ", studyDuration);
         // total duration of all existing intervals
-        const totalIntervalDuration = newSessionIntervals.reduce(
+        let totalIntervalDuration = newSessionIntervals.reduce(
           (acc, interval) => {
             return {
               hours: acc.hours + parseInt(interval.hours),
@@ -106,6 +101,8 @@ function SessionSetup() {
           },
           { hours: 0, minutes: 0, seconds: 0 }
         );
+        totalIntervalDuration = formatTime(totalIntervalDuration);
+        console.log("totalIntervalDuration: ", totalIntervalDuration);
         const studyInterval = {
           hours: Math.abs(totalIntervalDuration.hours - studyDuration.hours),
           minutes: Math.abs(
@@ -116,16 +113,14 @@ function SessionSetup() {
           ),
           type: "study",
         };
-
+        console.log("studyInterval: ", studyInterval);
         // add both the intervals to the sessionIntervals
-        if (
-          ConvertTimeToMinutes({ timeObject: studyInterval }) !=
-          0
-        ) {
+        if (ConvertTimeToMinutes({ timeObject: studyInterval }) != 0) {
           newSessionIntervals.push(studyInterval);
         }
         newSessionIntervals.push(breakInterval);
       }
+
       const lastInterval = await addLastSessionInterval(newSessionIntervals);
       if (ConvertTimeToMinutes({ timeObject: lastInterval }) !== 0) {
         newSessionIntervals.push(lastInterval);
@@ -141,9 +136,6 @@ function SessionSetup() {
   const sessionIntervals = useSelector((state) => state.sessionIntervals);
   const sessionDuration = useSelector((state) => state.sessionDuration);
   const breaks = useSelector((state) => state.breaks);
-
-  // console.log("Session intervals:", sessionIntervals);
-  // console.log("Session Duration:", sessionDuration);
 
   // components for each step
   const steps = [<SetTimer />, <SetBreaks />, <SetMusic />];
