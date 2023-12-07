@@ -8,10 +8,8 @@ import { useState } from "react";
 import { setSessionIntervals } from "./../redux/sessionIntervals";
 import { setBreaks } from "./../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
-import ConvertTimeToPixel from "./SessionSetupComponents/SetBreaksComponents/ConvertTimeToPixel";
 import ConvertTimeToMinutes from "./../utils/ConvertTimeToMinutes";
 
-// todo: create local states for redux states and update them whenver they are changed and dispatched.
 function SessionSetup() {
   const [location, navigate] = useLocation();
 
