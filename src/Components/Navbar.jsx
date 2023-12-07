@@ -1,13 +1,16 @@
-
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Link } from "wouter";
-import NotificationBox from './NotificationBox';
+import NotificationBox from "./NotificationBox";
+import SignupPopup from "./auth/Signup";
 
 function NavbarIcons({ onNotificationsClick }) {
   return (
     <>
       {/* bell icon */}
-      <button className="text-2xl cursor-pointer" onClick={onNotificationsClick}>
+      <button
+        className="text-2xl cursor-pointer"
+        onClick={onNotificationsClick}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="1em"
@@ -41,6 +44,22 @@ function NavbarIcons({ onNotificationsClick }) {
 
 function Navbar() {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [showRegisterPopUp, setShowRegisterPopUp] = useState(false);
+
+  const handleSignedIn = () => {
+    setIsRegistered(true);
+    setIsSignedIn(true);
+  };
+
+  const handleRegisterClick = () => {
+    setShowRegisterPopUp(!showRegisterPopUp);
+  };
+
+  const closeRegisterPopUp = () => {
+    setShowRegisterPopUp(false);
+  };
 
   const handleNotificationsClick = () => {
     setShowNotifications(!showNotifications);
@@ -49,7 +68,7 @@ function Navbar() {
   const closeNotifications = () => {
     setShowNotifications(false);
   };
-
+ 
   return (
     <div className="p-3 bg-white border-2 border-b-black flex items-center justify-between relative">
       <div className="flex items-center space-x-4">
@@ -61,13 +80,40 @@ function Navbar() {
       {/* Notifications Box */}
       {showNotifications && <NotificationBox onClose={closeNotifications} />}
       {/* Reports Button */}
-      <div className="absolute bottom-0 right-0 m-1 p-0">
+      <div className="absolute bottom-1 right-20 m-1 p-0">
         <Link href="/reports">
           <button className="bg-purple-500 text-white px-4 py-2 rounded">
             Reports
           </button>
         </Link>
       </div>
+      {/* user auth */}
+      {isRegistered ? (
+        isSignedIn ? (
+          <button className="text-2xl cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              width="19"
+              viewBox="0 0 448 512"
+            >
+              <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
+            </svg>{" "}
+          </button>
+        ) : (
+          <button className="bg-[#BEADFA] p-1 border-2 border-black">
+            SignIn
+          </button>
+        )
+      ) : (
+        <button
+          className="bg-[#BEADFA] p-1 border-2 border-black"
+          onClick={handleRegisterClick}
+        >
+          Register
+        </button>
+      )}
+      {showRegisterPopUp && <SignupPopup onClose={closeRegisterPopUp} signedIn={handleSignedIn}/>}
     </div>
   );
 }
