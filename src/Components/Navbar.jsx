@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "wouter";
 import NotificationBox from "./NotificationBox";
 import SignupPopup from "./auth/Signup";
+import { useQuery } from "@apollo/client";
+import { AUTO_LOGIN_QUERY } from "../graphql/queries";
 
 function NavbarIcons({ onNotificationsClick }) {
   return (
@@ -44,10 +46,56 @@ function NavbarIcons({ onNotificationsClick }) {
 
 function Navbar() {
   const [showNotifications, setShowNotifications] = useState(false);
-  //todo: initial values are based on if correct token and user object found in localstorage or not 
+  const [showRegisterPopUp, setShowRegisterPopUp] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [showRegisterPopUp, setShowRegisterPopUp] = useState(false);
+  let inputVariables;
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+
+  if (user && token) {
+    inputVariables = {
+      id: user.id,
+      email: user.email,
+      token: token,
+    };
+    console.log(inputVariables)
+  }
+  const { data, loading, error } = useQuery(AUTO_LOGIN_QUERY, {
+    variables: {input: inputVariables},
+  });
+
+
+  useEffect(() => {
+    const handleAutoLoginResponse = () => {
+      if (data.autoLogin.loggedIn) {
+        setIsRegistered(true);
+        setIsSignedIn(true);
+      } else {
+        setIsRegistered(false);
+        setIsSignedIn(false);
+      }
+    };
+
+    const checkAutoLogin = async () => {
+      try {
+        if (data && data.autoLogin) {
+          const { loggedIn } = data.autoLogin;
+          if (loggedIn) {
+            console.log("logged in ");
+            handleAutoLoginResponse();
+          }
+        }
+      } catch (error) {
+        console.error("Error during AutoLogin:", error.message);
+        setIsRegistered(false);
+        setIsSignedIn(false);
+      }
+    };
+
+    // Call checkAutoLogin when the data changes
+    checkAutoLogin();
+  }, [data]);
 
   const handleSignedIn = () => {
     setIsRegistered(true);
@@ -69,7 +117,7 @@ function Navbar() {
   const closeNotifications = () => {
     setShowNotifications(false);
   };
- 
+
   return (
     <div className="p-3 bg-white border-2 border-b-black flex items-center justify-between relative">
       <div className="flex items-center space-x-4">
@@ -114,7 +162,9 @@ function Navbar() {
           Register
         </button>
       )}
-      {showRegisterPopUp && <SignupPopup onClose={closeRegisterPopUp} signedIn={handleSignedIn}/>}
+      {showRegisterPopUp && (
+        <SignupPopup onClose={closeRegisterPopUp} signedIn={handleSignedIn} />
+      )}
     </div>
   );
 }
