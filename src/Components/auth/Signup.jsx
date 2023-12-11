@@ -4,13 +4,15 @@ import { SIGN_UP_MUTATION } from "../../graphql/mutations";
 import VerifyEmailPopup from "./VerifyEmail";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { getUserInfo } from "./../../utils/getUserInfo";
 
 const SignupPopup = ({ onClose, signedIn }) => {
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
   });
+
+  const userMetadata = getUserInfo();
   const [showVerifyEmail, setShowVerifyEmail] = useState(false);
 
   const [signup, { loading, error }] = useMutation(SIGN_UP_MUTATION);
@@ -33,9 +35,13 @@ const SignupPopup = ({ onClose, signedIn }) => {
       const { data, error } = await signup({
         variables: {
           input: {
-            name: formData.name,
+            name: userMetadata.name,
             email: formData.email,
             password: formData.password,
+            timezone: userMetadata.timezone,
+            streakGoal: userMetadata.streakGoal,
+            deviceSize: userMetadata.deviceSize,
+            userAgent: userMetadata.userAgent,
           },
         },
       });
@@ -71,23 +77,6 @@ const SignupPopup = ({ onClose, signedIn }) => {
             </button>
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-600"
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="mt-1 p-2 w-full border rounded-md"
-                required
-              />
-            </div>
             <div className="mb-4">
               <label
                 htmlFor="email"
