@@ -44,6 +44,7 @@ function NavbarIcons({ onNotificationsClick }) {
 
 function Navbar() {
   const [showNotifications, setShowNotifications] = useState(false);
+  // initial values are based on if correct token and user object found in localstorage or not 
   const [isRegistered, setIsRegistered] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [showRegisterPopUp, setShowRegisterPopUp] = useState(false);
