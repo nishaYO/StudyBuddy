@@ -32,16 +32,21 @@ const SignupPopup = ({ onClose, signedIn }) => {
     try {
       const { data, error } = await signup({
         variables: {
-          input: { name: formData.name, email: formData.email, password: formData.password },
+          input: {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+          },
         },
       });
+
       if (error) {
         console.error("GraphQL Errors:", error);
         return;
       }
-  
+
       console.log("data: ", data);
-  
+
       if (data && data.signup && data.signup.CodeMailed) {
         setShowVerifyEmail(true);
       } else {
@@ -51,8 +56,6 @@ const SignupPopup = ({ onClose, signedIn }) => {
       console.error("Signup failed:", error.message);
     }
   };
-  
-  
 
   return (
     <>
@@ -136,8 +139,10 @@ const SignupPopup = ({ onClose, signedIn }) => {
           onVerificationSuccess={() => {
             signedIn();
             setShowVerifyEmail(false);
+            onClose();
           }}
           onClose={() => setShowVerifyEmail(false)}
+          actionType={"Sign Up"}
         />
       )}
     </>

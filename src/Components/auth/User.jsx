@@ -12,22 +12,48 @@ const GET_USER = gql`
 `;
 
 function User() {
-  const { data, loading, error } = useQuery(GET_USER, {
-    variables: { id: "1" },
-  });
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) {
+    return <p className="text-lg font-medium p-6 rounded-lg flex flex-col items-center justify-center  h-screen " >User information not found. Please log in.</p>;
+  }
+  const handleChangePassword = () => {
+    console.log(`Change password for user with ID: ${user.id}`);
+  };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  const handleLogout = () => {
+    console.log("Logout");
+  };
 
+  const handleDeleteAccount = () => {
+    console.log("Delete Account");
+  };
   return (
-    <div>
-      <h2>User Info:</h2>
-      {data && data.getUser && (
-        <div>
-          <p>Name: {data.getUser.name}</p>
-          <p>Email: {data.getUser.email}</p>
+    <div className="flex flex-col items-center justify-center h-screen ">
+      <h2 className="text-3xl font-semibold mb-4">User Info</h2>
+      <div className="bg-gray-100 p-6 rounded-lg flex flex-col items-center justify-center  gap-3 shadow-md w-[1000px] h-[500px] text-center">
+        <p className="text-lg font-medium mb-2">Name: {user.name}</p>
+        <p className="text-lg font-medium mb-4">Email: {user.email}</p>
+        <div  className="flex flex m-2  gap-10 items-center justify-center">
+          <button
+            className="bg-[#BEADFA] text-white p-2 rounded-md mb-2"
+            onClick={handleChangePassword}
+          >
+            Change Password
+          </button>
+          <button
+            className="bg-[#BEADFA] text-white p-2 rounded-md mb-2"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+          <button
+            className="bg-[#BEADFA] text-white p-2 rounded-md"
+            onClick={handleDeleteAccount}
+          >
+            Delete Account
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 }

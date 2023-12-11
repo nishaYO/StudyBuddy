@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { VERIFY_EMAIL_MUTATION } from "../../graphql/mutations";
 
-const VerifyEmailPopup = ({ email, onVerificationSuccess, onClose }) => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
+
+const VerifyEmailPopup = ({
+  email,
+  onVerificationSuccess,
+  onClose,
+  actionType,
+}) => {
   const [verificationCode, setVerificationCode] = useState("");
 
   const [verifyEmail, { loading, error }] = useMutation(
@@ -23,7 +31,7 @@ const VerifyEmailPopup = ({ email, onVerificationSuccess, onClose }) => {
       const response = await verifyEmail({
         variables: { input: { code: verificationCode, email } },
       });
-  
+      console.log("response: ", response);
       if (response.data.verifyEmail.verified) {
         // Verification successful
         localStorage.setItem("token", response.data.verifyEmail.token);
@@ -31,28 +39,26 @@ const VerifyEmailPopup = ({ email, onVerificationSuccess, onClose }) => {
           "user",
           JSON.stringify(response.data.verifyEmail.user)
         );
-        // signin the user and close the verify email popup 
+        // signin the user and close the verify email popup
         onVerificationSuccess();
       } else {
-        // Verification failed
         console.error("Email verification failed: Invalid verification code.");
       }
     } catch (error) {
       console.error("Email verification failed:", error.message);
     }
   };
-  
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center">
-      <div className="bg-white p-8 max-w-md w-full rounded-lg shadow-lg">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Verify Email</h2>
+    <div className="fixed inset-0 flex items-center justify-center ">
+      <div className="bg-red-200 p-8 max-w-md w-full rounded-lg shadow-lg ">
+          <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold">Verify Email for {actionType}</h2>
           <button
             className="text-2xl text-gray-600 hover:text-gray-800"
             onClick={handleCloseClick}
           >
-            Close
+            <FontAwesomeIcon icon={faClose} />
           </button>
         </div>
         <p>Please check your email for the verification code.</p>

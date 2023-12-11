@@ -11,6 +11,7 @@ export const SIGN_UP_MUTATION = gql`
 export const VERIFY_EMAIL_MUTATION = gql`
   mutation VerifyEmail($input: VerifyEmailInput!) {
     verifyEmail(input: $input) {
+      verified
       user {
         id
         name
@@ -20,3 +21,4 @@ export const VERIFY_EMAIL_MUTATION = gql`
     }
   }
 `;
+

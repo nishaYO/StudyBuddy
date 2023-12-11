@@ -6,6 +6,7 @@ import Session from './Components/Session';
 import Reports from './Components/Reports';
 import Help from './Components/Help';
 import EditSession from './Components/EditSession';
+import User from './Components/auth/User';
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -23,6 +24,7 @@ function App() {
           <Route path="/edit-session" component={EditSession} />
           <Route path="/reports" component={Reports} />
           <Route path="/help" component={Help} />
+          <Route path="/user" component={User} />
         </Switch>
       </Router>
     </ApolloProvider>
