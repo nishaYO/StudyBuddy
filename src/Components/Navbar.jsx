@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "wouter";
 import NotificationBox from "./NotificationBox";
 import SignupPopup from "./auth/Signup";
+import LoginPopup from "./auth/Login";
 import { useQuery } from "@apollo/client";
 import { AUTO_LOGIN_QUERY } from "../graphql/queries";
 
@@ -47,7 +48,8 @@ function NavbarIcons({ onNotificationsClick }) {
 function Navbar() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showRegisterPopUp, setShowRegisterPopUp] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [showLoginPopUp, setShowLoginPopUp] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(true);
   const [isSignedIn, setIsSignedIn] = useState(false);
   let inputVariables;
   const user = JSON.parse(localStorage.getItem("user"));
@@ -59,12 +61,11 @@ function Navbar() {
       email: user.email,
       token: token,
     };
-    console.log(inputVariables)
+    console.log(inputVariables);
   }
   const { data, loading, error } = useQuery(AUTO_LOGIN_QUERY, {
-    variables: {input: inputVariables},
+    variables: { input: inputVariables },
   });
-
 
   useEffect(() => {
     const handleAutoLoginResponse = () => {
@@ -106,8 +107,16 @@ function Navbar() {
     setShowRegisterPopUp(!showRegisterPopUp);
   };
 
+  const handleLoginClick = () => {
+    setShowLoginPopUp(!showLoginPopUp);
+  };
+
   const closeRegisterPopUp = () => {
     setShowRegisterPopUp(false);
+  };
+
+  const closeLoginPopUp = () => {
+    setShowLoginPopUp(false);
   };
 
   const handleNotificationsClick = () => {
@@ -139,19 +148,24 @@ function Navbar() {
       {/* user auth */}
       {isRegistered ? (
         isSignedIn ? (
-          <button className="text-2xl cursor-pointer">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24"
-              width="19"
-              viewBox="0 0 448 512"
-            >
-              <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
-            </svg>{" "}
-          </button>
+          <Link href="/user">
+            <button className="text-2xl cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                width="19"
+                viewBox="0 0 448 512"
+              >
+                <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
+              </svg>{" "}
+            </button>
+          </Link>
         ) : (
-          <button className="bg-[#BEADFA] p-1 border-2 border-black">
-            SignIn
+          <button
+            className="bg-[#BEADFA] p-1 border-2 border-black"
+            onClick={handleLoginClick}
+          >
+            Log In
           </button>
         )
       ) : (
@@ -164,6 +178,9 @@ function Navbar() {
       )}
       {showRegisterPopUp && (
         <SignupPopup onClose={closeRegisterPopUp} signedIn={handleSignedIn} />
+      )}
+      {showLoginPopUp && (
+        <LoginPopup onClose={closeLoginPopUp} signedIn={handleSignedIn} />
       )}
     </div>
   );
