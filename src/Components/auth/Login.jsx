@@ -15,15 +15,19 @@ const LoginPopup = ({ onClose, signedIn }) => {
       });
 
       if (data && data.login && data.login.loggedIn) {
+        localStorage.setItem("token", data.login.token);
+        localStorage.setItem(
+          "user",
+          JSON.stringify(data.login.user)
+        );
         console.log("Login successful");
-        signedIn(); // Call the signedIn function to handle the signed-in state
+        signedIn(); 
+        onClose();
       } else {
         console.error("Login failed1");
-        // Handle login failure, show error message, etc.
       }
     } catch (error) {
       console.error("Login failed2", error.message);
-      // Handle login failure, show error message, etc.
     }
   };
 

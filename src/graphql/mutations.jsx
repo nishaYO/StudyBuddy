@@ -24,8 +24,14 @@ export const VERIFY_EMAIL_MUTATION = gql`
 
 export const LOGIN_USER_MUTATION = gql`
   mutation LoginUser($input: LoginInput!) {
-    login(input: $input){
+    login(input: $input) {
       loggedIn
+      user {
+        id
+        name
+        email
+      }
+      token
     }
   }
 `;
