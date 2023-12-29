@@ -179,7 +179,7 @@ function SessionSetup() {
     <div className="flex flex-col font-mono bg-[#FFF3DA] p-0 min-h-screen">
     <Navbar />
     <div className="flex min-h-screen">
-      <SidePanel />
+      <SidePanel/>
       <div className="flex flex-col items-center justify-center w-full p-4">
         <div className="bg-white rounded-md shadow-md p-6">
           {/* Main Box in the Center */}
