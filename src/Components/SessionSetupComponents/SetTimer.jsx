@@ -15,7 +15,7 @@ function SetTimer() {
 
   return (
     <div className="flex flex-col justify-center">
-      <p className="text-3xl font-bold mb-4">Set The Session Duration</p>
+      <p className="text-xl text-center lg:text-3xl font-bold mb-4">Set The Session Duration</p>
       <TimeDialer
         hours={sessionDuration.hours}
         minutes={sessionDuration.minutes}
@@ -61,7 +61,9 @@ const TimeDialer = ({ hours, minutes, onSessionDurationChange }) => {
       onSessionDurationChange(hours, typedMinutes % 60);
     }
   };
-
+/*
+  handleHoursInputChange fucntion to change hour
+*/
   return (
     <div className="flex space-x-4 bg-[#D0BFFF] p-5 rounded-md shadow-sm m-2">
       <div className="flex flex-col items-center">
