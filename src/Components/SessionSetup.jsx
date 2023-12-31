@@ -181,7 +181,7 @@ function SessionSetup() {
     <div className="flex min-h-screen">
       <SidePanel/>
       <div className="flex flex-col items-center justify-center w-full p-4">
-        <div className="bg-white rounded-md shadow-md p-6">
+        <div className="p-6">
           {/* Main Box in the Center */}
           <div className="mb-8">
             {steps[currentStep]}

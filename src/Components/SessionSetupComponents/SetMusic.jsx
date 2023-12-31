@@ -6,13 +6,11 @@ import {
   faVolumeMute,
   faVolumeHigh,
   faVolumeLow,
-  faVolumeUp,
-} from "@fortawesome/free-solid-svg-icons";
+  faVolumeUp,} from "@fortawesome/free-solid-svg-icons";
 
 // url example for this page : "sessionsetup/setmusic?song1=Meditation&volume1=50&song2=NatureSounds&volume2=75"
 
 function SetMusic({ sessionDuration }) {
-
   const [hoveredSoundIndex, setHoveredSoundIndex] = useState(false);
   const [hoveredEffectIndex, setHoveredEffectIndex] = useState(false);
 
@@ -132,8 +130,12 @@ function SetMusic({ sessionDuration }) {
       playingState: false,
     },
   ]);
-  const [soundVolumeState, setSoundVolumeState] = useState(soundList.map(() => 50));
-  const [effectVolumeState, setEffectVolumeState] = useState(effectList.map(() => 50));
+  const [soundVolumeState, setSoundVolumeState] = useState(
+    soundList.map(() => 50)
+  );
+  const [effectVolumeState, setEffectVolumeState] = useState(
+    effectList.map(() => 50)
+  );
   const playAudio = (song, id, index, isEffect) => {
     const list = isEffect ? effectList : soundList;
     const setList = isEffect ? setEffectList : setSoundList;
@@ -169,24 +171,26 @@ function SetMusic({ sessionDuration }) {
     const list = isEffect ? effectList : soundList;
     const setList = isEffect ? setEffectList : setSoundList;
     const setVolume = isEffect ? setEffectVolumeState : setSoundVolumeState;
-  
+
     setList((prevList) => {
       const newList = [...prevList];
       newList[index] = { ...newList[index], volume: newVolume / 100 };
       return newList;
     });
-  
+
     const volumeState = isEffect ? effectVolumeState : soundVolumeState;
-    const setVolumeState = isEffect ? setEffectVolumeState : setSoundVolumeState;
-  
+    const setVolumeState = isEffect
+      ? setEffectVolumeState
+      : setSoundVolumeState;
+
     setVolumeState((prevVolumeState) => {
       const newVolumeState = [...prevVolumeState];
       newVolumeState[index] = newVolume;
       return newVolumeState;
     });
-  
+
     const audioId = list[index].id;
-  
+
     if (audioRefs.current[audioId]) {
       audioRefs.current[audioId].volume = newVolume / 100;
     }
@@ -196,9 +200,9 @@ function SetMusic({ sessionDuration }) {
     <div className="flex flex-wrap justify-center items-center gap-4">
       {/* SoundList */}
       <div className="w-full text-center mb-2 mt-0">
-        <h2 className="text-3xl font-bold text-white">Sounds</h2>
+        <h2 className="text-3xl font-bold text-black">Sounds</h2>
       </div>
-      <div className="flex flex-wrap justify-center items-center gap-4">
+      <div className="grid grid-cols-2 lg:flex justify-center items-center gap-4">
         {soundList.map((file, index) => (
           <div
             key={file.id}
@@ -249,9 +253,9 @@ function SetMusic({ sessionDuration }) {
 
       {/* EffectList */}
       <div className="w-full text-center mt-2 mb-0">
-        <h2 className="text-3xl font-bold text-white">Effects</h2>
+        <h2 className="text-3xl font-bold text-black">Effects</h2>
       </div>
-      <div className="flex flex-wrap justify-center items-center gap-4">
+      <div className="grid grid-cols-2 lg:flex justify-center items-center gap-4">
         {effectList.map((file, index) => (
           <div
             key={file.id}
@@ -282,9 +286,7 @@ function SetMusic({ sessionDuration }) {
                     min="0"
                     max="100"
                     value={effectVolumeState[index]}
-                    onChange={(event) =>
-                      handleVolumeChange(event, true, index)
-                    }
+                    onChange={(event) => handleVolumeChange(event, true, index)}
                     className="w-5/6 h-2 bg-gray-300 rounded-full appearance-none outline-none"
                   />
                 </>
