@@ -16,7 +16,7 @@ function SetTimer() {
   };
 
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center bg-white p-6 rounded-xl">
       <p className="text-xl text-center lg:text-3xl font-bold mb-4">
         Set The Session Duration
       </p>

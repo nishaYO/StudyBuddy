@@ -30,7 +30,7 @@ function SidePanel() {
         </ul>
       </div>
       {/* navbar for mobild and md screens */}
-      <div className="absolute left-0 mt-2 block lg:hidden">
+      <div className="absolute left-0 mt-2 block lg:hidden z-50">
         <button onClick={() => setShowMenu((prev) => !prev)}>
           {!showMenu ? (
             <svg
@@ -65,13 +65,13 @@ function SidePanel() {
           )}
         </button>
         {showMenu && (
-          <div className="relative p-2 left-1 rounded-lg h-24 w-full bg-white ">
+          <div className="relative p-2 left-1 rounded-lg h-24 w-full bg-purple-500 border-2 border-white">
             <ul className="space-y-2">
               {pages.map((page) => (
                 <li
                   key={page}
-                  className={`cursor-pointer ${
-                    currentPage === page ? "font-bold text-black-500" : ""
+                  className={`cursor-pointer text-white ${
+                    currentPage === page ? "font-extrabold" : ""
                   }`}
                   onClick={() => handlePageClick(page)}
                 >
