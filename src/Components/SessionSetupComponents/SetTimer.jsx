@@ -10,12 +10,16 @@ function SetTimer() {
 
   // Update Redux state when input values change
   const handleSessionDurationChange = (newHours, newMinutes) => {
-    dispatch(setSessionDuration({ hours: newHours, minutes: newMinutes, seconds: 0 }));
+    dispatch(
+      setSessionDuration({ hours: newHours, minutes: newMinutes, seconds: 0 })
+    );
   };
 
   return (
     <div className="flex flex-col justify-center">
-      <p className="text-3xl font-bold mb-4">Set The Session Duration</p>
+      <p className="text-xl text-center lg:text-3xl font-bold mb-4">
+        Set The Session Duration
+      </p>
       <TimeDialer
         hours={sessionDuration.hours}
         minutes={sessionDuration.minutes}
@@ -61,40 +65,28 @@ const TimeDialer = ({ hours, minutes, onSessionDurationChange }) => {
       onSessionDurationChange(hours, typedMinutes % 60);
     }
   };
-
   return (
-    <div className="flex space-x-4 bg-[#D0BFFF] p-5 rounded-md shadow-sm m-2">
-      <div className="flex flex-col items-center">
-        <p className="text-lg">hrs</p>
-        <button className="text-2xl" onClick={handleHrsUp}>
-          <FontAwesomeIcon icon={faAngleUp} />
-        </button>
-        <input
-          className="text-lg w-10 border border-gray-400 rounded p-1"
-          type="number"
-          value={hours.toString().padStart(2, "0")}
-          onChange={handleHoursInputChange}
-          onBlur={handleHoursInputChange}
-        />
-        <button className="text-2xl" onClick={handleHrsDown}>
-          <FontAwesomeIcon icon={faAngleDown} />
-        </button>
-      </div>
-      <div className="flex flex-col items-center">
-        <p className="text-lg">mins</p>
-        <button className="text-2xl" onClick={handleMinsUp}>
-          <FontAwesomeIcon icon={faAngleUp} />
-        </button>
-        <input
-          className="text-lg w-10 border border-gray-400 rounded p-1"
-          type="number"
-          value={minutes.toString().padStart(2, "0")}
-          onChange={handleMinutesInputChange}
-          onBlur={handleMinutesInputChange}
-        />
-        <button className="text-2xl" onClick={handleMinsDown}>
-          <FontAwesomeIcon icon={faAngleDown} />
-        </button>
+    <div>
+      <div className="flex items-center justify-center space-x-5">
+        {/* hour pannel */}
+        <div className="flex flex-col items-center  p-2 h-28 w-28 rounded-lg">
+          <p>Hours</p>
+          <h3 className="text-3xl font-bold">{hours.toString().padStart(2, "0")}</h3>
+          <div className="flex justify-between  space-x-3">
+            <button onClick={handleHrsUp} className="h-8 w-8 rounded-full bg-black/10">+</button>
+            <button onClick={handleHrsDown} className="h-8 w-8 rounded-full bg-black/10">-</button>
+          </div>
+        </div>
+        <h3 className="text-3xl font-bold">:</h3>
+        {/* minute pannel */}
+        <div className="flex flex-col items-center justify-center p-2 h-28 w-28 rounded-lg">
+          <p>Minutes</p>
+          <h3 className="text-3xl font-bold">{minutes.toString().padStart(2, "0")}</h3>
+          <div className="flex justify-between  space-x-3">
+            <button onClick={handleMinsUp} className="h-8 w-8 rounded-full bg-black/10">+</button>
+            <button onClick={handleMinsDown} className="h-8 w-8 rounded-full bg-black/10">-</button>
+          </div>
+        </div>
       </div>
     </div>
   );
