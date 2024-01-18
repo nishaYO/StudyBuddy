@@ -21,6 +21,8 @@ function User() {
   };
 
   const handleLogout = () => {
+    sessionStorage.removeItem('token')
+    navigate('/')
     console.log("Logout");
   };
 
@@ -34,24 +36,24 @@ function User() {
         <p className="text-lg font-medium mb-2">Name: {user.name}</p>
         <p className="text-lg font-medium mb-4">Email: {user.email}</p>
         <div  className="flex flex m-2  gap-10 items-center justify-center">
-          <button
+          {/* <button
             className="bg-[#BEADFA] text-white p-2 rounded-md mb-2"
             onClick={handleChangePassword}
           >
             Change Password
-          </button>
+          </button> */}
           <button
             className="bg-[#BEADFA] text-white p-2 rounded-md mb-2"
             onClick={handleLogout}
           >
             Logout
           </button>
-          <button
+          {/* <button
             className="bg-[#BEADFA] text-white p-2 rounded-md"
             onClick={handleDeleteAccount}
           >
             Delete Account
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
