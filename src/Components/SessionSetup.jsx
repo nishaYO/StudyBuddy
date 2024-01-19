@@ -177,13 +177,17 @@ function SessionSetup() {
 
   return (
     <div className="flex flex-col font-mono bg-[#FFF3DA] p-0 min-h-screen">
+    <div className="top-0 right-0 sticky z-50">
     <Navbar />
+    </div>
     <div className="flex min-h-screen">
+      <div className="fixed ">
       <SidePanel/>
+      </div>
       <div className="flex flex-col items-center justify-center w-full p-4">
         <div className="p-6">
           {/* Main Box in the Center */}
-          <div className="mb-8">
+          <div className="lg:ml-16 mb-24">
             {steps[currentStep]}
           </div>
 
