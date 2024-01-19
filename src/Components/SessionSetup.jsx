@@ -187,7 +187,7 @@ function SessionSetup() {
       <div className="flex flex-col items-center justify-center w-full p-4">
         <div className="p-6">
           {/* Main Box in the Center */}
-          <div className="lg:ml-16 mb-8">
+          <div className="lg:ml-16 mb-24">
             {steps[currentStep]}
           </div>
 
