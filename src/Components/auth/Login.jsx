@@ -4,7 +4,7 @@ import { LOGIN_USER_MUTATION } from "./../../graphql/mutations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 
-const LoginPopup = ({ onClose, signedIn }) => {
+const LoginPopup = ({ onClose, signedIn, showSignup }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [login, { loading, error }] = useMutation(LOGIN_USER_MUTATION);
@@ -16,12 +16,9 @@ const LoginPopup = ({ onClose, signedIn }) => {
 
       if (data && data.login && data.login.loggedIn) {
         localStorage.setItem("token", data.login.token);
-        localStorage.setItem(
-          "user",
-          JSON.stringify(data.login.user)
-        );
+        localStorage.setItem("user", JSON.stringify(data.login.user));
         console.log("Login successful");
-        signedIn(); 
+        signedIn();
         onClose();
       } else {
         console.error("Login failed1");
@@ -84,10 +81,20 @@ const LoginPopup = ({ onClose, signedIn }) => {
           </div>
           <button
             onClick={handleLogin}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            className="bg-blue-500 text-white px-4 py-2 mx-5 rounded-md hover:bg-blue-600 "
             disabled={loading}
           >
             {loading ? "Logging in..." : "Login"}
+          </button>
+          <button
+            onClick={() => {
+              showSignup();
+              handleCloseClick();
+            }}
+            className="bg-white-500 text-blue-600 px-4 py-2  mx-5  rounded-md
+            hover:bg-grey-100 m-4"
+          >
+            Create a new account
           </button>
         </div>
       </div>

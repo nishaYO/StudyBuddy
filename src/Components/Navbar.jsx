@@ -178,10 +178,10 @@ function Navbar() {
           </button>
         )}
         {showRegisterPopUp && (
-          <SignupPopup onClose={closeRegisterPopUp} signedIn={handleSignedIn} />
+          <SignupPopup onClose={closeRegisterPopUp} showLogin={handleLoginClick} signedIn={handleSignedIn} />
         )}
         {showLoginPopUp && (
-          <LoginPopup onClose={closeLoginPopUp} signedIn={handleSignedIn} />
+          <LoginPopup onClose={closeLoginPopUp} showSignup={handleRegisterClick} signedIn={handleSignedIn} />
         )}
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
+import { useLocation } from "wouter";
 
 const GET_USER = gql`
   query GetUser($id: ID!) {
@@ -12,18 +13,19 @@ const GET_USER = gql`
 `;
 
 function User() {
+  const [location, navigate] = useLocation();
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {
     return <p className="text-lg font-medium p-6 rounded-lg flex flex-col items-center justify-center  h-screen " >User information not found. Please log in.</p>;
   }
-  const handleChangePassword = () => {
-    console.log(`Change password for user with ID: ${user.id}`);
-  };
-
   const handleLogout = () => {
-    sessionStorage.removeItem('token')
+    localStorage.removeItem('token')
     navigate('/')
     console.log("Logout");
+  };
+
+  const handleChangePassword = () => {
+    console.log(`Change password for user with ID: ${user.id}`);
   };
 
   const handleDeleteAccount = () => {

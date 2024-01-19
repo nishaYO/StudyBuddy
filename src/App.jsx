@@ -13,18 +13,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const [token, setToken] = useState(false);
-
-if (token) {
-  sessionStorage.setItem("token", JSON.stringify(token));
-}
-
-useEffect(() => {
-  if (sessionStorage.getItem("token")) {
-    let data = JSON.parse(sessionStorage.getItem("token"));
-    setToken(data);
-  }
-}, []);
 
 function App() {
   return (

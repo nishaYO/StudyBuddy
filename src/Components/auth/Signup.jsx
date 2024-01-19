@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { getUserInfo } from "./../../utils/getUserInfo";
 
-const SignupPopup = ({ onClose, signedIn }) => {
+const SignupPopup = ({ onClose, signedIn, showLogin }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -117,6 +117,16 @@ const SignupPopup = ({ onClose, signedIn }) => {
               disabled={loading}
             >
               {loading ? "Signing up..." : "Sign Up"}
+            </button>
+            <button
+              onClick={() => {
+                showLogin();
+                handleCloseClick();
+              }}
+              className="bg-white-500 text-blue-600 px-4 py-2  mx-5  rounded-md
+            hover:bg-grey-100 m-4"
+            >
+              Already registered?{" "}
             </button>
           </form>
           {error && <p className="text-red-500 mt-4">{error.message}</p>}
