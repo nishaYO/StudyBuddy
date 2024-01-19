@@ -73,15 +73,16 @@ const SetBreaks = () => {
 
   return (
     <div className="">
-      <h2>SetBreaks</h2>
+      <h2 className="text-center text-xl font-bold">SetBreaks</h2>
       {/* Grid */}
       <div
+      className="h-44 overscroll-contain"
         style={{
           backgroundColor: "lightblue",
           width: `${gridWidth}px`,
           height: gridHeight,
           margin: "auto",
-          marginTop: "10vh",
+          marginTop: "",
           marginLeft: "10vw",
           position: "relative",
           left: 0,
