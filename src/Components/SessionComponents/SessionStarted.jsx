@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import StudyTime from "./StudyTime";
 import BreakTime from "./BreakTime";
+import NotesForm from "./NotesForm";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation } from "wouter";
@@ -70,6 +71,7 @@ const SessionStarted = ({ handleSessionCompleted, handleSessionEnded }) => {
     }
   };
 
+  // music controls logic
   const [isVolumeMuted, setIsVolumeMuted] = useState(false);
 
   const handleMusicIconClick = () => {
@@ -84,6 +86,10 @@ const SessionStarted = ({ handleSessionCompleted, handleSessionEnded }) => {
     const dotPosition = event.clientX;
     // console.log("Volume control dot moved to:", dotPosition);
   };
+
+  // notes logic
+  const [showNotes, setShowNotes] = useState(false);
+
   const handleEndSessionClick = () => {
     handleSessionEnded();
   };
@@ -114,19 +120,40 @@ const SessionStarted = ({ handleSessionCompleted, handleSessionEnded }) => {
           </div>
         </div>
       </div>
-      <div>
-        {isStudyTime ? (
-          <StudyTime
-            studyDuration={duration}
-            onStudyDurationEnd={onDurationEnd}
-          />
-        ) : (
-          <BreakTime
-            breakDuration={duration}
-            onBreakDurationEnd={onDurationEnd}
-          />
-        )}
+      <div className="flex flex-row items-center justify-center">
+        <span>
+          {isStudyTime ? (
+            <StudyTime
+              studyDuration={duration}
+              onStudyDurationEnd={onDurationEnd}
+            />
+          ) : (
+            <BreakTime
+              breakDuration={duration}
+              onBreakDurationEnd={onDurationEnd}
+            />
+          )}
+        </span>
+        <div className="flex flex-column items-center justify-center">
+          {showNotes ? (
+            <NotesForm
+              onClose={() => {
+                setShowNotes(false);
+              }}
+            />
+          ) : (
+            <button
+              onClick={() => {
+                setShowNotes(true);
+              }}
+              className="bg-purple-500 text-white px-4 py-2 rounded m-2"
+            >
+              Take Notes
+            </button>
+          )}
+        </div>
       </div>
+
       {/* bottom tray */}
       <div className="bg-green-400 p-3 flex flex-row items-center justify-center gap-10 w-screen">
         <button
@@ -136,7 +163,9 @@ const SessionStarted = ({ handleSessionCompleted, handleSessionEnded }) => {
           End session
         </button>
         {/* stats of the current session */}
-        <div className="bg-red-300 w-[400px] flex flex-row items-center justify-center gap-10">{stats}</div>
+        <div className="bg-red-300 w-[400px] flex flex-row items-center justify-center gap-10">
+          {stats}
+        </div>
       </div>
     </div>
   );
