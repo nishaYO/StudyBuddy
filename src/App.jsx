@@ -4,6 +4,7 @@ import Welcome from "./Components/Welcome";
 import SessionSetup from "./Components/SessionSetup";
 import Session from "./Components/Session";
 import Reports from "./Components/Reports";
+import Notes from "./Components/Notes";
 import Help from "./Components/Help";
 import EditSession from "./Components/EditSession";
 import User from "./Components/auth/User";
@@ -24,6 +25,7 @@ function App() {
           <Route path="/session" component={Session} />
           <Route path="/edit-session" component={EditSession} />
           <Route path="/reports" component={Reports} />
+          <Route path="/notes" component={Notes} />
           <Route path="/help" component={Help} />
           <Route path="/user" component={User} />
         </Switch>

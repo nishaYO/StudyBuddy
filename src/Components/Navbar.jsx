@@ -141,6 +141,11 @@ function Navbar() {
         {showNotifications && <NotificationBox onClose={closeNotifications} />}
         {/* Reports Button */}
 
+        <Link href="/notes">
+          <button className="bg-purple-600 hover:bg-purple-400 text-white px-4 py-1 rounded border-2 border-black">
+            See Notes
+          </button>
+        </Link>
         <Link href="/reports">
           <button className="bg-purple-600 hover:bg-purple-400 text-white px-4 py-1 rounded border-2 border-black">
             Reports

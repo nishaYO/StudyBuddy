@@ -8,3 +8,19 @@ export const AUTO_LOGIN_QUERY = gql`
     }
   }
 `;
+
+// Get all notes for a user
+export const GET_ALL_NOTES = gql`
+  query GetAllNotes($userID: ID!) {
+    getAllNotes(userID: $userID) {
+      success
+      message
+      notes {
+        id
+        title
+        content
+        date
+      }
+    }
+  }
+`;
