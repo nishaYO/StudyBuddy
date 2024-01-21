@@ -24,3 +24,19 @@ export const GET_ALL_NOTES = gql`
     }
   }
 `;
+
+export const GET_NOTE = gql`
+  query GetNote($noteId: ID!) {
+    getNote(noteId: $noteId) {
+      success
+      message
+      note {
+        id
+        title
+        content
+        date
+      }
+    }
+  }
+`;
+

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_NOTES } from "../graphql/queries";
 import useLocation from "wouter/use-location";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 const Notes = () => {
   const [location, navigate] = useLocation();
@@ -43,6 +45,11 @@ const Notes = () => {
           >
             <div className="p-6">
               <h3 className="text-2xl font-semibold mb-2 text-purple-400">{note.title}</h3>
+              <FontAwesomeIcon
+                  icon={faPen}
+                  className="text-gray-600 hover:text-gray-800 cursor-pointer"
+                  onClick={() => navigate(`/edit/${note.id}`)} // Navigate to edit page on click
+                />
               <p className="text-black-700">{note.content}</p>
             </div>
             <div className="bg-[#D0BFFF] text-white p-3 flex justify-between items-center">

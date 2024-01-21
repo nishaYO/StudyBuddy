@@ -5,6 +5,7 @@ import SessionSetup from "./Components/SessionSetup";
 import Session from "./Components/Session";
 import Reports from "./Components/Reports";
 import Notes from "./Components/Notes";
+import EditNote from "./Components/EditNote";
 import Help from "./Components/Help";
 import EditSession from "./Components/EditSession";
 import User from "./Components/auth/User";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/edit-session" component={EditSession} />
           <Route path="/reports" component={Reports} />
           <Route path="/notes" component={Notes} />
+          <Route path="/edit/:noteId" component={EditNote} />
           <Route path="/help" component={Help} />
           <Route path="/user" component={User} />
         </Switch>

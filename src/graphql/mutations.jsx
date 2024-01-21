@@ -50,3 +50,18 @@ export const NEW_NOTE_MUTATION = gql`
     }
   }
 `;
+
+export const UPDATE_NOTE = gql`
+  mutation UpdateNote($noteId: ID!, $input: updateNoteInput!) {
+    updateNote(noteId: $noteId, input: $input) {
+      success
+      message
+      note {
+        id
+        title
+        content
+        date
+      }
+    }
+  }
+`;
