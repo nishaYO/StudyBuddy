@@ -35,3 +35,18 @@ export const LOGIN_USER_MUTATION = gql`
     }
   }
 `;
+
+export const NEW_NOTE_MUTATION = gql`
+  mutation NewNote($input: newNoteInput!) {
+    newNote(input: $input) {
+      success
+      note {
+        id
+        title
+        content
+        date
+      }
+      message
+    }
+  }
+`;

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { NEW_NOTE_MUTATION } from "../../graphql/mutations";
 
-function NotesForm({onClose}) {
+function NotesForm({ onClose }) {
   const [noteData, setNoteData] = useState({
     title: "",
     body: "",
@@ -13,11 +15,36 @@ function NotesForm({onClose}) {
     });
   };
 
-  const handleSubmit = (e) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const [newNote, { loading, error }] = useMutation(NEW_NOTE_MUTATION);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add logic to save the note data to the backend (GraphQL mutation, API call, etc.)
-    // For now, you can log the data to the console
     console.log("Note Data Submitted:", noteData);
+
+    try {
+      console.log(user.id, noteData.title, noteData.body);
+      const { data } = await newNote({
+        variables: {
+          input: {
+            userID: String(user.id),
+            title: String(noteData.title), 
+            content: String(noteData.body),  
+          },
+        },
+      });
+
+      console.log("data: ", data);
+
+      if (data && data.newNote.success && data.newNote.note) {
+        console.log(`note successfully added. Title: ${data.newNote.note.title}, Content: ${data.newNote.note.content}`);
+      } else {
+        console.log(`Error: ${data.newNote.message}`);
+      }
+    } catch (error) {
+      console.error("note creation failed:", error.message);
+    }
   };
 
   const inputStyle =
@@ -69,9 +96,10 @@ function NotesForm({onClose}) {
           type="submit"
           className={`w-full p-3 bg-[#BEADFA] text-white rounded-md text-sm`}
         >
-          Save
+          {loading ? "Saving..." : "Save"}
         </button>
       </form>
+      {error && <p className="text-red-500 mt-4">{error.message}</p>}
     </div>
   );
 }
