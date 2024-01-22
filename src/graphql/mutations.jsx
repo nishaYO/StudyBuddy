@@ -65,3 +65,12 @@ export const UPDATE_NOTE = gql`
     }
   }
 `;
+
+export const DELETE_NOTE_MUTATION = gql`
+  mutation DeleteNote($noteId: ID!) {
+    deleteNote(noteId: $noteId) {
+      success
+      message
+    }
+  }
+`;
