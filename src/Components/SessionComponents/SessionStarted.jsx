@@ -37,6 +37,7 @@ const SessionStarted = ({ handleSessionCompleted, handleSessionEnded }) => {
   };
 
   const stats = formatStats(sampleStats);
+
   const [location, navigate] = useLocation();
   const sessionIntervals = useSelector((state) => state.sessionIntervals);
   const [counter, setCounter] = useState(0);
