@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-const Countdown = ({ timeObject, onCountdownEnd }) => {
+const Countdown = ({ timeObject, isPaused, onCountdownEnd }) => {
   const { hours, minutes, seconds } = timeObject;
   const initialTimeInSeconds =
     parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
 
   const [timeRemaining, setTimeRemaining] = useState(initialTimeInSeconds);
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimeRemaining((prevTime) => {
-        if (prevTime > 0) {
-          return prevTime - 1;
-        } else {
-          clearInterval(interval); // Stop the interval when time reaches 0
-          onCountdownEnd();
-          console.log("Countdown reached zero!");
-          return 0;
-        }
-      });
+      if (!isPaused) {
+        setTimeRemaining((prevTime) => {
+          if (prevTime > 0) {
+            return prevTime - 1;
+          } else {
+            clearInterval(interval);
+            onCountdownEnd();
+            console.log('Countdown reached zero!');
+            return 0;
+          }
+        });
+      }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isPaused, onCountdownEnd]);
 
   const formatTime = (time) => {
     const pad = (num) => (num < 10 ? `0${num}` : num);

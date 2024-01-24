@@ -61,7 +61,7 @@ function Navbar() {
       email: user.email,
       token: token,
     };
-    console.log(inputVariables);
+    // console.log(inputVariables);
   }
   const { data, loading, error } = useQuery(AUTO_LOGIN_QUERY, {
     variables: { input: inputVariables },

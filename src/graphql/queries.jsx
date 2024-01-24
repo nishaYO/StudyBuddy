@@ -40,3 +40,18 @@ export const GET_NOTE = gql`
   }
 `;
 
+export const FETCH_REPORTS = gql`
+query FetchReports {
+  fetchReports {
+    success
+    message
+    reports {
+      startTime
+      endTime
+      sessionDuration
+      sessionIntervals
+      userID
+    }
+  }
+}
+`;

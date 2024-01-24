@@ -21,8 +21,8 @@ const sampleSessionData = {
     },
   ],
   sessionStartedTimestamp: "2023-11-17T12:30:00Z",
-  sessionIndex: 1,
   sessionEndedTimestamp: "2023-11-17T14:00:00Z",
+  sessionIndex: 1,
   musicFrequencyArray: [1, 0, 1, 0, 1, 0],
 };
 

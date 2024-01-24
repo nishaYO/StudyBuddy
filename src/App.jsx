@@ -8,6 +8,7 @@ import Notes from "./Components/Notes";
 import EditNote from "./Components/EditNote";
 import Help from "./Components/Help";
 import EditSession from "./Components/EditSession";
+import TimerParent from "./Components/TimerParent";
 import User from "./Components/auth/User";
 
 const client = new ApolloClient({
@@ -30,6 +31,7 @@ function App() {
           <Route path="/edit/:noteId" component={EditNote} />
           <Route path="/help" component={Help} />
           <Route path="/user" component={User} />
+          <Route path="/timerparent" component={TimerParent} />
         </Switch>
       </Router>
     </ApolloProvider>

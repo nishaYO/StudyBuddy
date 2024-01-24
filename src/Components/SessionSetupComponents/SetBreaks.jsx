@@ -50,7 +50,7 @@ const SetBreaks = () => {
   const getNumsForTimeline = () => {
     let num = Number(localSessionDuration.hours);
     if (localSessionDuration.minutes != 0) {
-      console.log(typeof num);
+      // console.log(typeof num);
       num += 1;
     }
     return Array.from({ length: num + 1 }, (_, index) => index);

@@ -57,7 +57,7 @@ function SessionSetup() {
         const timeB = ConvertTimeToMinutes({ timeObject: b.breakStartTime });
         return timeA - timeB;
       });
-      console.log("sortedBreaks:", sortedBreaks);
+      // console.log("sortedBreaks:", sortedBreaks);
       dispatch(setBreaks(sortedBreaks));
       return sortedBreaks;
     } catch (error) {
