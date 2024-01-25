@@ -48,7 +48,7 @@ const SetBreaks = () => {
   };
 
   const getNumsForTimeline = () => {
-    let num = localSessionDuration.hours;
+    let num = Number(localSessionDuration.hours);
     if (localSessionDuration.minutes != 0) {
       num += 1;
     }
