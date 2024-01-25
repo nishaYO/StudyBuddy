@@ -72,7 +72,7 @@ const SetBreaks = () => {
 
   return (
     <div>
-      <h2>SetBreaks</h2>
+      <h2 className="text-center text-2xl font-bold">SetBreaks</h2>
       {/* Grid */}
       <div
         style={{

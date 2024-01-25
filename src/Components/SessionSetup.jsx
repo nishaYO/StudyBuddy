@@ -177,35 +177,43 @@ function SessionSetup() {
 
   return (
     <div className="flex flex-col font-mono bg-[#FFF3DA] p-0 min-h-screen">
+  <div className="sticky top-0 z-50">
     <Navbar />
-    <div className="flex min-h-screen">
-      <SidePanel/>
-      <div className="flex flex-col items-center justify-center w-full p-4">
-        <div className="p-6">
-          {/* Main Box in the Center */}
-          <div className="mb-8">
+  </div>
+  <div className="flex min-h-screen">
+    <div className="fixed left-0">
+      <SidePanel />
+    </div>
+    <div className="flex flex-col items-center justify-center w-full p-4">
+      <div className="p-6">
+        {/* Main Box in the Center */}
+        <div className="mb-8">
+          {/* Ensure proper spacing for the content */}
+          <div className="max-w-screen-md mx-auto">
             {steps[currentStep]}
           </div>
+        </div>
 
-          {/* Navigation Buttons */}
-          <div className="flex justify-between">
-            <button
-              className="bg-purple-500 text-white px-4 py-2 rounded-md"
-              onClick={handlePreviousClick}
-            >
-              Previous
-            </button>
-            <button
-              className="bg-purple-500 text-white px-4 py-2 rounded-md"
-              onClick={handleNextClick}
-            >
-              {currentStep === steps.length - 1 ? "Start Session" : "Next"}
-            </button>
-          </div>
+        {/* Navigation Buttons */}
+        <div className="flex justify-between py-12 p-3">
+          <button
+            className="bg-purple-500 text-white px-4 py-2 rounded-md"
+            onClick={handlePreviousClick}
+          >
+            Previous
+          </button>
+          <button
+            className="bg-purple-500 text-white px-4 py-2 rounded-md"
+            onClick={handleNextClick}
+          >
+            {currentStep === steps.length - 1 ? "Start Session" : "Next"}
+          </button>
         </div>
       </div>
     </div>
   </div>
+</div>
+
   );
 }
 

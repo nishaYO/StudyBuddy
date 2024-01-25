@@ -202,7 +202,7 @@ function SetMusic({ sessionDuration }) {
       <div className="w-full text-center mb-2 mt-0">
         <h2 className="text-3xl font-bold text-black">Sounds</h2>
       </div>
-      <div className="grid grid-cols-2 lg:flex justify-center items-center gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {soundList.map((file, index) => (
           <div
             key={file.id}
@@ -255,7 +255,7 @@ function SetMusic({ sessionDuration }) {
       <div className="w-full text-center mt-2 mb-0">
         <h2 className="text-3xl font-bold text-black">Effects</h2>
       </div>
-      <div className="grid grid-cols-2 lg:flex justify-center items-center gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {effectList.map((file, index) => (
           <div
             key={file.id}
