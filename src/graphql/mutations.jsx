@@ -35,3 +35,51 @@ export const LOGIN_USER_MUTATION = gql`
     }
   }
 `;
+
+export const NEW_NOTE_MUTATION = gql`
+  mutation NewNote($input: newNoteInput!) {
+    newNote(input: $input) {
+      success
+      note {
+        id
+        title
+        content
+        date
+      }
+      message
+    }
+  }
+`;
+
+export const UPDATE_NOTE = gql`
+  mutation UpdateNote($noteId: ID!, $input: updateNoteInput!) {
+    updateNote(noteId: $noteId, input: $input) {
+      success
+      message
+      note {
+        id
+        title
+        content
+        date
+      }
+    }
+  }
+`;
+
+export const DELETE_NOTE_MUTATION = gql`
+  mutation DeleteNote($noteId: ID!) {
+    deleteNote(noteId: $noteId) {
+      success
+      message
+    }
+  }
+`;
+
+export const SEND_SESSION_DATA_MUTATION = gql`
+  mutation SendSessionData($sessionData: SessionInput!) {
+    sendSessionData(sessionData: $sessionData) {
+      success
+      message
+    }
+  }
+`;

@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import Countdown from "./Countdown";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPause } from "@fortawesome/free-solid-svg-icons";
 
-const StudyTime = ({ studyDuration, onStudyDurationEnd }) => {
+const StudyTime = ({ studyDuration, onStudyDurationEnd, isPaused }) => {
   const handleCountdownEnded = () => {
     onStudyDurationEnd();
   };
-  const handlePauseClick = () => {
+  const handleSkipClick = () => {
     handleCountdownEnded();
     // todo: modify the breaks array
   };
@@ -16,15 +14,16 @@ const StudyTime = ({ studyDuration, onStudyDurationEnd }) => {
       <div className="flex items-center justify-center h-screen gap-4">
         <h2 className="text-5xl font-bold m-7 ">Study Time</h2>
         <button
-          className="bg-white text-purple-500 rounded p-4 w-30 focus:outline-none"
-          onClick={handlePauseClick}
+          className="bg-white text-black-500 font-bold rounded p-4 w-30 focus:outline-none"
+          onClick={handleSkipClick}
         >
-          <FontAwesomeIcon icon={faPause} size="xl" />
+          Skip{" "}
         </button>
       </div>
       <Countdown
         timeObject={studyDuration}
         onCountdownEnd={handleCountdownEnded}
+        isPaused={isPaused}
       />
     </div>
   );

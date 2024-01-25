@@ -50,6 +50,7 @@ const SetBreaks = () => {
   const getNumsForTimeline = () => {
     let num = Number(localSessionDuration.hours);
     if (localSessionDuration.minutes != 0) {
+      // console.log(typeof num);
       num += 1;
     }
     return Array.from({ length: num + 1 }, (_, index) => index);
@@ -75,12 +76,13 @@ const SetBreaks = () => {
       <h2 className="text-center text-2xl font-bold">SetBreaks</h2>
       {/* Grid */}
       <div
+      className="h-44 overscroll-contain w-[250px] lg:w-[500px]"
         style={{
           backgroundColor: "lightblue",
-          width: `${gridWidth}px`,
+          // width: `${gridWidth}px`,
           height: gridHeight,
           margin: "auto",
-          marginTop: "10vh",
+          marginTop: "",
           marginLeft: "10vw",
           position: "relative",
           left: 0,
@@ -89,6 +91,7 @@ const SetBreaks = () => {
         onMouseDown={handleGridClick}
       >
         {/* timeline */}
+        <div className="">
         {Nums.map((time, index) => (
           <div
             key={index}
@@ -107,10 +110,11 @@ const SetBreaks = () => {
             {index === 0 && <></>}
           </div>
         ))}
+        </div>
         {/* break containers */}
         {breaks.map((breakItem, index) => (
           <CreateBreakDiv
-            key={index} //don't remove it as it is needed in a list to make all items unique  
+            key={index} //don't remove it as it is needed in a list to make all items unique
             index={index}
             top={ConvertTimeToPixel({ timeObject: breakItem.breakStartTime })}
             breakDivHeight={ConvertTimeToPixel({

@@ -1,17 +1,21 @@
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import { Router, Route, Switch } from 'wouter';
-import Welcome from './Components/Welcome';
-import SessionSetup from './Components/SessionSetup';
-import Session from './Components/Session';
-import Reports from './Components/Reports';
-import Help from './Components/Help';
-import EditSession from './Components/EditSession';
-import User from './Components/auth/User';
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { Router, Route, Switch } from "wouter";
+import Welcome from "./Components/Welcome";
+import SessionSetup from "./Components/SessionSetup";
+import Session from "./Components/Session";
+import Reports from "./Components/Reports";
+import Notes from "./Components/Notes";
+import EditNote from "./Components/EditNote";
+import Help from "./Components/Help";
+import EditSession from "./Components/EditSession";
+import TimerParent from "./Components/TimerParent";
+import User from "./Components/auth/User";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
 });
+
 
 function App() {
   return (
@@ -23,8 +27,11 @@ function App() {
           <Route path="/session" component={Session} />
           <Route path="/edit-session" component={EditSession} />
           <Route path="/reports" component={Reports} />
+          <Route path="/notes" component={Notes} />
+          <Route path="/edit/:noteId" component={EditNote} />
           <Route path="/help" component={Help} />
           <Route path="/user" component={User} />
+          <Route path="/timerparent" component={TimerParent} />
         </Switch>
       </Router>
     </ApolloProvider>

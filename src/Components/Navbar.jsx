@@ -61,7 +61,7 @@ function Navbar() {
       email: user.email,
       token: token,
     };
-    console.log(inputVariables);
+    // console.log(inputVariables);
   }
   const { data, loading, error } = useQuery(AUTO_LOGIN_QUERY, {
     variables: { input: inputVariables },
@@ -141,6 +141,11 @@ function Navbar() {
         {showNotifications && <NotificationBox onClose={closeNotifications} />}
         {/* Reports Button */}
 
+        <Link href="/notes">
+          <button className="bg-purple-600 hover:bg-purple-400 text-white px-4 py-1 rounded border-2 border-black">
+            See Notes
+          </button>
+        </Link>
         <Link href="/reports">
           <button className="bg-purple-600 hover:bg-purple-400 text-white px-4 py-1 rounded border-2 border-black">
             Reports
@@ -178,10 +183,10 @@ function Navbar() {
           </button>
         )}
         {showRegisterPopUp && (
-          <SignupPopup onClose={closeRegisterPopUp} signedIn={handleSignedIn} />
+          <SignupPopup onClose={closeRegisterPopUp} showLogin={handleLoginClick} signedIn={handleSignedIn} />
         )}
         {showLoginPopUp && (
-          <LoginPopup onClose={closeLoginPopUp} signedIn={handleSignedIn} />
+          <LoginPopup onClose={closeLoginPopUp} showSignup={handleRegisterClick} signedIn={handleSignedIn} />
         )}
       </div>
     </div>

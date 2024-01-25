@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
+import { useLocation } from "wouter";
 
 const GET_USER = gql`
   query GetUser($id: ID!) {
@@ -12,16 +13,19 @@ const GET_USER = gql`
 `;
 
 function User() {
+  const [location, navigate] = useLocation();
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {
     return <p className="text-lg font-medium p-6 rounded-lg flex flex-col items-center justify-center  h-screen " >User information not found. Please log in.</p>;
   }
-  const handleChangePassword = () => {
-    console.log(`Change password for user with ID: ${user.id}`);
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    navigate('/')
+    console.log("Logout");
   };
 
-  const handleLogout = () => {
-    console.log("Logout");
+  const handleChangePassword = () => {
+    console.log(`Change password for user with ID: ${user.id}`);
   };
 
   const handleDeleteAccount = () => {
@@ -34,24 +38,24 @@ function User() {
         <p className="text-lg font-medium mb-2">Name: {user.name}</p>
         <p className="text-lg font-medium mb-4">Email: {user.email}</p>
         <div  className="flex flex m-2  gap-10 items-center justify-center">
-          <button
+          {/* <button
             className="bg-[#BEADFA] text-white p-2 rounded-md mb-2"
             onClick={handleChangePassword}
           >
             Change Password
-          </button>
+          </button> */}
           <button
             className="bg-[#BEADFA] text-white p-2 rounded-md mb-2"
             onClick={handleLogout}
           >
             Logout
           </button>
-          <button
+          {/* <button
             className="bg-[#BEADFA] text-white p-2 rounded-md"
             onClick={handleDeleteAccount}
           >
             Delete Account
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

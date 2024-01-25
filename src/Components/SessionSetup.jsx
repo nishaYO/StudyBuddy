@@ -57,7 +57,7 @@ function SessionSetup() {
         const timeB = ConvertTimeToMinutes({ timeObject: b.breakStartTime });
         return timeA - timeB;
       });
-      console.log("sortedBreaks:", sortedBreaks);
+      // console.log("sortedBreaks:", sortedBreaks);
       dispatch(setBreaks(sortedBreaks));
       return sortedBreaks;
     } catch (error) {
@@ -177,6 +177,7 @@ function SessionSetup() {
 
   return (
     <div className="flex flex-col font-mono bg-[#FFF3DA] p-0 min-h-screen">
+
   <div className="sticky top-0 z-50">
     <Navbar />
   </div>
@@ -190,6 +191,7 @@ function SessionSetup() {
         <div className="mb-8">
           {/* Ensure proper spacing for the content */}
           <div className="max-w-screen-md mx-auto">
+
             {steps[currentStep]}
           </div>
         </div>

@@ -2,7 +2,12 @@
 Study Buddy is an app to help you study more productively. It provides all the tools you may need while studying at one place to give you hassle free learning experience.
 
 # Tech stack 
-React + Vite and Tailwind CSS
+- Frontend => React + Vite and Tailwind CSS 
+- Backend => Node and express and graphql with mongoDB database. 
+
+# Contributors 
+- [Nisha](https://github.com/nishaYO)
+- [Adarsh](https://github.com/adarshswaminath)
 
 # UserFlow 
 - set timer for session and breaks
