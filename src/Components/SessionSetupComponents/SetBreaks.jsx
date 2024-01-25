@@ -72,8 +72,8 @@ const SetBreaks = () => {
   const Nums = getNumsForTimeline();
 
   return (
-    <div className="">
-      <h2 className="text-center text-xl font-bold">SetBreaks</h2>
+    <div>
+      <h2 className="text-center text-2xl font-bold">SetBreaks</h2>
       {/* Grid */}
       <div
       className="h-44 overscroll-contain w-[250px] lg:w-[500px]"
