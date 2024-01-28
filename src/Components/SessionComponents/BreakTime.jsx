@@ -22,7 +22,7 @@ const BreakTime = ({ breakDuration, onBreakDurationEnd, isPaused }) => {
         </button>
       </div>
       <Countdown
-        timeObject={breakDuration}
+        initialDuration={breakDuration}
         onCountdownEnd={handleCountdownEnded}
         isPaused={isPaused}
       />
