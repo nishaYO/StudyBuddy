@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import breaksReducer from "./breakslice";
 import sessionDurationReducer from "./sessionDuration";
 import sessionIntervalsReducer from "./sessionIntervals";
+import sessionStartTimeReducer from "./sessionStartTime";
 import notificationsReducer from "./notifications";
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
         breaks: breaksReducer,
         sessionDuration: sessionDurationReducer,
         sessionIntervals: sessionIntervalsReducer,
+        sessionStartTime: sessionStartTimeReducer,
         notifications: notificationsReducer,
     },
 });

@@ -7,17 +7,18 @@ import MusicControls from "./MusicControls";
 import SessionPaused from "./SessionPaused";
 import { useSelector } from "react-redux";
 
-const SessionStarted = ({ handleSessionCompleted, handleSessionEnded }) => {
+const SessionStarted = ({
+  handleSessionCompleted,
+  handleSessionEnded,
+  setIntervalSwitchTime,
+  setPauseTime,
+  setResumeTime,
+}) => {
   const [showNotes, setShowNotes] = useState(false);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
-  // states to send to backend after session complete
-  const [intervalSwitchTime, setIntervalSwitchTime] = useState([]);
-  const [pauseTime, setPauseTime] = useState([]);
-  const [resumeTime, setResumeTime] = useState([]);
-
-  // check if study or break interval
+ // check if study or break interval
   const sessionIntervals = useSelector((state) => state.sessionIntervals);
   const [counter, setCounter] = useState(0);
   const currentSessionInterval = sessionIntervals[counter];

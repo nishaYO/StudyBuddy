@@ -6,7 +6,7 @@ import SidePanel from "./SidePanel";
 import Navbar from "./Navbar";
 import { useState } from "react";
 import { setSessionIntervals } from "./../redux/sessionIntervals";
-import { setBreaks } from "./../redux/breakslice";
+import { setSessionStartTime } from "./../redux/sessionStartTime";
 import { useDispatch, useSelector } from "react-redux";
 import ConvertTimeToMinutes from "./../utils/ConvertTimeToMinutes";
 
@@ -58,7 +58,7 @@ function SessionSetup() {
         return timeA - timeB;
       });
       // console.log("sortedBreaks:", sortedBreaks);
-      dispatch(setBreaks(sortedBreaks));
+      dispatch(setSessionStartTime(sortedBreaks));
       return sortedBreaks;
     } catch (error) {
       console.error("Error while sorting breaks:", error);
@@ -155,6 +155,8 @@ function SessionSetup() {
         // Increment step index
         if (sessionIntervalCompleted) {
           navigate("/session");
+          const startTime = Date.now();
+          dispatch(setBreaks(startTime));
           setSessionIntervalCompleted(false);
         }
       }
@@ -177,45 +179,42 @@ function SessionSetup() {
 
   return (
     <div className="flex flex-col font-mono bg-[#FFF3DA] p-0 min-h-screen">
-
-  <div className="sticky top-0 z-50">
-    <Navbar />
-  </div>
-  <div className="flex min-h-screen">
-    <div className="fixed left-0">
-      <SidePanel />
-    </div>
-    <div className="flex flex-col items-center justify-center w-full p-4">
-      <div className="p-6">
-        {/* Main Box in the Center */}
-        <div className="mb-8">
-          {/* Ensure proper spacing for the content */}
-          <div className="max-w-screen-md mx-auto">
-
-            {steps[currentStep]}
-          </div>
+      <div className="sticky top-0 z-50">
+        <Navbar />
+      </div>
+      <div className="flex min-h-screen">
+        <div className="fixed left-0">
+          <SidePanel />
         </div>
+        <div className="flex flex-col items-center justify-center w-full p-4">
+          <div className="p-6">
+            {/* Main Box in the Center */}
+            <div className="mb-8">
+              {/* Ensure proper spacing for the content */}
+              <div className="max-w-screen-md mx-auto">
+                {steps[currentStep]}
+              </div>
+            </div>
 
-        {/* Navigation Buttons */}
-        <div className="flex justify-between py-12 p-3">
-          <button
-            className="bg-purple-500 text-white px-4 py-2 rounded-md"
-            onClick={handlePreviousClick}
-          >
-            Previous
-          </button>
-          <button
-            className="bg-purple-500 text-white px-4 py-2 rounded-md"
-            onClick={handleNextClick}
-          >
-            {currentStep === steps.length - 1 ? "Start Session" : "Next"}
-          </button>
+            {/* Navigation Buttons */}
+            <div className="flex justify-between py-12 p-3">
+              <button
+                className="bg-purple-500 text-white px-4 py-2 rounded-md"
+                onClick={handlePreviousClick}
+              >
+                Previous
+              </button>
+              <button
+                className="bg-purple-500 text-white px-4 py-2 rounded-md"
+                onClick={handleNextClick}
+              >
+                {currentStep === steps.length - 1 ? "Start Session" : "Next"}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
   );
 }
 

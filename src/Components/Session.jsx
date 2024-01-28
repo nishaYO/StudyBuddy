@@ -2,38 +2,55 @@ import React, { useState } from "react";
 import SessionStarted from "./SessionComponents/SessionStarted";
 import SessionCompleted from "./SessionComponents/SessionCompleted";
 import SessionEnded from "./SessionComponents/SessionEnded";
+import SendSessionData from "./SendSessionData";
 
 const Session = () => {
   const [sessionCompleted, setSessionCompleted] = useState(false);
   const [sessionEnded, setSessionEnded] = useState(false);
-  
-  const startTime = Date.now();
-  console.log("startTime", new Date(startTime).toLocaleString());
-  
-  let endTime;
-  
+
+  // states to send to backend after session complete
+  const [intervalSwitchTime, setIntervalSwitchTime] = useState([]);
+  const [pauseTime, setPauseTime] = useState([]);
+  const [resumeTime, setResumeTime] = useState([]);
+
+  const handleSendSessionData = (endTime, intervalSwitchTime, pauseTime, resumeTime) => {
+    return (
+      <SendSessionData
+        endTime={endTime}
+        intervalSwitchTime={intervalSwitchTime}
+        pauseTime={pauseTime}
+        resumeTime={resumeTime}
+      />
+    );
+  };
+
   const handleSessionCompleted = () => {
-    endTime = Date.now()
-    console.log("endTime", new Date(endTime).toLocaleString())
     setSessionCompleted(true);
   };
 
   const handleSessionEnded = () => {
-    endTime = Date.now()
-    console.log("endTime", new Date(endTime).toLocaleString())
     setSessionEnded(true);
   };
 
   return (
     <div className="flex items-center justify-center h-screen w-100">
       {sessionEnded ? (
-        <SessionEnded />
+        <>
+          <SessionEnded />
+          {handleSendSessionData(Date.now(), intervalSwitchTime, pauseTime, resumeTime)}
+        </>
       ) : sessionCompleted ? (
-        <SessionCompleted />
+        <>
+          <SessionCompleted />
+          {handleSendSessionData(Date.now(), intervalSwitchTime, pauseTime, resumeTime)}
+        </>
       ) : (
         <SessionStarted
           handleSessionCompleted={handleSessionCompleted}
           handleSessionEnded={handleSessionEnded}
+          setIntervalSwitchTime={setIntervalSwitchTime}
+          setPauseTime={setPauseTime}
+          setResumeTime={setResumeTime}
         />
       )}
     </div>
