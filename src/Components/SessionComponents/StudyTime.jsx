@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Countdown from "./Countdown";
 
 const StudyTime = ({ studyDuration, onStudyDurationEnd, isPaused }) => {
@@ -7,8 +7,8 @@ const StudyTime = ({ studyDuration, onStudyDurationEnd, isPaused }) => {
   };
   const handleSkipClick = () => {
     handleCountdownEnded();
-    // todo: modify the breaks array
   };
+
   return (
     <div className="bg-purple-500 rounded-lg p-8 text-center w-[600px] h-[400px] flex flex-col items-center justify-center gap-4">
       <div className="flex items-center justify-center h-screen gap-4">
@@ -21,7 +21,7 @@ const StudyTime = ({ studyDuration, onStudyDurationEnd, isPaused }) => {
         </button>
       </div>
       <Countdown
-        timeObject={studyDuration}
+        initialDuration={studyDuration}
         onCountdownEnd={handleCountdownEnded}
         isPaused={isPaused}
       />

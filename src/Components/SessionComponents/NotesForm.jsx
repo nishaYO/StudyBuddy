@@ -105,7 +105,7 @@ function NotesForm({ onClose }) {
 
         <button
           type="submit"
-          className={`w-full p-3 bg-[#BEADFA] text-white rounded-md text-sm`}
+          className={`w-full p-3 bg-[#BEADFA] text-[#F4EAE0] font-cursive font-bold rounded-md text-sm focus:outline-none hover:bg-[#8F7DF5] transition-all duration-300 ease-in-out`}
         >
           {loading ? "Saving..." : "Save"}
         </button>

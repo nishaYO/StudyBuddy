@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Countdown from "./Countdown";
 
 const BreakTime = ({ breakDuration, onBreakDurationEnd, isPaused }) => {
@@ -8,7 +8,6 @@ const BreakTime = ({ breakDuration, onBreakDurationEnd, isPaused }) => {
 
   const handleSkipClick = () => {
     handleCountdownEnded();
-    // todo: modify the breaks array
   };
 
   return (

@@ -5,7 +5,7 @@ import { useLocation } from "wouter";
 function SessionEnded() {
   const totalStudyDuration = 2;
   const [location, navigate] = useLocation();
-
+  
   return (
     <div className="flex flex-col h-screen bg-red-100 w-[1600px]">
       <Navbar />
@@ -13,9 +13,9 @@ function SessionEnded() {
         <div className="bg-white p-8 rounded shadow-md text-center mx-auto">
           <h2 className="text-3xl font-semibold mb-4">Session Ended</h2>
           <div className="flex justify-center mb-4">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2">
+            {/* <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2">
               Resume The session
-            </button>
+            </button> */}
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
               onClick={() => navigate("/session-setup")}

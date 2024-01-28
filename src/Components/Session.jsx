@@ -6,15 +6,21 @@ import SessionEnded from "./SessionComponents/SessionEnded";
 const Session = () => {
   const [sessionCompleted, setSessionCompleted] = useState(false);
   const [sessionEnded, setSessionEnded] = useState(false);
+  
+  const startTime = Date.now();
+  console.log("startTime", new Date(startTime).toLocaleString());
+  
   let endTime;
+  
   const handleSessionCompleted = () => {
     endTime = Date.now()
-    console.log(new Date(endTime).toLocaleString())
+    console.log("endTime", new Date(endTime).toLocaleString())
     setSessionCompleted(true);
   };
+
   const handleSessionEnded = () => {
     endTime = Date.now()
-    console.log(new Date(endTime).toLocaleString())
+    console.log("endTime", new Date(endTime).toLocaleString())
     setSessionEnded(true);
   };
 
