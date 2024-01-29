@@ -156,7 +156,7 @@ function SessionSetup() {
         if (sessionIntervalCompleted) {
           navigate("/session");
           const startTime = Date.now();
-          dispatch(setBreaks(startTime));
+          dispatch(setSessionStartTime(startTime));
           setSessionIntervalCompleted(false);
         }
       }
