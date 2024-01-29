@@ -74,12 +74,12 @@ export const DELETE_NOTE_MUTATION = gql`
     }
   }
 `;
-
 export const SEND_SESSION_DATA_MUTATION = gql`
-  mutation SendSessionData($sessionData: SessionInput!) {
-    sendSessionData(sessionData: $sessionData) {
+  mutation SendSessionData($input: SessionDataInput!) {
+    sendSessionData(input: $input) {
       success
       message
     }
   }
 `;
+

@@ -21,6 +21,10 @@ const Session = () => {
   const breaks = useSelector((state) => state.breaks);
   const sessionStartTime = useSelector((state) => state.sessionStartTime);
 
+  // get user id
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userID = user.id;
+
   const [sendSessionData] = useMutation(SEND_SESSION_DATA_MUTATION);
 
   const handleSessionCompleted = async () => {
@@ -38,19 +42,25 @@ const Session = () => {
       const endTime = Date.now();
 
       const sessionData = {
-        startTime: sessionStartTime,
-        sessionIntervals: sessionIntervals,
+        userID: userID,
+        startTime: sessionStartTime.toString(), 
+        sessionIntervals: sessionIntervals.map(interval => ({
+          hours: parseInt(interval.hours, 10),
+          minutes: parseInt(interval.minutes, 10),
+          seconds: parseInt(interval.seconds, 10),
+          type: interval.type,
+        })),
         sessionDuration: sessionDuration,
         breaks: breaks,
-        endTime: endTime,
-        intervalSwitchArray: intervalSwitchTime,
-        pauseTimeArray: pauseTime,
-        resumeTimeArray: resumeTime,
+        endTime: endTime.toString(),
+        intervalSwitchArray: intervalSwitchTime.map(String), 
+        pauseTimeArray: pauseTime.map(String), 
+        resumeTimeArray: resumeTime.map(String), 
       };
       console.log("sessionData", sessionData);
       await sendSessionData({
         variables: {
-          sessionData: sessionData,
+          input: sessionData,
         },
       });
 
