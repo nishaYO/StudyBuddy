@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const storedGoal = JSON.parse(localStorage.getItem("streakGoal")) || {
-  hours: "04",
-  minutes: "0",
+const {hours, minutes} = JSON.parse(localStorage.getItem("streakGoal")) || {
+  hours: 4,
+  minutes: 0,
 };
 
 const sessionDuration = createSlice({
   name: "sessionDuration",
-  initialState: { hours: storedGoal.hours, minutes: storedGoal.minutes, seconds: "0" },
+  initialState: { hours: parseInt(hours), minutes: parseInt(minutes), seconds: 0 },
   reducers: {
     setSessionDuration: (state, action) => {
       return action.payload;

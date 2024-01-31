@@ -33,9 +33,9 @@ const SetBreaks = () => {
     const breakStartTime = ConvertPixelToTime({ totalMinutes: y });
     const newBreak = {
       breakDuration: {
-        hours: "0",
+        hours: 0,
         minutes: defaultBreakDuration,
-        seconds: "0",
+        seconds: 0,
       },
       breakStartTime: {
         hours: breakStartTime.hours,

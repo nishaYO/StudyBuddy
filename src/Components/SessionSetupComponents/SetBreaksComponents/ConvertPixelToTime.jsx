@@ -3,9 +3,9 @@ const ConvertPixelToTime = ({totalMinutes}) => {
     const remainingMinutes = totalMinutes % 60;
   
     return {
-      hours: hours.toString(),
-      minutes: remainingMinutes.toString(),
-      seconds: '0',
+      hours: hours,
+      minutes: remainingMinutes,
+      seconds: 0,
     };
 };
 

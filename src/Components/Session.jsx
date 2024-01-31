@@ -43,28 +43,44 @@ const Session = () => {
 
       const sessionData = {
         userID: userID,
-        startTime: sessionStartTime.toString(), 
+        // all timers in int datatype
         sessionIntervals: sessionIntervals.map(interval => ({
           hours: parseInt(interval.hours, 10),
           minutes: parseInt(interval.minutes, 10),
           seconds: parseInt(interval.seconds, 10),
           type: interval.type,
         })),
-        sessionDuration: sessionDuration,
-        breaks: breaks,
+        sessionDuration: {
+          hours: parseInt(sessionDuration.hours, 10),
+          minutes: parseInt(sessionDuration.minutes, 10),
+          seconds: parseInt(sessionDuration.seconds, 10),
+        },
+        breaks: breaks.map(breakItem => ({
+          breakDuration: {
+            hours: parseInt(breakItem.breakDuration.hours, 10),
+            minutes: parseInt(breakItem.breakDuration.minutes, 10),
+            seconds: parseInt(breakItem.breakDuration.seconds, 10),
+          },
+          breakStartTime: {
+            hours: parseInt(breakItem.breakStartTime.hours, 10),
+            minutes: parseInt(breakItem.breakStartTime.minutes, 10),
+            seconds: parseInt(breakItem.breakStartTime.seconds, 10),
+          },
+        })),
+        // all dates in string format
+        startTime: sessionStartTime.toString(), 
         endTime: endTime.toString(),
         intervalSwitchArray: intervalSwitchTime.map(String), 
         pauseTimeArray: pauseTime.map(String), 
         resumeTimeArray: resumeTime.map(String), 
       };
-      console.log("sessionData", sessionData);
       await sendSessionData({
         variables: {
           input: sessionData,
         },
       });
 
-      console.log("Session data sent successfully");
+      console.log("Session data sent successfully", sessionData);
     } catch (error) {
       console.error("Error sending session data:", error);
     }

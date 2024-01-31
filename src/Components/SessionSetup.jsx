@@ -4,11 +4,13 @@ import SetBreaks from "./SessionSetupComponents/SetBreaks";
 import SetMusic from "./SessionSetupComponents/SetMusic";
 import SidePanel from "./SidePanel";
 import Navbar from "./Navbar";
-import { useState } from "react";
+import React, { useState } from "react";
 import { setSessionIntervals } from "./../redux/sessionIntervals";
 import { setSessionStartTime } from "./../redux/sessionStartTime";
 import { useDispatch, useSelector } from "react-redux";
+import { setBreaks } from "../redux/breakslice";
 import ConvertTimeToMinutes from "./../utils/ConvertTimeToMinutes";
+import ConvertPixelToTime from "./SessionSetupComponents/SetBreaksComponents/ConvertPixelToTime";
 
 function SessionSetup() {
   const [location, navigate] = useLocation();
@@ -38,12 +40,26 @@ function SessionSetup() {
       },
       { hours: 0, minutes: 0, seconds: 0 }
     );
-
+    
     // last interval duration = total Session Duration - total intervals duration
+    
+    const totalIntervalInMinutes = ConvertTimeToMinutes({
+      timeObject: totalIntervalDuration,
+    });
+    const sessionDurationInMinutes = ConvertTimeToMinutes({
+      timeObject: sessionDuration,
+    });
+    
+    const lastIntervalInMinutes = Math.abs(
+      totalIntervalInMinutes - sessionDurationInMinutes
+    );
+    const { lasthours, lastminutes, lastseconds } = ConvertPixelToTime({
+      totalMinutes: lastIntervalInMinutes,
+    });
     const lastIntervalDuration = {
-      hours: String(sessionDuration.hours - totalIntervalDuration.hours),
-      minutes: String(sessionDuration.minutes - totalIntervalDuration.minutes),
-      seconds: String(sessionDuration.seconds - totalIntervalDuration.seconds),
+      hours: lasthours,
+      minutes: lastminutes,
+      seconds: lastseconds,
       type: "study",
     };
     return lastIntervalDuration;
@@ -58,7 +74,7 @@ function SessionSetup() {
         return timeA - timeB;
       });
       // console.log("sortedBreaks:", sortedBreaks);
-      dispatch(setSessionStartTime(sortedBreaks));
+      dispatch(setBreaks(sortedBreaks));
       return sortedBreaks;
     } catch (error) {
       console.error("Error while sorting breaks:", error);
@@ -81,13 +97,13 @@ function SessionSetup() {
         const breakInterval = {
           hours: breakDuration.hours,
           minutes: breakDuration.minutes,
-          seconds: "0",
+          seconds: 0,
           type: "break",
         };
 
         // create study interval
         const studyDuration = breakItem.breakStartTime;
-        console.log("studyDuration: ", studyDuration);
+        // console.log("studyDuration: ", studyDuration);
         // total duration of all existing intervals
         let totalIntervalDuration = newSessionIntervals.reduce(
           (acc, interval) => {
@@ -100,7 +116,7 @@ function SessionSetup() {
           { hours: 0, minutes: 0, seconds: 0 }
         );
         totalIntervalDuration = formatTime(totalIntervalDuration);
-        console.log("totalIntervalDuration: ", totalIntervalDuration);
+        // console.log("totalIntervalDuration: ", totalIntervalDuration);
         const studyInterval = {
           hours: Math.abs(totalIntervalDuration.hours - studyDuration.hours),
           minutes: Math.abs(
@@ -111,7 +127,7 @@ function SessionSetup() {
           ),
           type: "study",
         };
-        console.log("studyInterval: ", studyInterval);
+        // console.log("studyInterval: ", studyInterval);
         // add both the intervals to the sessionIntervals
         if (ConvertTimeToMinutes({ timeObject: studyInterval }) != 0) {
           newSessionIntervals.push(studyInterval);
@@ -131,8 +147,8 @@ function SessionSetup() {
   };
 
   const dispatch = useDispatch();
-  const sessionIntervals = useSelector((state) => state.sessionIntervals);
   const sessionDuration = useSelector((state) => state.sessionDuration);
+
   const breaks = useSelector((state) => state.breaks);
 
   // components for each step

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { setSessionDuration } from "../../redux/sessionDuration";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,7 +9,7 @@ function SetTimer() {
   // Update Redux state when input values change
   const handleSessionDurationChange = (newHours, newMinutes) => {
     dispatch(
-      setSessionDuration({ hours: newHours, minutes: newMinutes, seconds: 0 })
+      setSessionDuration({ hours: parseInt(newHours), minutes: parseInt(newMinutes), seconds: 0 })
     );
   };
 

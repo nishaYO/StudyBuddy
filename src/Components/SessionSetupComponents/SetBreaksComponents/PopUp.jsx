@@ -19,7 +19,7 @@ const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
   const currentBreakStartTime = ConvertPixelToTime({
     totalMinutes: parsedBreakStartTime,
   });
-  
+
   let [localCurrentBreakDuration, setLocalCurrentBreakDuration] =
     useState(currentBreakDuration);
 
@@ -38,14 +38,14 @@ const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
         return {
           ...breakItem,
           breakDuration: {
-            hours: newDuration.hours,
-            minutes: newDuration.minutes,
-            seconds: '0',
+            hours: parseInt(newDuration.hours, 10),
+            minutes: parseInt(newDuration.minutes, 10),
+            seconds: 0,
           },
           breakStartTime: {
-            hours: newStartTime.hours,
-            minutes: newStartTime.minutes,
-            seconds: '0',
+            hours: parseInt(newStartTime.hours, 10),
+            minutes: parseInt(newStartTime.minutes, 10),
+            seconds: 0,
           },
         };
       }
@@ -110,8 +110,8 @@ const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
     }
 
     // Treat empty input values as '00'
-    const durationHours = localCurrentBreakDuration.hours || "00";
-    const durationMinutes = localCurrentBreakDuration.minutes || "00";
+    const durationHours = localCurrentBreakDuration.hours || 0;
+    const durationMinutes = localCurrentBreakDuration.minutes || 0;
     if (parseInt(durationHours) + parseInt(durationMinutes) == 0) {
       handleDeleteBreak();
       return;
@@ -125,8 +125,7 @@ const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
     handleDurationMinutesInputChange({
       target: { value: durationMinutes },
     });
-    
-    
+
     // startTime update
     const startHours = parseInt(localCurrentBreakStartTime.hours) || 0;
     const startMinutes = parseInt(localCurrentBreakStartTime.minutes) || 0;
