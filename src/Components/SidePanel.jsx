@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+// icons 
+import { IoIosTimer } from "react-icons/io";
+import { MdFreeBreakfast,MdMusicNote } from "react-icons/md";
+
+
 import logo from "/logo2.png";
 
 function SidePanel() {
-  const pages = ["Timer", "Breaks", "Music"];
-  const [currentPage, setCurrentPage] = useState(pages[0]);
+  // getting username to display in sidepannel
+  const [username, setUsername] = useState("");
+  useEffect(() => {
+    let name = localStorage.getItem("name");
+    name ? setUsername(name) : "";
+  });
 
+  const pages = [
+    {title:"Timer",label: "Set Timer",icon:<IoIosTimer/>}, 
+    {title:"Breaks",label: "Set Breaks",icon:<MdFreeBreakfast/>}, 
+    {title:"Music",label: "Set Music",icon:<MdMusicNote/>}
+  ];
+  const [currentPage, setCurrentPage] = useState(pages[0]);
   const handlePageClick = (page) => {
     setCurrentPage(page);
   };
@@ -12,19 +27,29 @@ function SidePanel() {
   return (
     <div>
       {/* sidepanel for lg screens */}
-      <div className="w-44 bg-[#D0BFFF] p-4 hidden lg:block min-h-screen">
-        <img src={logo} alt="Logo" className="w-20 h-auto mb-4" />
-
-        <ul className="space-y-2">
+      <div className="w-56 bg-[#D0BFFF]  hidden lg:block min-h-screen">
+        {/* logo and welcome message */}
+        <div className="flex flex-col items-center p-2">
+          <img src={logo} alt="Logo" className="w-20 h-20 " />
+          <div >
+            <h1 className="text-xl font-bold">StudyBuddy</h1>
+            <h2 className="text-center font-bold">{username}!</h2>
+          </div>
+        </div>
+        <div className="flex items-center justify-center">
+        <hr className="border border-[#FFF3DA] w-52"/>
+        </div>
+        <ul className="space-y-2 mt-6 flex flex-col gap-y-6 items-center ">
           {pages.map((page) => (
             <li
-              key={page}
-              className={`cursor-pointer ${
-                currentPage === page ? "font-bold text-black-500" : ""
+              key={page.title}
+              className={`ml-2 p-2 cursor-pointer flex gap-x-6 items-center   ${
+                currentPage === page.title ? "font-bold text-black-500 bg-[#FFF3DA] p-2 w-full rounded-l-full" : ""
               }`}
-              onClick={() => handlePageClick(page)}
+              onClick={() => handlePageClick(page.title)}
             >
-              {page}
+              <span className="text-3xl">{page.icon}</span>
+              {page.label}
             </li>
           ))}
         </ul>
