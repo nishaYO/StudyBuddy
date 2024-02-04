@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { fetchReports } from "../apis/reportsData";
-
+import StreakCalendar from "./ReportsComponents/StreakCalendar";
 function Reports() {
   const [location, navigate] = useLocation();
   
@@ -54,6 +54,7 @@ function Reports() {
           </ul>
         </div>
       </div>
+      <StreakCalendar/>
     </div>
   );
 }
