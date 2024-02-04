@@ -34,8 +34,8 @@ const LoginPopup = ({ onClose, signedIn, showSignup }) => {
 
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center">
-        <div className="bg-white p-8 max-w-md w-full rounded-lg shadow-lg">
+      <div className="fixed inset-0 flex items-center justify-center mt-12">
+        <div className="bg-white ml-10 p-8 max-w-4xl h-[30rem] w-full rounded-lg shadow-lg">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Login</h2>
             <button
@@ -45,57 +45,71 @@ const LoginPopup = ({ onClose, signedIn, showSignup }) => {
               <FontAwesomeIcon icon={faClose} />
             </button>
           </div>
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            />
+          {/* form body */}
+          <div className="flex items-center lg:gap-x-20 w-full">
+            <div>
+              <img
+                src="/Images/login.svg"
+                className="h-[15rem] lg:flex hidden"
+                alt="Login image"
+              />
+              {/* login Form*/}
+            </div>
+            <div className="h-full flex flex-col justify-center">
+              <form>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-1 p-2 w-full border rounded-md"
+                  required
+                />
+
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="mt-1 p-2 w-full border rounded-md"
+                  required
+                />
+              </form>
+              <div className="mt-4">
+                <button
+                  onClick={handleLogin}
+                  className="bg-violet-500 text-white px-4 py-1.5  rounded-md hover:bg-violet-600 "
+                  disabled={loading}
+                >
+                  {loading ? "Logging in..." : "Login"}
+                </button>
+                <button
+                  onClick={() => {
+                    showSignup();
+                    handleCloseClick();
+                  }}
+                  className="bg-white-500 text-violet-500 px-4 py-2  mx-5  rounded-md
+            hover:underline "
+                >
+                  Create a new account
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            />
-          </div>
-          <button
-            onClick={handleLogin}
-            className="bg-blue-500 text-white px-4 py-2 mx-5 rounded-md hover:bg-blue-600 "
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
-          <button
-            onClick={() => {
-              showSignup();
-              handleCloseClick();
-            }}
-            className="bg-white-500 text-blue-600 px-4 py-2  mx-5  rounded-md
-            hover:bg-grey-100 m-4"
-          >
-            Create a new account
-          </button>
         </div>
       </div>
     </>
@@ -103,3 +117,5 @@ const LoginPopup = ({ onClose, signedIn, showSignup }) => {
 };
 
 export default LoginPopup;
+
+
