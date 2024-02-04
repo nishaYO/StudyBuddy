@@ -65,8 +65,8 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
 
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center">
-        <div className="bg-white p-8 max-w-md w-full rounded-lg shadow-lg">
+      <div className="fixed inset-0 flex items-center justify-center mt-12">
+        <div className="bg-white ml-10 p-8 max-w-4xl h-[30rem] w-full rounded-lg shadow-lg">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Sign Up</h2>
             <button
@@ -76,7 +76,90 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
               <FontAwesomeIcon icon={faClose} />
             </button>
           </div>
-          <form onSubmit={handleSubmit}>
+          {/* form body */}
+          <div className="flex w-full lg:gap-x-20">
+            <div>
+              <img src="/Images/welcome.svg" className="h-[15rem] lg:flex hidden" alt="SignUp Image" />
+            </div>
+            {/* form */}
+            <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-600"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="mt-1 p-2 w-full border rounded-md"
+                required
+              />
+            </div>
+            <div className="mb-6">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-600"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="mt-1 p-2 w-full border rounded-md"
+                required
+              />
+            </div>
+           <div >
+           <button
+              type="submit"
+              className="bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600"
+              disabled={loading}
+            >
+              {loading ? "Signing up..." : "Sign Up"}
+            </button>
+            <button
+              onClick={() => {
+                showLogin();
+                handleCloseClick();
+              }}
+              className="bg-white-500 text-violet-600 px-4 py-2  mx-5  rounded-md
+            hover:underline m-4"
+            >
+              Already registered?{" "}
+            </button>
+           </div>
+          </form>
+          </div>
+          
+          {error && <p className="text-red-500 mt-4">{error.message}</p>}
+        </div>
+      </div>
+      {showVerifyEmail && (
+        <VerifyEmailPopup
+          email={formData.email}
+          onVerificationSuccess={() => {
+            signedIn();
+            setShowVerifyEmail(false);
+            onClose();
+          }}
+          onClose={() => setShowVerifyEmail(false)}
+          actionType={"Sign Up"}
+        />
+      )}
+    </>
+  );
+};
+
+export default SignupPopup;
+{/* <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
                 htmlFor="email"
@@ -128,24 +211,4 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
             >
               Already registered?{" "}
             </button>
-          </form>
-          {error && <p className="text-red-500 mt-4">{error.message}</p>}
-        </div>
-      </div>
-      {showVerifyEmail && (
-        <VerifyEmailPopup
-          email={formData.email}
-          onVerificationSuccess={() => {
-            signedIn();
-            setShowVerifyEmail(false);
-            onClose();
-          }}
-          onClose={() => setShowVerifyEmail(false)}
-          actionType={"Sign Up"}
-        />
-      )}
-    </>
-  );
-};
-
-export default SignupPopup;
+          </form> */}

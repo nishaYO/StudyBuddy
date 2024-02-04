@@ -46,7 +46,7 @@ const LoginPopup = ({ onClose, signedIn, showSignup }) => {
             </button>
           </div>
           {/* form body */}
-          <div className="flex items-center gap-x-20 w-full">
+          <div className="flex items-center lg:gap-x-20 w-full">
             <div>
               <img
                 src="/Images/login.svg"
@@ -89,7 +89,7 @@ const LoginPopup = ({ onClose, signedIn, showSignup }) => {
                   required
                 />
               </form>
-              <div className="mt-4 flex mx-auto">
+              <div className="mt-4">
                 <button
                   onClick={handleLogin}
                   className="bg-violet-500 text-white px-4 py-1.5  rounded-md hover:bg-violet-600 "
@@ -118,37 +118,4 @@ const LoginPopup = ({ onClose, signedIn, showSignup }) => {
 
 export default LoginPopup;
 
-{
-  /* <label
-htmlFor="email"
-className="block text-sm font-medium text-gray-600"
->
-Email
-</label>
-<input
-type="email"
-id="email"
-name="email"
-value={email}
-onChange={(e) => setEmail(e.target.value)}
-className="mt-1 p-2 w-full border rounded-md"
-required
-/>
-</div>
-<div className="mb-6">
-<label
-htmlFor="password"
-className="block text-sm font-medium text-gray-600"
->
-Password
-</label>
-<input
-type="password"
-id="password"
-name="password"
-value={password}
-onChange={(e) => setPassword(e.target.value)}
-className="mt-1 p-2 w-full border rounded-md"
-required
-/> */
-}
+
