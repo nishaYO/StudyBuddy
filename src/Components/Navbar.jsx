@@ -129,28 +129,40 @@ function Navbar() {
 
   return (
     <div className="p-3 bg-white border-2 border-b-black flex items-center justify-between relative">
-      <div className="flex items-center space-x-4">
-        <button className="bg-[#BEADFA] p-1 border-2 border-black">
-          Streak: 0 Days
-        </button>
-        <NavbarIcons onNotificationsClick={handleNotificationsClick} />
+     {isSignedIn ? (
+      // streak 0 days
+       <div className="flex items-center space-x-4">
+       <button className="bg-[#BEADFA] p-1 border-2 border-black">
+         Streak: 0 Days
+       </button>
+       <NavbarIcons onNotificationsClick={handleNotificationsClick} />
+     </div>
+     ) : (
+      // logo and name
+      <div className="flex items-center ">
+        <img src="/logo1.png" className="h-14 w-14" alt="Logo image" />
+        <h3 className="text-xl font-bold">StudyBuddy</h3>
       </div>
+     )}
       {/* second section of navbar btns */}
       <div className="flex gap-2 items-center">
         {/* Notifications Box */}
         {showNotifications && <NotificationBox onClose={closeNotifications} />}
-        {/* Reports Button */}
-
-        <Link href="/notes">
-          <button className="bg-purple-600 hover:bg-purple-400 text-white px-4 py-1 rounded border-2 border-black">
-            See Notes
-          </button>
-        </Link>
-        <Link href="/reports">
-          <button className="bg-purple-600 hover:bg-purple-400 text-white px-4 py-1 rounded border-2 border-black">
-            Reports
-          </button>
-        </Link>
+        {/* Reports Button  only for signed users */}
+        {isSignedIn && (
+          <>
+            <Link href="/notes">
+              <button className="bg-purple-600 hover:bg-purple-400 text-white px-4 py-1 rounded border-2 border-black">
+                See Notes
+              </button>
+            </Link>
+            <Link href="/reports">
+              <button className="bg-purple-600 hover:bg-purple-400 text-white px-4 py-1 rounded border-2 border-black">
+                Reports
+              </button>
+            </Link>
+          </>
+        )}
         {/* user auth */}
         {isRegistered ? (
           isSignedIn ? (
@@ -183,10 +195,18 @@ function Navbar() {
           </button>
         )}
         {showRegisterPopUp && (
-          <SignupPopup onClose={closeRegisterPopUp} showLogin={handleLoginClick} signedIn={handleSignedIn} />
+          <SignupPopup
+            onClose={closeRegisterPopUp}
+            showLogin={handleLoginClick}
+            signedIn={handleSignedIn}
+          />
         )}
         {showLoginPopUp && (
-          <LoginPopup onClose={closeLoginPopUp} showSignup={handleRegisterClick} signedIn={handleSignedIn} />
+          <LoginPopup
+            onClose={closeLoginPopUp}
+            showSignup={handleRegisterClick}
+            signedIn={handleSignedIn}
+          />
         )}
       </div>
     </div>
