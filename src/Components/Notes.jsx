@@ -6,6 +6,8 @@ import useLocation from "wouter/use-location";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import NotesForm from "./SessionComponents/NotesForm";
+import { IoMdArrowBack } from "react-icons/io";
+import { FaPenClip } from "react-icons/fa6";
 
 const Notes = () => {
   const [showModal, setShowModal] = useState(false);
@@ -82,33 +84,25 @@ const Notes = () => {
     <main className="p-5 min-h-screen">
       <button
         onClick={() => navigate("/")}
-        className="p-3 px-12 py-3 border bg-[#D0BFFF] hover:bg-[#ca8bf7] rounded-lg mt-4 mb-8 text-white"
+        className="p-3 text-xl py-3 bg-purple-500 hover:bg-purple-300 mt-4 mb-8 text-white rounded-full"
       >
-        Back
+        <IoMdArrowBack/>
       </button>
       <div className="max-w-4xl mx-auto">
-        <div>
-          {showModal ? (
-            <div className="fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-70">
+        <div className="">
+          {showModal && (
+            <div className="p-2 fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-70">
               <div className="flex items-center justify-center min-h-screen">
                 <div className="bg-white p-8 rounded shadow-lg max-w-lg w-full">
                   <NotesForm onClose={() => setShowModal(false)} />
                 </div>
               </div>
             </div>
-          ) : (
-            <button
-              onClick={() => {
-                setShowModal(true);
-              }}
-              className="p-3 px-12 py-3 border bg-purple-500 hover:bg-[#ca8bf7] rounded-lg mt-4 mb-8 text-white"
-            >
-              Add Note
-            </button>
           )}
         </div>
 
         {/* Search bar */}
+        <div className="flex items-center justify-center gap-2">
         <input
           type="text"
           placeholder="Search notes..."
@@ -117,8 +111,18 @@ const Notes = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
 
+        <button
+          onClick={() => {
+            setShowModal(true);
+          }}
+          className="p-3  py-3 border bg-purple-500 hover:bg-[#ca8bf7] rounded-lg mt-4 mb-8 text-white flex items-center gap-2"
+        >
+          Add Note <FaPenClip/>
+        </button>
+        </div>
+
         {/* error alert when deleting the message */}
-        <div className="mb-4 absolute right-4 bottom-3">
+        <div className="mb-4 fixed right-4 bottom-3">
           {isDeleting && (
             <div role="alert" className="alert alert-error animate-pulse">
               <svg
@@ -149,7 +153,7 @@ const Notes = () => {
                 {note.title}
               </h1>
               <p
-                className="p-2 text-justify"
+                className="p-2 text-justify italic"
                 dangerouslySetInnerHTML={{
                   __html: highlightSearchTerm(note.content, searchQuery),
                 }}
