@@ -8,6 +8,7 @@ import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import NotesForm from "./SessionComponents/NotesForm";
 
 const Notes = () => {
+  const [showModal,setShowModal] = useState(false)
   const [showNotes, setShowNotes] = useState(false);
   const [isDeleting, setIsDelete] = useState(false);
   const [location, navigate] = useLocation();
@@ -72,16 +73,18 @@ const Notes = () => {
       </button>
       <div className="max-w-4xl mx-auto">
         <div>
-          {showNotes ? (
-            <NotesForm
-              onClose={() => {
-                setShowNotes(false);
-              }}
-            />
+          {showModal ? (
+            <div className="fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-70">
+              <div className="flex items-center justify-center min-h-screen">
+                <div className="bg-white p-8 rounded shadow-lg max-w-lg w-full">
+                  <NotesForm onClose={() => setShowModal(false)} />
+                </div>
+              </div>
+            </div>
           ) : (
             <button
               onClick={() => {
-                setShowNotes(true);
+                setShowModal(true)
               }}
               className="p-3 px-12 py-3 border bg-[#D0BFFF] hover:bg-[#ca8bf7] rounded-lg mt-4 mb-8 text-white"
             >
