@@ -120,7 +120,7 @@ const Notes = () => {
         {/* accordion design */}
         <div className="grid gap-2 grid-cols-1 lg:grid-cols-2">
           {notes.map((note) => (
-            <div key={note.id} className="card bg-white ">
+            <div key={note.id} className=" bg-white ">
               <h1 className="p-2 card-title bg-purple-500 text-white">
                 {note.title}
               </h1>
