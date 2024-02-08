@@ -54,6 +54,7 @@ function NotesForm({ onClose }) {
     } catch (error) {
       console.error("note creation failed:", error.message);
     }
+    
   };
 
   const inputStyle =
