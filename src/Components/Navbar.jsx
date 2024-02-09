@@ -5,6 +5,7 @@ import SignupPopup from "./auth/Signup";
 import LoginPopup from "./auth/Login";
 import { useQuery } from "@apollo/client";
 import { AUTO_LOGIN_QUERY } from "../graphql/queries";
+import { FaRegUser } from "react-icons/fa";
 
 function NavbarIcons({ onNotificationsClick }) {
   return (
@@ -129,43 +130,50 @@ function Navbar() {
 
   return (
     <div className="p-3 bg-white border-2 border-b-black flex items-center justify-between relative">
-      <div className="flex items-center space-x-4">
-        <button className="bg-[#BEADFA] p-1 border-2 border-black">
-          Streak: 0 Days
-        </button>
-        <NavbarIcons onNotificationsClick={handleNotificationsClick} />
+     {isSignedIn ? (
+      // streak 0 days
+       <div className="flex items-center space-x-4">
+       <button className="bg-[#BEADFA] p-1 border-2 border-black">
+         Streak: 0 Days
+       </button>
+       <NavbarIcons onNotificationsClick={handleNotificationsClick} />
+     </div>
+     ) : (
+      // logo and name
+      <div className="flex items-center ">
+        <img src="/logo1.png" className="h-14 w-14" alt="Logo image" />
+        <h3 className="text-xl font-bold">StudyBuddy</h3>
       </div>
+     )}
       {/* second section of navbar btns */}
       <div className="flex gap-2 items-center">
         {/* Notifications Box */}
         {showNotifications && <NotificationBox onClose={closeNotifications} />}
-        {/* Reports Button */}
-
-        <Link href="/notes">
-          <button className="bg-purple-600 hover:bg-purple-400 text-white px-4 py-1 rounded border-2 border-black">
-            See Notes
-          </button>
-        </Link>
-        <Link href="/reports">
-          <button className="bg-purple-600 hover:bg-purple-400 text-white px-4 py-1 rounded border-2 border-black">
-            Reports
-          </button>
-        </Link>
+        {/* Reports Button  only for signed users */}
+        {isSignedIn && (
+          <>
+            <Link href="/notes">
+              <button className="bg-purple-600 hover:bg-purple-400 text-white px-4 py-1 rounded border-2 border-black">
+                See Notes
+              </button>
+            </Link>
+            <Link href="/reports">
+              <button className="bg-purple-600 hover:bg-purple-400 text-white px-4 py-1 rounded border-2 border-black">
+                Reports
+              </button>
+            </Link>
+          </>
+        )}
         {/* user auth */}
         {isRegistered ? (
           isSignedIn ? (
-            <Link href="/user">
-              <button className="text-2xl cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24"
-                  width="19"
-                  viewBox="0 0 448 512"
-                >
-                  <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
-                </svg>{" "}
+            <div className="group">
+              <Link href="/user">
+              <button className="text-2xl cursor-pointer p-2 bg-white group-hover:bg-purple-500 rounded-full border border-transparent">
+               <FaRegUser className="group-hover:text-white"/>
               </button>
             </Link>
+            </div>
           ) : (
             <button
               className="bg-[#BEADFA] px-4 py-1 border-2 border-black"
@@ -183,10 +191,18 @@ function Navbar() {
           </button>
         )}
         {showRegisterPopUp && (
-          <SignupPopup onClose={closeRegisterPopUp} showLogin={handleLoginClick} signedIn={handleSignedIn} />
+          <SignupPopup
+            onClose={closeRegisterPopUp}
+            showLogin={handleLoginClick}
+            signedIn={handleSignedIn}
+          />
         )}
         {showLoginPopUp && (
-          <LoginPopup onClose={closeLoginPopUp} showSignup={handleRegisterClick} signedIn={handleSignedIn} />
+          <LoginPopup
+            onClose={closeLoginPopUp}
+            showSignup={handleRegisterClick}
+            signedIn={handleSignedIn}
+          />
         )}
       </div>
     </div>

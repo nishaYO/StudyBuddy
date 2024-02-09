@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { NEW_NOTE_MUTATION } from "../../graphql/mutations";
 import { GET_ALL_NOTES } from "../../graphql/queries";
+import { MdClose } from "react-icons/md";
+
 
 function NotesForm({ onClose }) {
   const [noteData, setNoteData] = useState({
@@ -54,36 +56,37 @@ function NotesForm({ onClose }) {
     } catch (error) {
       console.error("note creation failed:", error.message);
     }
+    
   };
 
   const inputStyle =
     "w-full p-3 rounded-lg border border-black outline-none border-b-4 border-r-4 transition-transform duration-300 delay-200 transform focus:scale-105";
 
   return (
-    <div className="bg-purple-300 rounded-lg p-8 m-3 text-center w-[400px] h-[360px] flex flex-col items-center justify-center gap-4">
-      <div className=" flex flex-row items-center justify-center gap-4">
-        <h1 className="text-3xl font-bold text-center">Take Notes</h1>
-        <button
-          onClick={() => {
-            onClose();
-          }}
-          className="text-black-600 font-bold hover:text-gray-700"
-        >
-          Close
-        </button>{" "}
-      </div>
+    <div className="bg-white rounded-lg w-[400px] h-[360px]">
+     <div className="flex items-center justify-between mb-2">
+      <h2 className="font-bold">Write Your Note</h2>
+      <button
+      className="text-2xl rotate-45 hover:rotate-90 transition-all duration-300 ease-in-out hover:scale-150"
+       onClick={() => {
+        onClose();
+      }}>
+        <MdClose/>
+      </button>
+     </div>
       <form className="max-w-md mx-auto" onSubmit={handleSubmit}>
         <div className="mb-4">
           {/* <label htmlFor="title" className="block text-gray-500">
             Title
           </label> */}
+          
           <input
             type="text"
             id="title"
             name="title"
             value={noteData.title}
             onChange={handleChange}
-            className={`${inputStyle}`}
+            className="w-full p-3 rounded-lg outline-none"
             placeholder="Note Title"
           />
         </div>
@@ -92,12 +95,13 @@ function NotesForm({ onClose }) {
           {/* <label htmlFor="body" className="block text-gray-500">
             Body
           </label> */}
+          <hr className="border-gray-400" />
           <textarea
             id="body"
             name="body"
             value={noteData.body}
             onChange={handleChange}
-            className={`${inputStyle}`}
+            className="w-full p-3 rounded-lg outline-none"
             placeholder="Note Body"
             rows="4"
           />
@@ -105,7 +109,7 @@ function NotesForm({ onClose }) {
 
         <button
           type="submit"
-          className={`w-full p-3 bg-[#BEADFA] text-[#F4EAE0] font-cursive font-bold rounded-md text-sm focus:outline-none hover:bg-[#8F7DF5] transition-all duration-300 ease-in-out`}
+          className={`w-full p-3 bg-purple-500 text-[#F4EAE0] font-cursive font-bold rounded-md text-sm focus:outline-none hover:bg-[#8F7DF5] transition-all duration-300 ease-in-out`}
         >
           {loading ? "Saving..." : "Save"}
         </button>
