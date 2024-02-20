@@ -3,6 +3,8 @@ import { useQuery, useMutation } from "@apollo/client";
 import { GET_NOTE } from "../graphql/queries";
 import { UPDATE_NOTE } from "../graphql/mutations";
 import useLocation from "wouter/use-location";
+import { Link } from "wouter";
+import Loading from "./Loading";
 
 const EditNote = () => {
   // const [location, setLocation, navigate] = useLocation();
@@ -65,7 +67,7 @@ const EditNote = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading/>
   }
 
   if (error || !data.getNote.success) {
@@ -75,35 +77,42 @@ const EditNote = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-3xl font-bold mb-4">Edit Note</h2>
-      <form onSubmit={handleUpdateNote}>
-        <div className="mb-4">
-          <label className="block text-gray-600">Title:</label>
-          <input
-            type="text"
-            name="title"
-            value={noteDetails.title}
-            onChange={handleInputChange}
-            className="border rounded w-full p-2"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-600">Content:</label>
-          <textarea
-            name="content"
-            value={noteDetails.content}
-            onChange={handleInputChange}
-            className="border rounded w-full p-2"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-700"
-        >
-          Update Note
-        </button>
-      </form>
+    <div className="min-h-screen  flex  items-center justify-center">
+      <div className="w-1/2 mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+        <h2 className="text-3xl font-bold mb-4">Edit Note</h2>
+        <form onSubmit={handleUpdateNote}>
+          <div className="mb-4">
+            <label className="block text-gray-600">Title:</label>
+            <input
+              type="text"
+              name="title"
+              value={noteDetails.title}
+              onChange={handleInputChange}
+              className="border-b outline-none rounded w-full p-2"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-600">Content:</label>
+           <textarea  name="content"
+              value={noteDetails.content}
+              onChange={handleInputChange}
+              className="border rounded w-full p-2" cols="30" rows="10"></textarea>
+          </div>
+          <div className="flex justify-between">
+            <button
+              type="submit"
+              className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-700"
+            >
+              Update Note
+            </button>
+            <Link to="/notes">
+              <button className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-700">
+                Back
+              </button>
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
