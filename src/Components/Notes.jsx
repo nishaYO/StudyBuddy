@@ -53,7 +53,11 @@ const Notes = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="min-h-screen">
+        <p>Loading...</p>
+      </div>
+    );
   }
 
   if (error || !data.getAllNotes.success) {

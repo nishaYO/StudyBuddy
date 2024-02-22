@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { SEND_SESSION_DATA_MUTATION, FETCH_REPORTS_QUERY } from "./your-graphql-queries";
+import Loading from "./Loading";
 
 // Example for sending session data
 const [sendSessionData] = useMutation(SEND_SESSION_DATA_MUTATION);
@@ -22,7 +23,7 @@ const handleSessionEnd = (sessionData) => {
 const { loading, error, data } = useQuery(FETCH_REPORTS_QUERY);
 
 if (loading) {
-  return <p>Loading...</p>;
+  return <Loading/>
 }
 
 if (error) {
