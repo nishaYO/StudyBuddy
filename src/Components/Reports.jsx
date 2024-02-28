@@ -1,34 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "wouter";
-import { fetchReports } from "../apis/reportsData";
 import StreakCalendar from "./ReportsComponents/StreakCalendar";
 function Reports() {
   const [location, navigate] = useLocation();
   
-  const sampleReports = {
-    "main-stats": {
-      "current Streak": 0,
-      "Highest Streak": 0,
-      "Highest Hours local Session": 0,
-      "total Hours": 0,
-      "today total Hours": 0,
-    },
-  };
+  // const sampleReports = {
+  //   "main-stats": {
+  //     "current Streak": 0,
+  //     "Highest Streak": 0,
+  //     "Highest Hours local Session": 0,
+  //     "total Hours": 0,
+  //     "today total Hours": 0,
+  //   },
+  // };
 
-  const [reports, setReports] = useState(sampleReports);
+  // const [reports, setReports] = useState(sampleReports);
 
-  useEffect(() => {
-    const fetchReportsData = async () => {
-      try {
-        const data = await fetchReports();
-        setReports(data);
-      } catch (error) {
-        console.error("Error fetching reports:", error);
-      }
-    };
 
-    fetchReportsData();
-  }, []);
 
   const handlePreviousClick = () => {
     navigate("/");
@@ -36,7 +24,7 @@ function Reports() {
 
   return (
     <div className="m-5 flex flex-col items-center">
-      <button
+      {/* <button
         className="bg-[#D0BFFF] text-white px-4 py-2 m-2 rounded"
         onClick={handlePreviousClick}
       >
@@ -53,7 +41,7 @@ function Reports() {
             ))}
           </ul>
         </div>
-      </div>
+      </div> */}
       <StreakCalendar/>
     </div>
   );

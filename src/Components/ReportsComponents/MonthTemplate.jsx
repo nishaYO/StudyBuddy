@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useQuery, gql } from "@apollo/client";
+import { GET_STREAK_REPORT } from "./../../graphql/queries";
 
 const MonthTemplate = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userID = user.id;
+  const { loading, error, data } = useQuery(GET_STREAK_REPORT, {
+    variables: { userID },
+  });
+
+  useEffect(() => {
+    if (data) {
+      console.log("Streak reportss data:", data);
+    }
+  }, [data]);
+
   // Example data for dates
   const exampleData = [
     { date: 1, status: "met" },

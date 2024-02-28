@@ -41,17 +41,32 @@ export const GET_NOTE = gql`
 `;
 
 export const FETCH_REPORTS = gql`
-query FetchReports {
-  fetchReports {
-    success
-    message
-    reports {
-      startTime
-      endTime
-      sessionDuration
-      sessionIntervals
-      userID
+  query FetchReports {
+    fetchReports {
+      success
+      message
+      reports {
+        startTime
+        endTime
+        sessionDuration
+        sessionIntervals
+        userID
+      }
     }
   }
-}
+`;
+
+export const GET_STREAK_REPORT = gql`
+  query GetStreakReport($userID: ID!) {
+    getStreakReports(userID: $userID) {
+      _id
+      userID
+      streakGoal {
+        hours
+        minutes
+      }
+      date
+      years
+    }
+  }
 `;

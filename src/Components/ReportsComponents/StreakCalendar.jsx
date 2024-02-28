@@ -6,7 +6,7 @@ const StreakCalendar = () => {
       <div>StreakCalendar</div>
       <div className="flex flex-row items-center gap-9">
       <MonthTemplate />
-      <MonthTemplate />
+      
       <MonthTemplate />
       </div>
     </div>
