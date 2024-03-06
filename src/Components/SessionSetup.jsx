@@ -53,18 +53,22 @@ function SessionSetup() {
     const lastIntervalInMinutes = Math.abs(
       totalIntervalInMinutes - sessionDurationInMinutes
     );
-    const { lasthours, lastminutes, lastseconds } = ConvertPixelToTime({
+    const { hours, minutes, seconds } = ConvertPixelToTime({
       totalMinutes: lastIntervalInMinutes,
     });
     const lastIntervalDuration = {
-      hours: lasthours,
-      minutes: lastminutes,
-      seconds: lastseconds,
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
       type: "study",
     };
+    // console.log("totalIntervalInMinutes", totalIntervalInMinutes)
+    // console.log("totalIntervalDuration", totalIntervalDuration)
+    // console.log("lastIntervalDuration", lastIntervalDuration)
+    // console.log("lastIntervalInMinutes", lastIntervalInMinutes)
     return lastIntervalDuration;
   };
-
+  
   const sortBreaks = async () => {
     try {
       const sortedBreaks = [...breaks];

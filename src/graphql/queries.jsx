@@ -56,17 +56,24 @@ export const FETCH_REPORTS = gql`
   }
 `;
 
-export const GET_STREAK_REPORT = gql`
-  query GetStreakReport($userID: ID!) {
-    getStreakReports(userID: $userID) {
-      _id
-      userID
-      streakGoal {
+export const GET_STREAK_REPORTS = gql`
+query GetStreakReports($userID: ID!) {
+  getStreakReports(userID: $userID) {
+    _id
+    userID
+    streakGoal {
+      hours
+      minutes
+    }
+    date
+    calendar {
+      date
+      studyTimePercent
+      studyTime {
         hours
         minutes
       }
-      date
-      years
     }
   }
+}
 `;
