@@ -77,3 +77,27 @@ query GetStreakReports($userID: ID!) {
   }
 }
 `;
+
+export const GET_MAIN_STATS = gql`
+  query GetMainStats($userID: ID!) {
+    getMainStats(userID: $userID) {
+      _id
+      userID
+      streakGoal {
+        hours
+        minutes
+      }
+      date
+      latestSession {
+        endTime
+        sessionDuration
+      }
+      totalStudyDuration {
+        today
+        week
+        month
+        total
+      }
+    }
+  }
+`;

@@ -1,48 +1,77 @@
 import React, { useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
+import { GET_MAIN_STATS } from "./../graphql/queries";
 import { useLocation } from "wouter";
 import StreakCalendar from "./ReportsComponents/StreakCalendar";
+
 function Reports() {
   const [location, navigate] = useLocation();
-  
-  // const sampleReports = {
-  //   "main-stats": {
-  //     "current Streak": 0,
-  //     "Highest Streak": 0,
-  //     "Highest Hours local Session": 0,
-  //     "total Hours": 0,
-  //     "today total Hours": 0,
-  //   },
-  // };
-
-  // const [reports, setReports] = useState(sampleReports);
-
-
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userID = user.id;
+  const { loading, error, data } = useQuery(GET_MAIN_STATS, {
+    variables: { userID },
+  });
 
   const handlePreviousClick = () => {
     navigate("/");
   };
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  console.log("data", data);
+  // todos
+  // adding first three to main stats
+  // sync teh days and dates in streakcalendar
+  // Extracting values from the data object
+  const {
+    totalStudyDuration,
+    latestSession,
+  } = data.getMainStats;
+
+  // Function to convert minutes to hours and minutes format
+  const convertMinutesToHoursAndMinutes = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours}h ${remainingMinutes}m`;
+  };
+
+  // Constructing mainstats object with initial values
+  const mainstats = {
+    // "current Streak": "1 day",
+    // "Highest Streak": "1 day",
+    // "Highest Hours Session": "6hrs 33mins",
+    // taken from backend
+    "last session was ended at": new Date(parseInt(latestSession.endTime)).toLocaleString(),
+    "last session studyduration": convertMinutesToHoursAndMinutes(latestSession.sessionDuration),
+    "total Hours so far": convertMinutesToHoursAndMinutes(totalStudyDuration.total),
+    "today total Hours": convertMinutesToHoursAndMinutes(totalStudyDuration.today),
+    "week total Hours": convertMinutesToHoursAndMinutes(totalStudyDuration.week),
+    "month total Hours": convertMinutesToHoursAndMinutes(totalStudyDuration.month),
+  };
+
+  // Filter out key-value pairs with invalid values
+  const filteredMainStats = Object.entries(mainstats).filter(([key, value]) => value);
+
   return (
     <div className="m-5 flex flex-col items-center">
-      {/* <button
-        className="bg-[#D0BFFF] text-white px-4 py-2 m-2 rounded"
+      <button
+        className="bg-purple-500 text-white px-4 py-2 m-2 rounded font-semibold hover:bg-purple-600 transition duration-300"
         onClick={handlePreviousClick}
       >
         Back
       </button>
-      <h2 className="">See your Reports📝</h2>
-      <div className="bg-white flex flex-col items-center w-full lg:w-1/2 p-5 m-4 border-2 rounded-lg border-[#BEADFA] shadow-lg">
-        <div className="m-5">
-          <ul>
-            {Object.keys(reports["main-stats"]).map((key) => (
-              <li key={key} className="m-8">
-                {key.charAt(0).toUpperCase() + key.slice(1)}: {reports["main-stats"][key]}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div> */}
-      <StreakCalendar/>
+      <h2 className="text-3xl font-bold mb-4 text-purple-800">See your Reports📝</h2>
+      <div className="bg-white w-full lg:w-1/2 p-5 m-4 border-2 rounded-lg border-purple-200 shadow-lg">
+        <ul>
+          {filteredMainStats.map(([key, value]) => (
+            <li key={key} className="m-4 flex justify-between text-lg text-purple-900">
+              <span>{key}</span>
+              <span>{value}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <StreakCalendar />
     </div>
   );
 }
