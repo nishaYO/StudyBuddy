@@ -6,26 +6,25 @@ import LoginPopup from "./auth/Login";
 import { useQuery } from "@apollo/client";
 import { AUTO_LOGIN_QUERY } from "../graphql/queries";
 import { FaRegUser } from "react-icons/fa";
-import { FaFire } from "react-icons/fa";
-
+import { FaFire,FaBell } from "react-icons/fa";
+import { IoHelp } from "react-icons/io5";
 // Component for rendering notification and help icons in the navbar
 function NavbarIcons({ onNotificationsClick }) {
   return (
-    <>
+    <div className="flex gap-2">
       {/* Bell icon */}
       <button
-        className="text-2xl cursor-pointer"
-        onClick={onNotificationsClick}
-      >
-        {/* SVG code for bell icon */}
+        className="text-xl cursor-pointer btn ml-2 rounded-full"
+        onClick={onNotificationsClick}>
+        <FaBell/>
       </button>
       {/* Help icon */}
       <Link to="/help">
-        <button className="text-2xl cursor-pointer">
-          {/* SVG code for help icon */}
+        <button className="text-xl cursor-pointer btn rounded-full">
+         <IoHelp/>
         </button>
       </Link>
-    </>
+    </div>
   );
 }
 
@@ -130,8 +129,8 @@ function Navbar() {
         </div>
       ) : (
         // Render streak information if signed in
-        <div className="flex items-center space-x-4">
-          <button className="bg-[#BEADFA] p-1 rounded-xl font-bold text-xl  flex items-center">
+        <div className="flex items-center ">
+          <button className="bg-[#BEADFA] btn rounded-full font-bold text-xl  flex items-center">
             <FaFire />0
           </button>
           <NavbarIcons onNotificationsClick={handleNotificationsClick} />
