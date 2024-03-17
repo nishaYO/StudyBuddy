@@ -203,9 +203,10 @@ function SessionSetup() {
         <Navbar />
       </div>
       <div className="flex min-h-screen">
-        <div className="fixed left-0">
+        {/* exclude from prod */}
+        {/* <div className="fixed left-0">
           <SidePanel />
-        </div>
+        </div> */}
         <div className="flex flex-col items-center justify-center w-full p-4">
           <div className="p-6">
             {/* Main Box in the Center */}

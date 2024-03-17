@@ -71,8 +71,9 @@ const SessionStarted = ({
 
   return (
     <div className="w-4/5 h-4/5 flex flex-col items-center justify-center h-screen w-100 gap-10">
+      {/* exclude from prod */}
       {/* Upper Tray  */}
-      <MusicControls />
+      {/* <MusicControls /> */}
 
       {/* main body */}
       <div className="flex flex-row items-center justify-center">
@@ -92,7 +93,8 @@ const SessionStarted = ({
           )}
         </span>
         <div className="flex flex-column items-center justify-center">
-          {showNotes ? (
+        {/* exclude from prod */}
+          {/* {showNotes ? (
             <NotesForm
               onClose={() => {
                 setShowNotes(false);
@@ -107,20 +109,21 @@ const SessionStarted = ({
             >
               Take Notes
             </button>
-          )}
+          )} */}
         </div>
       </div>
 
       {/* bottom tray */}
       <div className=" p-3 flex flex-row items-center justify-center gap-10 w-screen">
-        <button
+      {/* exclude from prod */}
+        {/* <button
           onClick={() => {
             setIsConfirmationModalOpen(true);
           }}
           className="bg-purple-500 text-white px-4 py-2 rounded"
         >
           End session
-        </button>
+        </button> */}
         <button
           onClick={handlePause}
           className="bg-purple-500 text-white px-4 py-2 rounded"

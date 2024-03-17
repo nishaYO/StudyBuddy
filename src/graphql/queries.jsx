@@ -57,36 +57,35 @@ export const FETCH_REPORTS = gql`
 `;
 
 export const GET_STREAK_REPORTS = gql`
-query GetStreakReports($userID: ID!) {
-  getStreakReports(userID: $userID) {
-    _id
-    userID
-    streakGoal {
-      hours
-      minutes
-    }
-    date
-    calendar {
+  query GetStreakReports($userID: ID!) {
+    getStreakReports(userID: $userID) {
+      _id
+      userID
       date
-      studyTimePercent
-      studyTime {
-        hours
-        minutes
+      calendar {
+        date
+        studyTimePercent
+        studyTime {
+          hours
+          minutes
+        }
       }
     }
   }
-}
 `;
+
+export const GET_CURRENT_STREAK = gql`
+  query GetCurrentStreak($userID: ID!) {
+    getCurrentStreak(userID: $userID)
+  }
+`;
+
 
 export const GET_MAIN_STATS = gql`
   query GetMainStats($userID: ID!) {
     getMainStats(userID: $userID) {
       _id
       userID
-      streakGoal {
-        hours
-        minutes
-      }
       date
       latestSession {
         endTime

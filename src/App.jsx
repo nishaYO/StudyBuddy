@@ -10,11 +10,11 @@ import Help from "./Components/Help";
 import EditSession from "./Components/EditSession";
 import User from "./Components/auth/User";
 
+const server_endpoint = import.meta.env.VITE_SERVER_ENDPOINT;
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: server_endpoint, 
   cache: new InMemoryCache(),
 });
-
 
 function App() {
   return (

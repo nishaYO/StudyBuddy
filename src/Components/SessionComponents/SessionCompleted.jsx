@@ -46,7 +46,10 @@ const SessionCompleted = () => {
           <div className="flex justify-center mb-4">
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
-              onClick={() => navigate("/session-setup")}
+              onClick={() => {
+                navigate("/session-setup");
+                window.location.reload();
+              }}
             >
               Make a new session
             </button>
@@ -57,11 +60,11 @@ const SessionCompleted = () => {
               Share feedback
             </button>
           </div>
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <p className="text-gray-700">
               Total Study Time in the session: {totalStudyDuration} hours
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
