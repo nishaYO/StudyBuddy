@@ -5,16 +5,7 @@ import ConvertPixelToTime from "./ConvertPixelToTime";
 import ConvertTimeToMinutes from "./../../../utils/ConvertTimeToMinutes";
 
 const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
-  const popupStyle = {
-    position: "fixed",
-    top: "50%",
-    left: "84%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "yellow",
-    padding: "1rem",
-    width: "440px",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-  };
+  
   const parsedBreakStartTime = parseInt(breakStartTime) || 0;
   const currentBreakStartTime = ConvertPixelToTime({
     totalMinutes: parsedBreakStartTime,
@@ -92,7 +83,7 @@ const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
   };
 
   const handleSaveClick = () => {
-    // make exceeding values in popup reduce to max sessionduration length
+    // make exceeding values in popup reduce to max session duration length
     const parsedBreakDuration = ConvertTimeToMinutes({
       timeObject: localCurrentBreakDuration,
     });
@@ -149,65 +140,77 @@ const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
       }
     );
   };
-
+  const popupStyle = {
+    position: "fixed",
+    top: "50%",
+    left: "86%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "#efcaf1",
+    padding: "1rem",
+    width: "410px",
+    borderRadius: "8px",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  };
+  
   return (
     <div style={popupStyle}>
-      <div>
-        <div>
-          <div>
-            <h3>set breakDuration </h3>
-            <input
-              className="border rounded p-2 text-sm m-2"
-              type="text"
-              id="breakDuration.hours"
-              value={localCurrentBreakDuration.hours}
-              onChange={(e) => handleDurationHoursInputChange(e)}
-            />
-            hrs
-            <input
-              className="border rounded p-2 text-sm m-2"
-              type="text"
-              id="breakDuration.minutes"
-              value={localCurrentBreakDuration.minutes}
-              onChange={(e) => handleDurationMinutesInputChange(e)}
-            />
-            mins
-          </div>
-          <div>
-            <h3>set breakStartTime</h3>
-            <input
-              className="border rounded p-2 text-sm m-2"
-              type="text"
-              id="startTime.hours"
-              value={localCurrentBreakStartTime.hours}
-              onChange={(e) => handleStartTimeHoursInputChange(e)}
-            />
-            hrs
-            <input
-              className="border rounded p-2 text-sm m-2"
-              type="text"
-              id="startTime.minutes"
-              value={localCurrentBreakStartTime.minutes}
-              onChange={(e) => handleStartTimeMinutesInputChange(e)}
-            />
-            mins
-          </div>
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold">Set the break duration</h3>
+        <div className="flex items-center">
+          <input
+            className="border rounded p-2 text-sm mr-2 w-10"
+            type="text"
+            id="breakDuration.hours"
+            value={localCurrentBreakDuration.hours}
+            onChange={(e) => handleDurationHoursInputChange(e)}
+          />
+          <span className="text-sm mr-2">hrs</span>
+          <input
+            className="border rounded p-2 text-sm mr-2 w-10"
+            type="text"
+            id="breakDuration.minutes"
+            value={localCurrentBreakDuration.minutes}
+            onChange={(e) => handleDurationMinutesInputChange(e)}
+          />
+          <span className="text-sm">mins</span>
+        </div>
+      </div>
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold">Set start time for the break</h3>
+        <div className="flex items-center">
+          <input
+            className="border rounded p-2 text-sm mr-2 w-10"
+            type="text"
+            id="startTime.hours"
+            value={localCurrentBreakStartTime.hours}
+            onChange={(e) => handleStartTimeHoursInputChange(e)}
+          />
+          <span className="text-sm mr-2">hrs</span>
+          <input
+            className="border rounded p-2 text-sm mr-2 w-10"
+            type="text"
+            id="startTime.minutes"
+            value={localCurrentBreakStartTime.minutes}
+            onChange={(e) => handleStartTimeMinutesInputChange(e)}
+          />
+          <span className="text-sm">mins</span>
         </div>
       </div>
       <button
         onClick={handleSaveClick}
-        className="mt-4 ml-2 rounded-md bg-blue-500 text-white px-4 py-2 border-none"
+        className="mt-4 rounded-md bg-blue-500 text-white px-4 py-2 border-none hover:bg-blue-600"
       >
         Save
       </button>
       <button
         onClick={handleDeleteBreak}
-        className="mt-4 ml-2 rounded-md bg-blue-500 text-white px-4 py-2 border-none"
+        className="mt-4 ml-2 rounded-md bg-red-500 text-white px-4 py-2 border-none hover:bg-red-600"
       >
         Delete
       </button>
     </div>
   );
+  
 };
 
 export default PopUp;

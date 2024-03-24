@@ -28,19 +28,18 @@ function MakeSession({ handleStartSession }) {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col items-center justify-center p-2 gap-20 min-h-screen ">
-        <div className="flex flex-col items-center bg-[#BEADFA] p-6 rounded-lg w-full lg:w-1/2">
-          <p className="text-2xl font-semibold mb-4">{`${greeting}! ${storedName}.`}</p>
-          <p className="text-lg mb-2">
-            Your daily study goal: {storedGoal.hours}hrs {storedGoal.minutes}
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-400 to-yellow-200">
+          <p className="text-4xl font-bold mb-4 font-serif">{`${greeting}, ${storedName}`}</p>
+        <div className="flex flex-col items-center justify-center bg-white bg-opacity-70 p-10 rounded-lg max-w-xl w-full mt-20">
+          <p className="text-lg mb-2 text-lg mb-2 font-serif">
+            Your daily study goal: {storedGoal.hours} hrs {storedGoal.minutes}{" "}
             minutes
           </p>
-          <p className="text-lg mb-4">Let's start the session.</p>
           <button
-            className="px-6 py-3 bg-[#D0BFFF] hover:bg-[#BEADFA] border border-white rounded-md font-bold text-lg"
+            className="px-8 py-4 bg-purple-700 hover:bg-purple-600 text-white rounded-md text-lg m-2  text-lg transition duration-300 ease-in-out"
             onClick={handleStartSession}
           >
-            Make a session
+            Let's Start
           </button>
         </div>
       </div>

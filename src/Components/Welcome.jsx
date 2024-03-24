@@ -24,7 +24,7 @@ function Welcome() {
   const storedName = localStorage.getItem("name");
   const storedGoal = localStorage.getItem("streakGoal");
 
-  const isFirstTimeVisit = storedName && storedGoal? false : true;
+  const isFirstTimeVisit = storedName && storedGoal ? false : true;
 
   useEffect(() => {
     if (storedName) {

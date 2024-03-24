@@ -68,7 +68,7 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
       <div className="fixed inset-0 flex items-center justify-center mt-12">
         <div className="bg-white ml-10 p-8 max-w-4xl h-[30rem] w-full rounded-lg shadow-lg">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold">Sign Up</h2>
+            <h2 className="text-2xl font-bold">Sign Up to unlock all features</h2>
             <button
               className="text-2xl text-gray-600 hover:text-gray-800"
               onClick={handleCloseClick}

@@ -90,7 +90,12 @@ function Navbar() {
   const closeNotifications = () => {
     setShowNotifications(false);
   };
-
+  useEffect(() => {
+    if (!user) {
+      setShowRegisterPopUp(true);
+    }
+  }, [user]);
+  
   return (
     <div className="p-3 bg-white border-2 border-b-black flex items-center justify-between relative">
       {isSignedIn ? (
