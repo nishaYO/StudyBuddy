@@ -5,6 +5,7 @@ import VerifyEmailPopup from "./VerifyEmail";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { getUserInfo } from "./../../utils/getUserInfo";
+// import { style } from './Auth.module.css';
 
 const SignupPopup = ({ onClose, signedIn, showLogin }) => {
   const [formData, setFormData] = useState({
@@ -64,9 +65,9 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
   };
 
   return (
-    <>
-      <div className="fixed inset-0 flex items-center justify-center mt-12">
-        <div className="bg-white ml-10 p-8 max-w-4xl h-[30rem] w-full rounded-lg shadow-lg">
+    <>inset-0
+      <div className={style.container}>
+        <div className={style.parent}>
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Sign Up to unlock all features</h2>
             <button
@@ -118,14 +119,7 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
               />
             </div>
            <div >
-           <button
-              type="submit"
-              className="bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600"
-              disabled={loading}
-            >
-              {loading ? "Signing up..." : "Sign Up"}
-            </button>
-            <button
+            <p
               onClick={() => {
                 showLogin();
                 handleCloseClick();
@@ -134,6 +128,13 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
             hover:underline m-4"
             >
               Already registered?{" "}
+            </p>
+           <button
+              type="submit"
+              className="bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600 w-full"
+              disabled={loading}
+            >
+              {loading ? "Signing up..." : "Sign Up"}
             </button>
            </div>
           </form>
