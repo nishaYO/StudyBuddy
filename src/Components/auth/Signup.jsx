@@ -5,7 +5,7 @@ import VerifyEmailPopup from "./VerifyEmail";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { getUserInfo } from "./../../utils/getUserInfo";
-// import { style } from './Auth.module.css';
+import './authmodule.css';
 
 const SignupPopup = ({ onClose, signedIn, showLogin }) => {
   const [formData, setFormData] = useState({
@@ -66,8 +66,8 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
 
   return (
     <>inset-0
-      <div className={style.container}>
-        <div className={style.parent}>
+      <div className="container">
+        <div className="parent">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Sign Up to unlock all features</h2>
             <button
