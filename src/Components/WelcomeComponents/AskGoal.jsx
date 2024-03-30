@@ -20,8 +20,8 @@ function AskGoal({ handleGoalSubmit }) {
         <h1 className="text-4xl font-extrabold mb-6 text-center">
           Set Your Daily Study Goal
         </h1>
-        <div className="flex flex-row gap-10 items-center mb-6">
-          <div className="flex items-center">
+        <div>
+          <div className="time-container">
             {/* Add up and down arrow buttons */}
             <button
               onClick={() =>
@@ -53,7 +53,7 @@ function AskGoal({ handleGoalSubmit }) {
               value={streakGoal.hours}
               className="w-16 border border-[#BEADFA] p-3 rounded-lg outline-none text-center"
             />
-            <span className="ml-2">hrs</span>
+            <span className="ml-2">hours</span>
             {/* Add up and down arrow buttons */}
             <button
               onClick={() =>
@@ -78,7 +78,7 @@ function AskGoal({ handleGoalSubmit }) {
               </svg>
             </button>
           </div>
-          <div className="flex items-center">
+          <div className="time-container">
             {/* Add up and down arrow buttons */}
             <button
               onClick={() =>

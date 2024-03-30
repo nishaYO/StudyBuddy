@@ -15,7 +15,7 @@ function AskName({ handleNameSubmit }) {
           type="text"
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Please Enter Name..."
-          className="mt-14 w-80 border border-[#BEADFA] p-3 rounded-lg outline-none"
+          className="mt-14 p-3"
         />
         <button
           onClick={handleNameSubmit}
