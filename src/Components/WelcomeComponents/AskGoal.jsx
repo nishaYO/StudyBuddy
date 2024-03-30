@@ -21,7 +21,7 @@ function AskGoal({ handleGoalSubmit }) {
           Set Your Daily Study Goal
         </h1>
         <div>
-          <div className="time-container">
+          <div className="flex justify-between items-center m-2">
             {/* Add up and down arrow buttons */}
             <button
               onClick={() =>
@@ -78,7 +78,7 @@ function AskGoal({ handleGoalSubmit }) {
               </svg>
             </button>
           </div>
-          <div className="time-container">
+          <div className="flex justify-between items-center m-2">
             {/* Add up and down arrow buttons */}
             <button
               onClick={() =>
