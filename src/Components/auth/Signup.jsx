@@ -65,21 +65,21 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
 
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center mt-12">
-        <div className="bg-white ml-10 p-8 max-w-4xl h-[30rem] w-full rounded-lg shadow-lg">
+      <div className="fixed flex justify-center items-center bg-[rgba(0,0,0,0.5)] left-0 top-0 w-full min-h-screen">
+        <div className="bg-white p-8 min-h-[30rem] sm:max-w-1 lg:min-w-[350px] rounded-lg shadow-lg grid-2">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold">Sign Up to unlock all features</h2>
+            <h2 className="text-2xl font-bold">Sign up to unlock all features</h2>
             <button
-              className="text-2xl text-gray-600 hover:text-gray-800"
               onClick={handleCloseClick}
+              className="p-4"
             >
               <FontAwesomeIcon icon={faClose} />
             </button>
           </div>
           {/* form body */}
-          <div className="flex w-full lg:gap-x-20">
+          <div className="sm:grid-rows-2 sm:grid lg:flex items-center lg:gap-x-20 w-full">
             <div>
-              <img src="/Images/welcome.svg" className="h-[15rem] lg:flex hidden" alt="SignUp Image" />
+              <img className="max-w-[250px] m-auto" src="/Images/welcome.svg" alt="SignUp Image" />
             </div>
             {/* form */}
             <form onSubmit={handleSubmit}>
@@ -96,7 +96,7 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border rounded-md"
+                className="mt-1 p-2 w-full lg:min-w-[350px] border rounded-md"
                 required
               />
             </div>
@@ -113,27 +113,27 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="mt-1 p-2 w-full border rounded-md"
                 required
+                className="mt-1 p-2 w-full border rounded-md"
               />
             </div>
            <div >
-           <button
-              type="submit"
-              className="bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600"
-              disabled={loading}
-            >
-              {loading ? "Signing up..." : "Sign Up"}
-            </button>
-            <button
+            <p
               onClick={() => {
                 showLogin();
                 handleCloseClick();
               }}
-              className="bg-white-500 text-violet-600 px-4 py-2  mx-5  rounded-md
-            hover:underline m-4"
+              className="bg-white-500 text-violet-600 rounded-md mt-4 mb-4
+            hover:underline"
             >
               Already registered?{" "}
+            </p>
+           <button
+              type="submit"
+              className="bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600 w-full"
+              disabled={loading}
+            >
+              {loading ? "Signing up..." : "Sign Up"}
             </button>
            </div>
           </form>

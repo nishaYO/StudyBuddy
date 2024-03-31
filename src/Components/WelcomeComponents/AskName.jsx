@@ -7,7 +7,7 @@ function AskName({ handleNameSubmit }) {
 
   return (
     <div className="p-2 flex items-center justify-center min-h-screen">
-      <div className="bg-white flex flex-col items-center h-80 w-full lg:w-1/2 p-3 border-2 rounded-lg border-[#BEADFA] shadow-lg">
+      <div className="bg-white flex flex-col justify-center items-center w-full lg:w-1/2 p-3 border-2 rounded-lg border-[#BEADFA] shadow-lg">
         <h1 className="text-3xl font-extrabold max-w-lg p-3 text-center">
           Welcome to studybuddy
         </h1>
@@ -15,11 +15,11 @@ function AskName({ handleNameSubmit }) {
           type="text"
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Please Enter Name..."
-          className="mt-14 w-80 border border-[#BEADFA] p-3 rounded-lg outline-none"
+          className="mt-5 p-3 min-w-80 border border-[#BEADFA] rounded-lg outline-none"
         />
         <button
           onClick={handleNameSubmit}
-          className="mx-auto mt-3 px-5 py-2 bg-[#D0BFFF] hover:bg-[#BEADFA] rounded font-bold"
+          className="m-auto mt-3 px-5 py-2 bg-[#D0BFFF] hover:bg-[#BEADFA] rounded font-bold"
         >
           Submit
         </button>
