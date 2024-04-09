@@ -51,7 +51,7 @@ const VerifyEmailPopup = ({
   };
 
   return (
-    <div className="fixed flex items-center justify-center items-center min-h-screen left-0 top-0 bg-[rgba(0,0,0,0.5)] w-full">
+    <div className="fixed flex z-80 items-center justify-center items-center min-h-screen left-0 top-0 bg-[rgba(0,0,0,0.5)] w-full">
       <div className="bg-violet-500 border-4 border-t-4  border-violet-500 max-h-[30rem]  max-w-md w-full rounded-lg  shadow-lg">
         <div className="text-center bg-violet border-b-4 border-white flex justify-between p-2">
           <h2 className="text-xl font-bold text-gray-200">Verify Email for {actionType}</h2>

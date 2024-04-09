@@ -65,14 +65,14 @@ function RenderCalendar() {
   console.log("structuredCalendar", structuredCalendar);
 
   return (
-    <div className="flex">
+    <div className="flex w-full">
       {Object.entries(structuredCalendar).map(([year, monthsData]) => (
-        <div key={year} className="m-8 ml-10 pl-10">
+        <div key={year} className="m-8 ">
           <h2 className="text-2xl font-bold mb-4">{year}</h2>
           {Object.entries(monthsData).map(([month, monthData]) => (
             <div key={month} className="mb-4">
               <h3 className="text-xl font-semibold mb-2">{month}</h3>
-              <div className="grid grid-cols-7 gap-2">
+              <div className="grid grid-cols-7 gap-2 p-3">
                 {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
                   (day) => (
                     <div
