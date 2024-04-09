@@ -34,7 +34,7 @@ const LoginPopup = ({ onClose, signedIn, showSignup }) => {
 
   return (
     <>
-      <div className="fixed flex justify-center items-center bg-[rgba(0,0,0,0.5)] left-0 top-0 w-full min-h-screen">
+      <div className="fixed flex z-40 justify-center items-center bg-[rgba(0,0,0,0.5)] left-0 top-0 w-full min-h-screen">
         <div className="bg-white p-8 max-w-4xl min-h-[30rem] sm:max-w-1 lg:max-w-2.5 rounded-lg shadow-lg">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Login</h2>
