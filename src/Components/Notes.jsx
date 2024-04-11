@@ -95,38 +95,36 @@ const Notes = () => {
       <div className="max-w-4xl mx-auto">
         <div className="">
           {showModal && (
-            <div className="p-2 fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-70">
-              <div className="flex items-center justify-center min-h-screen">
-                <div className="bg-white p-8 rounded shadow-lg max-w-lg w-full">
-                  <NotesForm onClose={() => setShowModal(false)} />
-                </div>
+            <div className="fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-70 flex justify-center items-center">
+              <div className="p-5 bg-white min-w-[350px]">
+               <NotesForm onClose={() => setShowModal(false)} />
               </div>
             </div>
           )}
         </div>
 
         {/* Search bar */}
-        <div className="flex items-center justify-center gap-2">
-        <input
-          type="text"
-          placeholder="Search notes..."
-          className="p-3 px-4 mb-4 border rounded-lg"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+        <div className="lg:flex lg:items-center lg:justify-center gap-2">
+          <input
+            type="text"
+            placeholder="Search notes..."
+            className="p-3 px-4 mb-4 border rounded-lg w-full"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
 
-        <button
-          onClick={() => {
-            setShowModal(true);
-          }}
-          className="p-3  py-3 border bg-purple-500 hover:bg-[#ca8bf7] rounded-lg mt-4 mb-8 text-white flex items-center gap-2"
-        >
-          Add Note <FaPenClip/>
-        </button>
+          <button
+            onClick={() => {
+              setShowModal(true);
+            }}
+            className="p-3 fixed right-5 bottom-2 py-3 border bg-purple-500 hover:bg-[#ca8bf7] rounded-lg mt-4 mb-8 text-white flex items-center gap-2"
+          >
+            Add Note <FaPenClip/>
+          </button>
         </div>
 
         {/* error alert when deleting the message */}
-        <div className="mb-4 fixed right-4 bottom-3">
+        <div className="mb-4 fixed right-4 top-3">
           {isDeleting && (
             <div role="alert" className="alert alert-error animate-pulse">
               <svg
@@ -150,7 +148,7 @@ const Notes = () => {
         <h2 className="text-3xl font-bold mb-4">Your Notes</h2>
         {/* display all notes of the user */}
         {/* accordion design */}
-        <div className="grid gap-2 grid-cols-1 lg:grid-cols-2">
+        <div className="grid gap-2 grid-cols-1 md:grid-cols-2">
           {filteredNotes.map((note) => (
             <div key={note.id} className="bg-white">
               <h1 className="p-2 card-title bg-purple-500 text-white">

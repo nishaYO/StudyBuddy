@@ -105,6 +105,7 @@ const SetBreaks = () => {
               lineHeight: "14px",
               paddingRight: "560px",
             }}
+            className="md:left-0"
           >
             {time}
             {index === 0 && <></>}

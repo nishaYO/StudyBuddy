@@ -63,7 +63,7 @@ function NotesForm({ onClose }) {
     "w-full p-3 rounded-lg border border-black outline-none border-b-4 border-r-4 transition-transform duration-300 delay-200 transform focus:scale-105";
 
   return (
-    <div className="bg-white rounded-lg w-[400px] h-[360px]">
+    <div className="">
      <div className="flex items-center justify-between mb-2">
       <h2 className="font-bold">Write Your Note</h2>
       <button
