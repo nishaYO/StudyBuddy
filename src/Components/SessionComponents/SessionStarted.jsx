@@ -70,7 +70,7 @@ const SessionStarted = ({
   };
 
   return (
-    <div className="w-4/5 h-4/5 flex flex-col items-center justify-center h-screen w-100 gap-10">
+    <div className="flex flex-col items-center justify-center h-screen w-100 gap-10">
       {/* exclude from prod */}
       {/* Upper Tray  */}
       {/* <MusicControls /> */}

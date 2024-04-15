@@ -51,12 +51,10 @@ const VerifyEmailPopup = ({
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center mt-12 ml-12 ">
-      <div className="bg-violet-500 border-4 border-t-4  border-violet-500 h-[30rem]  max-w-md w-full rounded-lg  shadow-lg">
-        <div className="text-center bg-violet border-b-4 border-white">
+    <div className="fixed flex z-80 items-center justify-center items-center min-h-screen left-0 top-0 bg-[rgba(0,0,0,0.5)] w-full">
+      <div className="bg-violet-500 border-4 border-t-4  border-violet-500 max-h-[30rem]  max-w-md w-full rounded-lg  shadow-lg">
+        <div className="text-center bg-violet border-b-4 border-white flex justify-between p-2">
           <h2 className="text-xl font-bold text-gray-200">Verify Email for {actionType}</h2>
-        </div>
-        <div className="flex justify-between items-center mb-6 p-3">
           <button
             className="text-2xl text-white hover:text-gray-800"
             onClick={handleCloseClick}
@@ -67,7 +65,7 @@ const VerifyEmailPopup = ({
 
         <div className="flex flex-col p-3">
           <div className="flex justify-center items-start">
-            <img src="/Images/otp.svg" className="h-32" alt="OTP image" />
+            <img src="/Images/otp.svg" className="h-40" alt="OTP image" />
           </div>
 
          {invalid ? (
@@ -81,7 +79,7 @@ const VerifyEmailPopup = ({
             placeholder="Verification Code"
             value={verificationCode}
             onChange={handleChange}
-            className="mt-2 p-2 w-72 mx-auto border rounded-md "
+            className="mt-2 p-2 max-w-72 w-full border rounded-md "
             required
           />
           <button

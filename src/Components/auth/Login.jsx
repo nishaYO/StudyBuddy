@@ -34,8 +34,8 @@ const LoginPopup = ({ onClose, signedIn, showSignup }) => {
 
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center mt-12">
-        <div className="bg-white ml-10 p-8 max-w-4xl h-[30rem] w-full rounded-lg shadow-lg">
+      <div className="fixed flex z-40 justify-center items-center bg-[rgba(0,0,0,0.5)] left-0 top-0 w-full min-h-screen">
+        <div className="bg-white p-8 max-w-4xl min-h-[30rem] sm:max-w-1 lg:max-w-2.5 rounded-lg shadow-lg">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Login</h2>
             <button
@@ -46,11 +46,11 @@ const LoginPopup = ({ onClose, signedIn, showSignup }) => {
             </button>
           </div>
           {/* form body */}
-          <div className="flex items-center lg:gap-x-20 w-full">
+          <div className="sm:grid-rows-2 sm:grid lg:flex items-center lg:gap-x-20 w-full ">
             <div>
               <img
                 src="/Images/login.svg"
-                className="h-[15rem] lg:flex hidden"
+                className="h-[15rem] lg:flex"
                 alt="Login image"
               />
               {/* login Form*/}
@@ -69,7 +69,7 @@ const LoginPopup = ({ onClose, signedIn, showSignup }) => {
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 p-2 w-full border rounded-md"
+                  className="flex mt-1 p-2 w-full border rounded-md"
                   required
                 />
 
@@ -90,22 +90,24 @@ const LoginPopup = ({ onClose, signedIn, showSignup }) => {
                 />
               </form>
               <div className="mt-4">
+                <p
+                >
+                  Don't have an account?
+                  <span
+                    onClick={() => {
+                      showSignup();
+                      handleCloseClick();
+                    }}
+                    className="bg-white-500 text-violet-500 hover:underline ">
+                    sign-up
+                  </span>
+                </p>
                 <button
                   onClick={handleLogin}
-                  className="bg-violet-500 text-white px-4 py-1.5  rounded-md hover:bg-violet-600 "
+                  className="bg-violet-500 text-white mt-2 px-4 py-1.5 w-full rounded-md hover:bg-violet-600 "
                   disabled={loading}
                 >
                   {loading ? "Logging in..." : "Login"}
-                </button>
-                <button
-                  onClick={() => {
-                    showSignup();
-                    handleCloseClick();
-                  }}
-                  className="bg-white-500 text-violet-500 px-4 py-2  mx-5  rounded-md
-            hover:underline "
-                >
-                  Create a new account
                 </button>
               </div>
             </div>
