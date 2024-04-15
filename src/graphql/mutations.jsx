@@ -82,4 +82,12 @@ export const SEND_SESSION_DATA_MUTATION = gql`
     }
   }
 `;
+export const SUBMIT_CONTACT_FORM = gql`
+  mutation SubmitContactForm($input: ContactFormInput!) {
+    submitContactForm(input: $input) {
+      success
+      message
+    }
+  }
+`;
 
