@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_CURRENT_STREAK } from "../graphql/queries";
+import { GET_CURRENT_STREAK } from "../../graphql/queries";
 import React, { useState } from "react";
 
 const StreakGoal = () => {

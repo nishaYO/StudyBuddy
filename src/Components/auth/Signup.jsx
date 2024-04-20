@@ -4,7 +4,7 @@ import { SIGN_UP_MUTATION } from "../../graphql/mutations";
 import VerifyEmailPopup from "./VerifyEmail";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { getUserInfo } from "./../../utils/getUserInfo";
+import { getUserInfo } from "../Services/getUserInfo";
 
 const SignupPopup = ({ onClose, signedIn, showLogin }) => {
   const [formData, setFormData] = useState({
