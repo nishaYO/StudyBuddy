@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
-import { addNotification } from "../redux/notifications";
-import { SUBMIT_CONTACT_FORM } from "../graphql/mutations";
+import { addNotification } from "../../redux/notifications";
+import { SUBMIT_CONTACT_FORM } from "../../graphql/mutations";
 function Contact() {
   const [submitContactForm] = useMutation(SUBMIT_CONTACT_FORM);
   const dispatch = useDispatch();

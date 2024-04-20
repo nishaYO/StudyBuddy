@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { setBreaks } from "../../../redux/breakslice";
 import { useDispatch, useSelector } from "react-redux";
 import ConvertPixelToTime from "./ConvertPixelToTime";
-import ConvertTimeToMinutes from "./../../../utils/ConvertTimeToMinutes";
+import ConvertTimeToMinutes from "../../Services/ConvertTimeToMinutes";
 
 const PopUp = ({ onClose, index, currentBreakDuration, breakStartTime }) => {
   

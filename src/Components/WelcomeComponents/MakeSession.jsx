@@ -1,4 +1,4 @@
-import Navbar from "../Navbar";
+import Navbar from "../CoreComponents/Navbar";
 
 const makeSessionMessage = () => {
   const now = new Date();
