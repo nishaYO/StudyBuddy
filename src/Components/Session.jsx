@@ -5,7 +5,7 @@ import SessionCompleted from "./SessionComponents/SessionCompleted";
 import SessionEnded from "./SessionComponents/SessionEnded";
 import { SEND_SESSION_DATA_MUTATION } from "./../graphql/mutations";
 import { useSelector } from "react-redux";
-import Navbar from "./Navbar";
+import Navbar from "../Components/CoreComponents/Navbar";
 const Session = () => {
   const [sessionCompleted, setSessionCompleted] = useState(false);
   const [sessionEnded, setSessionEnded] = useState(false);

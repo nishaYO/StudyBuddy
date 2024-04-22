@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_ALL_NOTES } from "../graphql/queries";
-import { DELETE_NOTE_MUTATION } from "../graphql/mutations";
+import { GET_ALL_NOTES } from "../../graphql/queries";
+import { DELETE_NOTE_MUTATION } from "../../graphql/mutations";
 import useLocation from "wouter/use-location";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import NotesForm from "./SessionComponents/NotesForm";
+import NotesForm from "../SessionComponents/NotesForm";
 import { IoMdArrowBack } from "react-icons/io";
 import { FaPenClip } from "react-icons/fa6";
 

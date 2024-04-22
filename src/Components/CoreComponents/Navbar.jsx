@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "wouter";
-import NotificationBox from "./NotificationBox";
-import StreakGoal from "./StreakGoal";
-import SignupPopup from "./auth/Signup";
-import LoginPopup from "./auth/Login";
+import NotificationBox from "../InformationComponents/NotificationBox";
+import StreakGoal from "../InformationComponents/StreakGoal";
+import SignupPopup from "../auth/Signup";
+import LoginPopup from "../auth/Login";
 import { useQuery } from "@apollo/client";
-import { AUTO_LOGIN_QUERY } from "../graphql/queries";
+import { AUTO_LOGIN_QUERY } from "../../graphql/queries";
 import { FaRegUser } from "react-icons/fa";
 
 function Navbar() {

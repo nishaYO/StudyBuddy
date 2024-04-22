@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_NOTE } from "../graphql/queries";
-import { UPDATE_NOTE } from "../graphql/mutations";
+import { GET_NOTE } from "../../graphql/queries";
+import { UPDATE_NOTE } from "../../graphql/mutations";
 import useLocation from "wouter/use-location";
 import { Link } from "wouter";
-import Loading from "./Loading";
+import Loading from "../Loading";
 
 const EditNote = () => {
   // const [location, setLocation, navigate] = useLocation();
