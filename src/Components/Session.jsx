@@ -5,7 +5,6 @@ import SessionCompleted from "./SessionComponents/SessionCompleted";
 import SessionEnded from "./SessionComponents/SessionEnded";
 import { SEND_SESSION_DATA_MUTATION } from "./../graphql/mutations";
 import { useSelector } from "react-redux";
-import Navbar from "../Components/CoreComponents/Navbar";
 const Session = () => {
   const [sessionCompleted, setSessionCompleted] = useState(false);
   const [sessionEnded, setSessionEnded] = useState(false);
@@ -88,7 +87,6 @@ const Session = () => {
 
   return (
     <>
-      <Navbar />
       <div className="flex items-center justify-center h-screen w-100">
         {sessionEnded ? (
           <SessionEnded />

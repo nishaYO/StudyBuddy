@@ -1,4 +1,3 @@
-import Navbar from "../CoreComponents/Navbar";
 
 const makeSessionMessage = () => {
   const now = new Date();
@@ -27,7 +26,6 @@ function MakeSession({ handleStartSession }) {
 
   return (
     <div>
-      <Navbar />
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-400 to-yellow-200">
         <span className="text-2xl md:text-4xl mr-auto ml-auto font-bold mb-4 font-serif">{`${greeting}, ${storedName}`}</span>
         <div className="flex flex-col items-center justify-center bg-white bg-opacity-70 p-10 rounded-lg max-w-[300px] md:max-w-[750px] w-full">

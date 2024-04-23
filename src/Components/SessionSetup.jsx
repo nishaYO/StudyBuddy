@@ -3,7 +3,6 @@ import SetTimer from "./SessionSetupComponents/SetTimer";
 import SetBreaks from "./SessionSetupComponents/SetBreaks";
 import SetMusic from "./SessionSetupComponents/SetMusic";
 import SidePanel from "../Components/CoreComponents/SidePanel";
-import Navbar from "../Components/CoreComponents/Navbar";
 import React, { useState } from "react";
 import { setSessionIntervals } from "./../redux/sessionIntervals";
 import { setSessionStartTime } from "./../redux/sessionStartTime";
@@ -199,7 +198,6 @@ function SessionSetup() {
 
   return (
     <div className="flex flex-col font-mono bg-[#FFF3DA] p-0 min-h-screen">
-      <Navbar />
       {/* <div className="fixed w-full top-0">
       </div> */}
       <div className="flex min-h-screen">
