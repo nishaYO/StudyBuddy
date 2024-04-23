@@ -1,5 +1,6 @@
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { Router, Route, Switch } from "wouter";
+import Navbar from "./Components/CoreComponents/Navbar";
 import Welcome from "./Components/WelcomeComponents/Welcome";
 import SessionSetup from "./Components/SessionSetup";
 import Session from "./Components/Session";
@@ -20,6 +21,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
+      <Navbar />
         <Switch>
           <Route path="/" component={() => <Welcome />} />
           <Route path="/session-setup" component={() => <SessionSetup />} />

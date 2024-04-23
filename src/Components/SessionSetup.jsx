@@ -3,7 +3,6 @@ import SetTimer from "./SessionSetupComponents/SetTimer";
 import SetBreaks from "./SessionSetupComponents/SetBreaks";
 import SetMusic from "./SessionSetupComponents/SetMusic";
 import SidePanel from "../Components/CoreComponents/SidePanel";
-import Navbar from "../Components/CoreComponents/Navbar";
 import React, { useState } from "react";
 import { setSessionIntervals } from "./../redux/sessionIntervals";
 import { setSessionStartTime } from "./../redux/sessionStartTime";
