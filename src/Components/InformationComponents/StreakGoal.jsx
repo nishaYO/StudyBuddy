@@ -17,7 +17,8 @@ const StreakGoal = () => {
   // Function to render streak button with the currenti streak counter
   const renderStreakButton = () => {
     if (streakLoading) return <div>Loading...</div>;
-    if (streakError) return <div>Error fetching streak counter</div>;
+    if (streakError) return <div>{streakError.message}</div>;
+
     const streakCounter = streakData ? streakData.getCurrentStreak : 0;
     // Determine whether to display "Day" or "Days" based on streakCounter
     const daysLabel = streakCounter === 1 ? "Day" : "Days";
