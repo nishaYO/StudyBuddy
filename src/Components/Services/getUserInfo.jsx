@@ -1,6 +1,6 @@
 export const getUserInfo = () => {
-  const name = localStorage.getItem("name");
-  const streakGoal = localStorage.getItem("streakGoal");
+  const name = localStorage.getItem("name") || "";
+  const streakGoal = localStorage.getItem("streakGoal") || '{"hours":"1","minutes":"0"}';
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const userAgent = navigator.userAgent;
   const deviceSize = handleResponsiveDesign();
