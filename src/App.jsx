@@ -1,13 +1,14 @@
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { Router, Route, Switch } from "wouter";
-import Welcome from "./Components/Welcome";
+import Navbar from "./Components/CoreComponents/Navbar";
+import Welcome from "./Components/WelcomeComponents/Welcome";
 import SessionSetup from "./Components/SessionSetup";
 import Session from "./Components/Session";
-import Reports from "./Components/Reports";
-import Notes from "./Components/Notes";
-import EditNote from "./Components/EditNote";
-import Help from "./Components/Help";
-import EditSession from "./Components/EditSession";
+import Reports from "./Components/ReportsComponents/Reports";
+import Notes from "./Components/NoteComponents/Notes";
+import EditNote from "./Components/NoteComponents/EditNote";
+import Help from "./Components/InformationComponents/Help";
+import EditSession from "./Components/SessionSetupComponents/EditSession";
 import User from "./Components/auth/User";
 
 const server_endpoint = import.meta.env.VITE_SERVER_ENDPOINT;
@@ -20,6 +21,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
+      <Navbar />
         <Switch>
           <Route path="/" component={() => <Welcome />} />
           <Route path="/session-setup" component={() => <SessionSetup />} />

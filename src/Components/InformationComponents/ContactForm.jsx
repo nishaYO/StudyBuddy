@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { submitContactForm } from "../apis/contactData";
 import { useDispatch } from "react-redux";
-import { addNotification } from "../redux/notifications";
-
+import { useMutation } from "@apollo/client";
+import { addNotification } from "../../redux/notifications";
+import { SUBMIT_CONTACT_FORM } from "../../graphql/mutations";
 function Contact() {
+  const [submitContactForm] = useMutation(SUBMIT_CONTACT_FORM);
   const dispatch = useDispatch();
   const handleNotification = () => {
     const newNotification = {
@@ -18,6 +19,7 @@ function Contact() {
     name: "",
     email: "",
     message: "",
+    userID: localStorage.getItem("user").id || "",
   });
 
   const [error, setError] = useState("");
@@ -33,7 +35,6 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    handleNotification();
     // Reset previous messages
     setError("");
     setSuccess("");
@@ -58,11 +59,19 @@ function Contact() {
     setLoading(true);
 
     try {
-      const response = await submitContactForm(formData);
+      const response = await submitContactForm({
+        variables: {
+          input: formData,
+        },
+      });
 
-      setSuccess(response.message);
+      console.log(response.data);
+      if (response.data.submitContactForm.success) {
+        handleNotification();
+      }
     } catch (error) {
       setError("Error submitting contact form:", error.message);
+      console.log(error);
     } finally {
       // Set loading back to false after submission
       setLoading(false);

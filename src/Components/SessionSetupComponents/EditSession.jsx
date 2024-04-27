@@ -1,5 +1,5 @@
 import React from "react";
-import SetMusic from "./SessionSetupComponents/SetMusic";
+import SetMusic from "./SetMusic";
 
 const EditSession = () => {
   return (

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./../Navbar";
 import { useLocation } from "wouter";
 import { useSelector } from "react-redux";
 import Confetti from "react-confetti";
@@ -36,7 +35,6 @@ const SessionCompleted = () => {
 
   return (
     <div className="flex flex-col h-screen bg-red-100 w-[1600px]">
-      <Navbar />
       <div className="flex items-center justify-center h-screen">
         <Confetti numberOfPieces={200} recycle={false} />
         <div className="bg-white p-8 rounded shadow-md text-center mx-auto relative">

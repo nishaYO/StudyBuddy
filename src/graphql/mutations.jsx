@@ -36,6 +36,24 @@ export const LOGIN_USER_MUTATION = gql`
   }
 `;
 
+export const DELETE_USER_MUTATION = gql`
+  mutation DeleteUser($userID: ID!) {
+    deleteUser(userID: $userID) {
+      success
+      message
+    }
+  }
+`;
+
+export const RESET_PASSWORD_MUTATION = gql`
+  mutation ResetPassword($input: ResetPasswordInput!) {
+    resetPassword(input: $input) {
+      message
+      success
+    }
+  }
+`;
+
 export const NEW_NOTE_MUTATION = gql`
   mutation NewNote($input: newNoteInput!) {
     newNote(input: $input) {
@@ -82,4 +100,11 @@ export const SEND_SESSION_DATA_MUTATION = gql`
     }
   }
 `;
-
+export const SUBMIT_CONTACT_FORM = gql`
+  mutation SubmitContactForm($input: ContactFormInput!) {
+    submitContactForm(input: $input) {
+      success
+      message
+    }
+  }
+`;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_MAIN_STATS } from "./../graphql/queries";
+import { GET_MAIN_STATS } from "../../graphql/queries";
 import { useLocation } from "wouter";
-import StreakCalendar from "./ReportsComponents/StreakCalendar";
+import StreakCalendar from "./StreakCalendar";
 
 function Reports() {
   const [location, navigate] = useLocation();

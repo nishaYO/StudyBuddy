@@ -2,14 +2,13 @@ import { Link, useLocation } from "wouter";
 import SetTimer from "./SessionSetupComponents/SetTimer";
 import SetBreaks from "./SessionSetupComponents/SetBreaks";
 import SetMusic from "./SessionSetupComponents/SetMusic";
-import SidePanel from "./SidePanel";
-import Navbar from "./Navbar";
+import SidePanel from "../Components/CoreComponents/SidePanel";
 import React, { useState } from "react";
 import { setSessionIntervals } from "./../redux/sessionIntervals";
 import { setSessionStartTime } from "./../redux/sessionStartTime";
 import { useDispatch, useSelector } from "react-redux";
 import { setBreaks } from "../redux/breakslice";
-import ConvertTimeToMinutes from "./../utils/ConvertTimeToMinutes";
+import ConvertTimeToMinutes from "./Services/ConvertTimeToMinutes";
 import ConvertPixelToTime from "./SessionSetupComponents/SetBreaksComponents/ConvertPixelToTime";
 
 function SessionSetup() {
