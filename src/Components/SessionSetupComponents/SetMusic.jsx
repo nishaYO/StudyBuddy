@@ -206,7 +206,7 @@ function SetMusic({ sessionDuration }) {
         {soundList.map((file, index) => (
           <div
             key={file.id}
-            className="relative min-h-[200px] rounded-xl flex items-center justify-center bg-white overflow-hidden opacity-80 shadow-lg"
+            className="relative min-h-[200px] lg:min-h-[75px] rounded-xl flex items-center justify-center bg-white overflow-hidden opacity-80 shadow-lg"
             style={{
               backgroundImage: `url(${file.image})`,
               backgroundRepeat: "repeat",
@@ -259,7 +259,7 @@ function SetMusic({ sessionDuration }) {
         {effectList.map((file, index) => (
           <div
             key={file.id}
-            className="relative min-h-[200px] rounded-xl flex items-center justify-center bg-white overflow-hidden opacity-80 shadow-lg"
+            className="relative min-h-[200px] lg:min-h-[75px] rounded-xl flex items-center justify-center bg-white overflow-hidden opacity-80 shadow-lg"
             style={{
               backgroundImage: `url(${file.image})`,
               backgroundRepeat: "repeat",

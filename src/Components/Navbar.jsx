@@ -100,8 +100,8 @@ function Navbar() {
     <div className="p-3 bg-white border-2 border-b-black flex items-center justify-between relative">
       {isSignedIn ? (
         // streak 0 days
-        <div className="flex items-center space-x-4">
-          <StreakGoal/>
+        <div className="flex items-center space-x-4 ">
+          <StreakGoal className="hidden md:block"/>
           <NavbarIcons onNotificationsClick={handleNotificationsClick} />
         </div>
       ) : (
@@ -179,7 +179,7 @@ function NavbarIcons({ onNotificationsClick }) {
     <>
       {/* bell icon */}
       <button
-        className="text-2xl cursor-pointer"
+        className="text-2xl cursor-pointer hidden md:block"
         onClick={onNotificationsClick}
       >
         <svg
@@ -192,7 +192,7 @@ function NavbarIcons({ onNotificationsClick }) {
       </button>
       {/* question mark icon */}
       <Link to="/help">
-        <button className="text-2xl cursor-pointer">
+        <button className="text-2xl cursor-pointer hidden md:block">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
