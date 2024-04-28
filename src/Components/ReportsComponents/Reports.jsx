@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_MAIN_STATS } from "./../graphql/queries";
+import { GET_MAIN_STATS } from "../../graphql/queries";
 import { useLocation } from "wouter";
-import StreakCalendar from "./ReportsComponents/StreakCalendar";
+import StreakCalendar from "./StreakCalendar";
 
 function Reports() {
   const [location, navigate] = useLocation();
@@ -53,15 +53,15 @@ function Reports() {
   const filteredMainStats = Object.entries(mainstats).filter(([key, value]) => value);
 
   return (
-    <div className="m-5 flex flex-col items-center">
+    <div className="flex flex-col">
       <button
-        className="bg-purple-500 text-white px-4 py-2 m-2 rounded font-semibold hover:bg-purple-600 transition duration-300"
+        className="bg-purple-500 text-white m-2 max-w-[100px] p-3 rounded font-semibold hover:bg-purple-600 transition duration-300"
         onClick={handlePreviousClick}
       >
         Back
       </button>
-      <h2 className="text-3xl font-bold mb-4 text-purple-800">See your Reports📝</h2>
-      <div className="bg-white w-full lg:w-1/2 p-5 m-4 border-2 rounded-lg border-purple-200 shadow-lg">
+      <h2 className="text-3xl m-auto font-bold mb-4 text-purple-800">See your Reports📝</h2>
+      <div className="bg-white w-full max-w-[500px] lg:max-w-[750px] m-auto p-5 m-4 border-2 rounded-lg border-purple-200 shadow-lg">
         <ul>
           {filteredMainStats.map(([key, value]) => (
             <li key={key} className="m-4 flex justify-between text-lg text-purple-900">

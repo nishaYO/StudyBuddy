@@ -199,14 +199,14 @@ function SetMusic({ sessionDuration }) {
   return (
     <div className="flex flex-wrap justify-center items-center gap-4">
       {/* SoundList */}
-      <div className="w-full text-center mb-2 mt-0">
+      <div className="w-full text-center">
         <h2 className="text-3xl font-bold text-black">Sounds</h2>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
         {soundList.map((file, index) => (
           <div
             key={file.id}
-            className="relative h-[120px] w-[160px] rounded-xl flex items-center justify-center bg-white overflow-hidden opacity-80 shadow-lg"
+            className="relative min-h-[200px] lg:min-h-[75px] rounded-xl flex items-center justify-center bg-white overflow-hidden opacity-80 shadow-lg"
             style={{
               backgroundImage: `url(${file.image})`,
               backgroundRepeat: "repeat",
@@ -219,7 +219,7 @@ function SetMusic({ sessionDuration }) {
             <button
               className="bg-white rounded-full h-10 w-10 opacity-75 backdrop-blur"
               onClick={() => playAudio(file.audio, file.id, index, false)}
-            >
+            >      
               <FontAwesomeIcon
                 icon={file.playingState ? faPause : faPlay}
                 size="sm"
@@ -240,7 +240,7 @@ function SetMusic({ sessionDuration }) {
                   />
                 </>
               ) : (
-                <div className="text-white">{file.name}</div>
+                <div className="text-white whitespace-nowrap overflow-hidden text-ellipsis">{file.name}</div>
               )}
               <FontAwesomeIcon
                 icon={faVolumeHigh}
@@ -252,14 +252,14 @@ function SetMusic({ sessionDuration }) {
       </div>
 
       {/* EffectList */}
-      <div className="w-full text-center mt-2 mb-0">
+      <div className="w-full text-center">
         <h2 className="text-3xl font-bold text-black">Effects</h2>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
         {effectList.map((file, index) => (
           <div
             key={file.id}
-            className="relative h-[120px] w-[160px] rounded-xl flex items-center justify-center bg-white overflow-hidden opacity-80 shadow-lg"
+            className="relative min-h-[200px] lg:min-h-[75px] rounded-xl flex items-center justify-center bg-white overflow-hidden opacity-80 shadow-lg"
             style={{
               backgroundImage: `url(${file.image})`,
               backgroundRepeat: "repeat",

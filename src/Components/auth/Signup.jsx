@@ -4,7 +4,7 @@ import { SIGN_UP_MUTATION } from "../../graphql/mutations";
 import VerifyEmailPopup from "./VerifyEmail";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { getUserInfo } from "./../../utils/getUserInfo";
+import { getUserInfo } from "../Services/getUserInfo";
 
 const SignupPopup = ({ onClose, signedIn, showLogin }) => {
   const [formData, setFormData] = useState({
@@ -32,6 +32,7 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
     e.preventDefault();
     console.log(formData);
     try {
+      console.log("hello");
       const { data, error } = await signup({
         variables: {
           input: {
@@ -45,6 +46,7 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
           },
         },
       });
+      console.log("hello");
 
       if (error) {
         console.error("GraphQL Errors:", error);
@@ -52,9 +54,12 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
       }
 
       console.log("data: ", data);
-
+      console.log("data.signup", data.signup)
+      console.log("data.signup.codemailed", data.signup.CodeMailed)
       if (data && data.signup && data.signup.CodeMailed) {
         setShowVerifyEmail(true);
+        console.log("data is true");
+        
       } else {
         console.log("Error: error while sending mail.");
       }
@@ -65,7 +70,7 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
 
   return (
     <>
-      <div className="fixed flex justify-center items-center bg-[rgba(0,0,0,0.5)] left-0 top-0 w-full min-h-screen">
+      <div className="fixed flex z-40 justify-center items-center bg-[rgba(0,0,0,0.5)] left-0 top-0 w-full min-h-screen">
         <div className="bg-white p-8 min-h-[30rem] sm:max-w-1 lg:min-w-[350px] rounded-lg shadow-lg grid-2">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Sign up to unlock all features</h2>
@@ -141,7 +146,6 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
           
           {error && <p className="text-red-500 mt-4">{error.message}</p>}
         </div>
-      </div>
       {showVerifyEmail && (
         <VerifyEmailPopup
           email={formData.email}
@@ -154,6 +158,7 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
           actionType={"Sign Up"}
         />
       )}
+        </div>
     </>
   );
 };

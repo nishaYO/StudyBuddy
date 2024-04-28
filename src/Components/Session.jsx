@@ -5,7 +5,6 @@ import SessionCompleted from "./SessionComponents/SessionCompleted";
 import SessionEnded from "./SessionComponents/SessionEnded";
 import { SEND_SESSION_DATA_MUTATION } from "./../graphql/mutations";
 import { useSelector } from "react-redux";
-
 const Session = () => {
   const [sessionCompleted, setSessionCompleted] = useState(false);
   const [sessionEnded, setSessionEnded] = useState(false);
@@ -44,7 +43,7 @@ const Session = () => {
       const sessionData = {
         userID: userID,
         // all timers in int datatype
-        sessionIntervals: sessionIntervals.map(interval => ({
+        sessionIntervals: sessionIntervals.map((interval) => ({
           hours: parseInt(interval.hours, 10),
           minutes: parseInt(interval.minutes, 10),
           seconds: parseInt(interval.seconds, 10),
@@ -55,7 +54,7 @@ const Session = () => {
           minutes: parseInt(sessionDuration.minutes, 10),
           seconds: parseInt(sessionDuration.seconds, 10),
         },
-        breaks: breaks.map(breakItem => ({
+        breaks: breaks.map((breakItem) => ({
           breakDuration: {
             hours: parseInt(breakItem.breakDuration.hours, 10),
             minutes: parseInt(breakItem.breakDuration.minutes, 10),
@@ -68,11 +67,11 @@ const Session = () => {
           },
         })),
         // all dates in string format
-        startTime: sessionStartTime.toString(), 
+        startTime: sessionStartTime.toString(),
         endTime: endTime.toString(),
-        intervalSwitchArray: intervalSwitchTime.map(String), 
-        pauseTimeArray: pauseTime.map(String), 
-        resumeTimeArray: resumeTime.map(String), 
+        intervalSwitchArray: intervalSwitchTime.map(String),
+        pauseTimeArray: pauseTime.map(String),
+        resumeTimeArray: resumeTime.map(String),
       };
       await sendSessionData({
         variables: {
@@ -87,21 +86,23 @@ const Session = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen w-100">
-      {sessionEnded ? (
-        <SessionEnded />
-      ) : sessionCompleted ? (
-        <SessionCompleted />
-      ) : (
-        <SessionStarted
-          handleSessionCompleted={handleSessionCompleted}
-          handleSessionEnded={handleSessionEnded}
-          setIntervalSwitchTime={setIntervalSwitchTime}
-          setPauseTime={setPauseTime}
-          setResumeTime={setResumeTime}
-        />
-      )}
-    </div>
+    <>
+      <div className="flex items-center justify-center h-screen w-100">
+        {sessionEnded ? (
+          <SessionEnded />
+        ) : sessionCompleted ? (
+          <SessionCompleted />
+        ) : (
+          <SessionStarted
+            handleSessionCompleted={handleSessionCompleted}
+            handleSessionEnded={handleSessionEnded}
+            setIntervalSwitchTime={setIntervalSwitchTime}
+            setPauseTime={setPauseTime}
+            setResumeTime={setResumeTime}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

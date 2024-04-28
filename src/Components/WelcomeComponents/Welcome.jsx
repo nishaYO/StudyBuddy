@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "wouter";
-import AskName from "./WelcomeComponents/AskName";
-import AskGoal from "./WelcomeComponents/AskGoal";
-import MakeSession from "./WelcomeComponents/MakeSession";
+import AskName from "./AskName";
+import AskGoal from "./AskGoal";
+import MakeSession from "./MakeSession";
 
 function Welcome() {
   const [location, navigate] = useLocation();

@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "./../Navbar";
 import { useLocation } from "wouter";
 
 function SessionEnded() {
@@ -8,7 +7,6 @@ function SessionEnded() {
   
   return (
     <div className="flex flex-col h-screen bg-red-100 w-[1600px]">
-      <Navbar />
       <div className="flex items-center justify-center h-screen">
         <div className="bg-white p-8 rounded shadow-md text-center mx-auto">
           <h2 className="text-3xl font-semibold mb-4">Session Ended</h2>

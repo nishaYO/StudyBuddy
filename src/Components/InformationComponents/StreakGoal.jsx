@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_CURRENT_STREAK } from "../graphql/queries";
+import { GET_CURRENT_STREAK } from "../../graphql/queries";
 import React, { useState } from "react";
 
 const StreakGoal = () => {
@@ -17,7 +17,8 @@ const StreakGoal = () => {
   // Function to render streak button with the currenti streak counter
   const renderStreakButton = () => {
     if (streakLoading) return <div>Loading...</div>;
-    if (streakError) return <div>Error fetching streak counter</div>;
+    if (streakError) return <div>{streakError.message}</div>;
+
     const streakCounter = streakData ? streakData.getCurrentStreak : 0;
     // Determine whether to display "Day" or "Days" based on streakCounter
     const daysLabel = streakCounter === 1 ? "Day" : "Days";
@@ -30,7 +31,7 @@ const StreakGoal = () => {
       setIsHovering(false);
     };
     return (
-      <div className="relative">
+      <div className="relative hidden md:block">
         <button
           className="bg-[#BEADFA] p-1 border-2 border-black"
           onMouseEnter={handleMouseEnter}

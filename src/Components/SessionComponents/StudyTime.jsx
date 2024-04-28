@@ -14,12 +14,12 @@ const StudyTime = ({ studyDuration, onStudyDurationEnd, isPaused }) => {
       <div className="flex items-center justify-center h-screen gap-4">
         <h2 className="text-5xl font-bold m-7 ">Study Time</h2>
         {/* exclude from prod */}
-        {/* <button
+        <button
           className="bg-white text-black-500 font-bold rounded p-4 w-30 focus:outline-none"
           onClick={handleSkipClick}
         >
           Skip{" "}
-        </button> */}
+        </button>
       </div>
       <Countdown
         initialDuration={studyDuration}
