@@ -32,8 +32,8 @@ const TimeDialer = ({ hours, minutes, onSessionDurationChange }) => {
 // Handle input change for hours
 const handleHoursInputChange = (e) => {
   const typedHours = e.target.value;
-  if (/^\d*$/.test(typedHours) && typedHours !== "") {
-    setInputHours(typedHours === "0" ? "" : typedHours); 
+  if (/^\d*$/.test(typedHours)) {
+    setInputHours(typedHours); 
     const newHours = parseInt(typedHours) % 24;
     const adjustedHours = newHours < 0 ? 24 + newHours : newHours; 
     onSessionDurationChange(adjustedHours, minutes);
@@ -43,13 +43,14 @@ const handleHoursInputChange = (e) => {
 // Handle input change for minutes
 const handleMinutesInputChange = (e) => {
   const typedMinutes = e.target.value;
-  if (/^\d*$/.test(typedMinutes) && typedMinutes !== "") {
+  if (/^\d*$/.test(typedMinutes)) {
     setInputMinutes(typedMinutes);
     const newMinutes = parseInt(typedMinutes) % 60;
     const adjustedMinutes = newMinutes < 0 ? 60 + newMinutes : newMinutes; 
     onSessionDurationChange(hours, adjustedMinutes);
   }
 };
+
   return (
     <div>
       <div className="flex items-center justify-center space-x-5">
@@ -65,8 +66,8 @@ const handleMinutesInputChange = (e) => {
           />
           {/* Buttons for hour adjustment */}
           <div className="flex justify-between  space-x-3">
-            <button onClick={handleHrsUp} className="h-8 w-8 rounded-full bg-black/10">+</button>
             <button onClick={handleHrsDown} className="h-8 w-8 rounded-full bg-black/10">-</button>
+            <button onClick={handleHrsUp} className="h-8 w-8 rounded-full bg-black/10">+</button>
           </div>
         </div>
         <h3 className="text-3xl font-bold">:</h3>
@@ -82,8 +83,8 @@ const handleMinutesInputChange = (e) => {
           />
           {/* Buttons for minute adjustment */}
           <div className="flex justify-between  space-x-3">
-            <button onClick={handleMinsUp} className="h-8 w-8 rounded-full bg-black/10">+</button>
             <button onClick={handleMinsDown} className="h-8 w-8 rounded-full bg-black/10">-</button>
+            <button onClick={handleMinsUp} className="h-8 w-8 rounded-full bg-black/10">+</button>
           </div>
         </div>
       </div>
@@ -116,6 +117,6 @@ function SetTimer() {
       </div>
     </div>
   );
-}
-+
+};
+
 export default SetTimer;
