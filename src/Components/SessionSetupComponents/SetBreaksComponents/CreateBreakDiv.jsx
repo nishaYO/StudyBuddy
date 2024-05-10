@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import PopUp from "./PopUp";
 import ConvertPixelToTime from "./ConvertPixelToTime";
+import PopUp from "./PopUp";
 
 const CreateBreakDiv = ({
   index,
@@ -40,7 +40,7 @@ const CreateBreakDiv = ({
           top: top,
           width: `${breakDivWidth}px`,
           height: breakDivHeight,
-          backgroundColor: "orange",
+          backgroundColor: "#875692",
           marginLeft: `${gridWidth / 200}px`,
           cursor: "pointer",
           borderRadius: "4px",

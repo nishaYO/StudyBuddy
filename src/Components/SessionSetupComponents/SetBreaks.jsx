@@ -71,13 +71,13 @@ const SetBreaks = () => {
   const Nums = getNumsForTimeline();
 
   return (
-    <div style={{ backgroundColor: '#E3D8F1', padding: '40px' , borderRadius: '20px'}}>
+    <div style={{ backgroundColor: '#B8B8C8', padding: '40px' , borderRadius: '20px'}}>
       <h2 className="text-center text-2xl font-bold">SetBreaks</h2>
       {/* Grid */}
       <div
         className="h-44 overscroll-contain w-[500px] lg:w-[500px]"
         style={{
-          backgroundColor: "lightblue",
+          backgroundColor: "#d8bfd8",
           height: gridHeight,
           marginLeft: "8vw",
           marginRight: "6.4vw",
