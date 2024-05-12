@@ -197,16 +197,24 @@ function SetMusic({ sessionDuration }) {
   };
 
   return (
-    <div className="flex flex-wrap justify-center items-center gap-4">
+    <div className="flex flex-wrap justify-center items-center gap-4 mt-6">
       {/* SoundList */}
       <div className="w-full text-center">
         <h2 className="text-3xl font-bold text-black">Sounds</h2>
       </div>
+<<<<<<< HEAD
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
         {soundList.map((file, index) => (
           <div
             key={file.id}
             className="relative min-h-[200px] lg:min-h-[75px] rounded-xl flex items-center justify-center bg-white overflow-hidden opacity-80 shadow-lg"
+=======
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+        {soundList.map((file, index) => (
+          <div
+            key={file.id}
+            className="relative min-h-[200px] md:min-h-[75px] rounded-xl flex items-center justify-center bg-white overflow-hidden opacity-80 shadow-lg"
+>>>>>>> d056d6cfde88d3499ae285be99d7027f08674b3f
             style={{
               backgroundImage: `url(${file.image})`,
               backgroundRepeat: "repeat",
@@ -255,11 +263,19 @@ function SetMusic({ sessionDuration }) {
       <div className="w-full text-center">
         <h2 className="text-3xl font-bold text-black">Effects</h2>
       </div>
+<<<<<<< HEAD
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
         {effectList.map((file, index) => (
           <div
             key={file.id}
             className="relative min-h-[200px] lg:min-h-[75px] rounded-xl flex items-center justify-center bg-white overflow-hidden opacity-80 shadow-lg"
+=======
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+        {effectList.map((file, index) => (
+          <div
+            key={file.id}
+            className="relative min-h-[200px] md:min-h-[75px] rounded-xl flex items-center justify-center bg-white overflow-hidden opacity-80 shadow-lg"
+>>>>>>> d056d6cfde88d3499ae285be99d7027f08674b3f
             style={{
               backgroundImage: `url(${file.image})`,
               backgroundRepeat: "repeat",

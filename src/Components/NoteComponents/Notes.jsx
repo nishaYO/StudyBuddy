@@ -88,7 +88,7 @@ const Notes = () => {
     <main className="p-5 min-h-screen">
       <button
         onClick={() => navigate("/")}
-        className="p-3 text-xl py-3 bg-purple-500 hover:bg-purple-300 mt-4 mb-8 text-white rounded-full"
+        className="p-3 text-xl py-3 bg-purple-500 hover:bg-purple-300 mt-6 mb-8 text-white rounded-full"
       >
         <IoMdArrowBack/>
       </button>

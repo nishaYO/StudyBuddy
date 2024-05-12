@@ -26,9 +26,15 @@ function MakeSession({ handleStartSession }) {
 
   return (
     <div>
+<<<<<<< HEAD
       <div className="fixed left-0 top-0 z-40 w-full">
         <Navbar/>
       </div>
+=======
+      {/* <div className="fixed left-0 top-0 z-40 w-full">
+        <Navbar/>
+      </div> */}
+>>>>>>> d056d6cfde88d3499ae285be99d7027f08674b3f
       <div className="flex flex-col items-center min-h-screen justify-center bg-gradient-to-br from-purple-400 to-yellow-200">
         <span className="text-2xl md:text-4xl mr-auto ml-auto font-bold mb-4 font-serif">{`${greeting}, ${storedName}`}</span>
         <div className="flex flex-col items-center justify-center bg-white bg-opacity-70 p-10 rounded-lg max-w-[300px] md:max-w-[750px] w-full">

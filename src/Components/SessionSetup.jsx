@@ -198,9 +198,9 @@ function SessionSetup() {
 
   return (
     <div className="flex flex-col font-mono bg-[#FFF3DA] p-0 min-h-screen">
-      <div className="fixed left-0 top-0 z-40 w-full">
+      {/* <div className="fixed left-0 top-0 z-40 w-full">
         <Navbar/>
-      </div>
+      </div> */}
       {/* <div className="fixed w-full top-0">
       </div> */}
       <div className="flex min-h-screen">
