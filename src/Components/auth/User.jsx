@@ -70,7 +70,7 @@ function User() {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center h-screen ">
+    <div className="flex flex-col items-center justify-center h-screen mt-6">
       <h2 className="text-3xl font-semibold mb-4">User Info</h2>
       <div className="bg-gray-100 p-6 rounded-lg flex flex-col items-center justify-center  gap-3 shadow-md w-[1000px] h-[500px] text-center">
         <p className="text-lg font-medium mb-2">Name: {user.name}</p>

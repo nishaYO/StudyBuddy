@@ -101,7 +101,7 @@ function Navbar() {
       {isSignedIn ? (
         // streak 0 days
         <div className="flex items-center space-x-4 ">
-          <StreakGoal className="hidden md:block"/>
+          <StreakGoal/>
           <NavbarIcons onNotificationsClick={handleNotificationsClick} />
         </div>
       ) : (
