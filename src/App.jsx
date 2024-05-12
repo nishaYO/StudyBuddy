@@ -20,10 +20,10 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
       <div className="fixed left-0 top-0 z-40 w-full">
         <Navbar />
       </div>
+      <Router>
         <Switch>
           <Route path="/" component={() => <Welcome />} />
           <Route path="/session-setup" component={() => <SessionSetup />} />
