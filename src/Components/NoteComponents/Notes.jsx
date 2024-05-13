@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
-import { GET_ALL_NOTES } from "../../graphql/queries";
-import { DELETE_NOTE_MUTATION } from "../../graphql/mutations";
-import useLocation from "wouter/use-location";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation, useQuery } from "@apollo/client";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import NotesForm from "../SessionComponents/NotesForm";
-import { IoMdArrowBack } from "react-icons/io";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
 import { FaPenClip } from "react-icons/fa6";
+import { IoMdArrowBack } from "react-icons/io";
+import useLocation from "wouter/use-location";
+import { DELETE_NOTE_MUTATION } from "../../graphql/mutations";
+import { GET_ALL_NOTES } from "../../graphql/queries";
+import NotesForm from "../SessionComponents/NotesForm";
 
 const Notes = () => {
   const [showModal, setShowModal] = useState(false);
@@ -105,13 +105,19 @@ const Notes = () => {
 
         {/* Search bar */}
         <div className="lg:flex lg:items-center lg:justify-center gap-2">
-          <input
-            type="text"
-            placeholder="Search notes..."
-            className="p-3 px-4 mb-4 border rounded-lg w-full"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+        <input
+  type="text"
+  placeholder="Search notes..."
+  className="p-3 px-4 mb-4 border rounded-lg w-full pr-10" 
+  value={searchQuery}
+  onChange={(e) => setSearchQuery(e.target.value)}
+/>
+{/* <img
+  src="/images/search.svg" 
+  alt="Search Icon"
+  className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" // Adjust positioning and size as needed
+/> */}
+
 
           <button
             onClick={() => {
