@@ -11,7 +11,7 @@ import Help from "./Components/InformationComponents/Help";
 import EditSession from "./Components/SessionSetupComponents/EditSession";
 import User from "./Components/auth/User";
 
-const server_endpoint = 'http://localhost:4000/graphql';
+const server_endpoint = import.meta.env.VITE_SERVER_ENDPOINT;
 const client = new ApolloClient({
   uri: server_endpoint, 
   cache: new InMemoryCache(),
