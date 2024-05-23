@@ -41,7 +41,7 @@ function Reports() {
     // "Highest Streak": "1 day",
     // "Highest Hours Session": "6hrs 33mins",
     // taken from backend
-    "last session was ended at": new Date(parseInt(latestSession.endTime)).toLocaleString(),
+    "last session was ended at": new Date(parseFloat(latestSession.endTime)).toLocaleString(),
     "last session studyduration": convertMinutesToHoursAndMinutes(latestSession.sessionDuration),
     "total Hours so far": convertMinutesToHoursAndMinutes(totalStudyDuration.total),
     "today total Hours": convertMinutesToHoursAndMinutes(totalStudyDuration.today),
