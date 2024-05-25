@@ -198,6 +198,9 @@ function SessionSetup() {
 
   return (
     <div className="flex flex-col font-mono bg-[#FFF3DA] p-0 min-h-screen">
+      {/* <div className="fixed left-0 top-0 z-40 w-full">
+        <Navbar/>
+      </div> */}
       {/* <div className="fixed w-full top-0">
       </div> */}
       <div className="flex min-h-screen">
@@ -205,8 +208,8 @@ function SessionSetup() {
         {/* <div className="fixed left-0">
           <SidePanel />
         </div> */}
-        <div className="flex flex-col items-center justify-center w-full p-4">
-          <div className="p-6">
+        <div className="flex flex-col items-center justify-center w-full">
+          <div>
             {/* Main Box in the Center */}
             <div className="mb-8">
               {/* Ensure proper spacing for the content */}
@@ -216,7 +219,7 @@ function SessionSetup() {
             </div>
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between py-12 p-3">
+            <div className="flex justify-between p-3">
               <button
                 className="bg-purple-500 text-white px-4 py-2 rounded-md"
                 onClick={handlePreviousClick}

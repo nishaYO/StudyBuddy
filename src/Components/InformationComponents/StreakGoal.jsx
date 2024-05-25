@@ -31,7 +31,7 @@ const StreakGoal = () => {
       setIsHovering(false);
     };
     return (
-      <div className="relative">
+      <div className="relative hidden md:block">
         <button
           className="bg-[#BEADFA] p-1 border-2 border-black"
           onMouseEnter={handleMouseEnter}

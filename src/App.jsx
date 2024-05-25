@@ -21,7 +21,9 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-      <Navbar />
+      <div className="fixed left-0 top-0 z-40 w-full">
+        <Navbar />
+      </div>
         <Switch>
           <Route path="/" component={() => <Welcome />} />
           <Route path="/session-setup" component={() => <SessionSetup />} />

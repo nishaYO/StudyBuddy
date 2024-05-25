@@ -86,12 +86,6 @@ const Notes = () => {
 
   return (
     <main className="p-5 min-h-screen">
-      <button
-        onClick={() => navigate("/")}
-        className="p-3 text-xl py-3 bg-purple-500 hover:bg-purple-300 mt-4 mb-8 text-white rounded-full"
-      >
-        <IoMdArrowBack/>
-      </button>
       <div className="max-w-4xl mx-auto">
         <div className="">
           {showModal && (
@@ -120,6 +114,12 @@ const Notes = () => {
             className="p-3 fixed right-5 bottom-2 py-3 border bg-purple-500 hover:bg-[#ca8bf7] rounded-lg mt-4 mb-8 text-white flex items-center gap-2"
           >
             Add Note <FaPenClip/>
+          </button>
+          <button
+            onClick={() => navigate("/")}
+            className="p-3 fixed left-5 bottom-2 text-xl py-3 bg-purple-500 hover:bg-purple-300 mt-6 mb-8 text-white rounded-full"
+          >
+            <IoMdArrowBack/>
           </button>
         </div>
 
