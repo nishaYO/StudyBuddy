@@ -11,7 +11,7 @@ import Help from "./Components/InformationComponents/Help";
 import EditSession from "./Components/SessionSetupComponents/EditSession";
 import User from "./Components/auth/User";
 
-const server_endpoint = 'http://localhost:4000/graphql';
+const server_endpoint = import.meta.env.VITE_SERVER_ENDPOINT;
 const client = new ApolloClient({
   uri: server_endpoint, 
   cache: new InMemoryCache(),
@@ -21,13 +21,9 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-<<<<<<< HEAD
-      <Navbar />
-=======
       <div className="fixed left-0 top-0 z-40 w-full">
         <Navbar />
       </div>
->>>>>>> d056d6cfde88d3499ae285be99d7027f08674b3f
         <Switch>
           <Route path="/" component={() => <Welcome />} />
           <Route path="/session-setup" component={() => <SessionSetup />} />

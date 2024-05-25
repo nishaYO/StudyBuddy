@@ -23,7 +23,7 @@ const MusicControls = () => {
 
   const handleVolumeControlDotMove = (event) => {
     const dotPosition = event.clientX;
-    // console.log("Volume control dot moved to:", dotPosition);
+    //console.log("Volume control dot moved to:", dotPosition);
   };
 
   return (
