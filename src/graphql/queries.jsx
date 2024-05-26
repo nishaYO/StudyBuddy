@@ -5,6 +5,7 @@ export const AUTO_LOGIN_QUERY = gql`
   query AutoLogin($input: AuthInput!) {
     autoLogin(input: $input) {
       loggedIn
+      profilePicUrl
     }
   }
 `;
