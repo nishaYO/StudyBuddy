@@ -83,6 +83,7 @@ const SessionStarted = ({
               studyDuration={duration}
               onStudyDurationEnd={onDurationEnd}
               isPaused={isPaused}
+              setIsPaused={setIsPaused}
             />
           ) : (
             <BreakTime

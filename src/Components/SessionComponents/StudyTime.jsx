@@ -1,11 +1,23 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import Countdown from "./Countdown";
+import EndWarning from "./EndWarning";
 
-const StudyTime = ({ studyDuration, onStudyDurationEnd, isPaused }) => {
+const StudyTime = ({ studyDuration, onStudyDurationEnd, isPaused,setIsPaused }) => {
   const handleCountdownEnded = () => {
     onStudyDurationEnd();
   };
+  const { hours, minutes, seconds } = studyDuration;
+  console.log("getting initial duration", hours, minutes, seconds);
+  const initialTimeInSeconds =
+    parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
+
+  const [timeRemaining, setTimeRemaining] = useState(initialTimeInSeconds);
+
+  const [openEndWarning,setOpenEndWarning]=useState(false);
+
   const handleSkipClick = () => {
+    setIsPaused(true);
+    // setOpenEndWarning(true);
     handleCountdownEnded();
   };
 
@@ -22,10 +34,12 @@ const StudyTime = ({ studyDuration, onStudyDurationEnd, isPaused }) => {
         </button>
       </div>
       <Countdown
-        initialDuration={studyDuration}
         onCountdownEnd={handleCountdownEnded}
         isPaused={isPaused}
+        timeRemaining={timeRemaining}
+        setTimeRemaining={setTimeRemaining}
       />
+      {openEndWarning && <EndWarning studyDuration={studyDuration} open={openEndWarning} timeRemaining={timeRemaining} setOpen={setOpenEndWarning}/>}
     </div>
   );
 };

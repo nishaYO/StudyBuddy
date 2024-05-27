@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-const Countdown = ({ initialDuration, isPaused, onCountdownEnd }) => {
-  const { hours, minutes, seconds } = initialDuration;
-  const initialTimeInSeconds =
-    parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
+const Countdown = ({isPaused, onCountdownEnd,timeRemaining ,setTimeRemaining}) => {
+  // const { hours, minutes, seconds } = initialDuration;
+  // console.log("getting initial duration", hours, minutes, seconds);
+  // const initialTimeInSeconds =
+  //   parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
 
-  const [timeRemaining, setTimeRemaining] = useState(initialTimeInSeconds);
+  // const [timeRemaining, setTimeRemaining] = useState(initialTimeInSeconds);
 
   useEffect(() => {
     const interval = setInterval(() => {
