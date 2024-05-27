@@ -150,8 +150,8 @@ const Notes = () => {
         {/* accordion design */}
         <div className="grid gap-2 grid-cols-1 md:grid-cols-2">
           {filteredNotes.map((note) => (
-            <div key={note.id} className="bg-white">
-              <h1 className="p-2 card-title bg-purple-500 text-white">
+            <div key={note.id} className="bg-white rounded-xl">
+              <h1 className="p-2 card-title bg-purple-500 text-white rounded-t-xl">
                 {note.title}
               </h1>
               <p

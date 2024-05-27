@@ -14,6 +14,7 @@ function Navbar() {
   const [showLoginPopUp, setShowLoginPopUp] = useState(false);
   const [isRegistered, setIsRegistered] = useState(true);
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [profilePicUrl,setProfilePicUrl] = useState("");
   
 
   let inputVariables;
@@ -47,7 +48,8 @@ function Navbar() {
         if (data && data.autoLogin) {
           const { loggedIn } = data.autoLogin;
           if (loggedIn) {
-            console.log("logged in ");
+            console.log("logged in",data);
+            setProfilePicUrl(data.autoLogin.profilePicUrl);
             handleAutoLoginResponse();
           }
         }
@@ -136,7 +138,8 @@ function Navbar() {
             <div className="group">
               <Link href="/user">
                 <button className="text-2xl cursor-pointer p-2 bg-white group-hover:bg-purple-500 rounded-full border border-transparent">
-                  <FaRegUser className="group-hover:text-white" />
+                  {/* <FaRegUser className="group-hover:text-white" /> */}
+                  <img src={profilePicUrl} alt="profilePic" className="w-10 rounded-2xl"/>
                 </button>
               </Link>
             </div>

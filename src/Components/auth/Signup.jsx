@@ -5,6 +5,7 @@ import VerifyEmailPopup from "./VerifyEmail";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { getUserInfo } from "../Services/getUserInfo";
+import GoogleAuth from "./GoogleAuth";
 
 const SignupPopup = ({ onClose, signedIn, showLogin }) => {
   const [formData, setFormData] = useState({
@@ -140,6 +141,7 @@ const SignupPopup = ({ onClose, signedIn, showLogin }) => {
             >
               {loading ? "Signing up..." : "Sign Up"}
             </button>
+            <GoogleAuth signedIn={signedIn} onClose={onClose}/>
            </div>
           </form>
           </div>

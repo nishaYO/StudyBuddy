@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_USER_MUTATION } from "./../../graphql/mutations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import GoogleAuth from "./GoogleAuth";
 
 const LoginPopup = ({ onClose, signedIn, showSignup }) => {
   const [email, setEmail] = useState("");
@@ -109,6 +110,7 @@ const LoginPopup = ({ onClose, signedIn, showSignup }) => {
                 >
                   {loading ? "Logging in..." : "Login"}
                 </button>
+                <GoogleAuth signedIn={signedIn} onClose={onClose}/>
               </div>
             </div>
           </div>
