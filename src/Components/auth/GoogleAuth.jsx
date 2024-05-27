@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import React from "react";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import axios from "axios";
+// import axios from "axios";
 import { useMutation } from "@apollo/client";
 import { getUserInfo } from "../Services/getUserInfo";
 import { GOOGLE_SIGN_IN_MUTATION } from "../../graphql/mutations";
