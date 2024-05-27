@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 body {
-    background-color: #FFF3DA;
+    background-color: #e5dcfa;
 }
+
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 

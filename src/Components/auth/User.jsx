@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
+import React, { useState } from "react";
 import { useLocation } from "wouter";
 import {
   DELETE_USER_MUTATION,
   RESET_PASSWORD_MUTATION,
 } from "../../graphql/mutations";
+
 const GET_USER = gql`
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -17,18 +18,20 @@ const GET_USER = gql`
 
 function User() {
   const [location, navigate] = useLocation();
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false); // State to control the visibility of the password prompt
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [deleteUser] = useMutation(DELETE_USER_MUTATION);
   const [resetPassword] = useMutation(RESET_PASSWORD_MUTATION);
   const user = JSON.parse(localStorage.getItem("user"));
+
   if (!user) {
     return (
-      <p className="text-lg font-medium p-6 rounded-lg flex flex-col items-center justify-center  h-screen ">
+      <p className="text-lg font-medium p-6 rounded-lg flex flex-col items-center justify-center h-screen">
         User information not found. Please log in.
       </p>
     );
   }
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
@@ -36,12 +39,11 @@ function User() {
   };
 
   const handleChangePassword = async () => {
-    setShowPasswordPrompt(true); // Show the password prompt when the user clicks on "Change Password"
+    setShowPasswordPrompt(true);
   };
 
   const handlePasswordChangeConfirm = async () => {
     try {
-      // Call the resetPassword mutation with the user's ID and the new password
       await resetPassword({
         variables: {
           input: {
@@ -53,8 +55,8 @@ function User() {
       });
 
       console.log("Changed password successfully");
-      setNewPassword(""); // Clear the new password input after changing password
-      setShowPasswordPrompt(false); // Hide the password prompt after changing password
+      setNewPassword("");
+      setShowPasswordPrompt(false);
     } catch (error) {
       console.error("Error changing password:", error.message);
     }
@@ -62,28 +64,34 @@ function User() {
 
   const handleDeleteAccount = async () => {
     try {
-      await deleteUser({ variables: { userID: user.id } }); // Call the deleteUser mutation with the user's ID
+      await deleteUser({ variables: { userID: user.id } });
       localStorage.clear();
       console.log("Deleted Your Account");
     } catch (error) {
       console.error("Error deleting account:", error.message);
     }
   };
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen mt-6">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6">
       <h2 className="text-3xl font-semibold mb-4">User Info</h2>
-      <div className="bg-gray-100 p-6 rounded-lg flex flex-col items-center justify-center  gap-3 shadow-md w-[1000px] h-[500px] text-center">
+      <div className="bg-gray-100 p-6 rounded-lg flex flex-col items-center justify-center gap-3 shadow-md w-full max-w-md md:max-w-2xl lg:max-w-4xl text-center">
+        <img
+          src="/avatar.jpg"
+          alt="User Avatar"
+          className="w-24 h-24 rounded-full mb-4"
+        />
         <p className="text-lg font-medium mb-2">Name: {user.name}</p>
         <p className="text-lg font-medium mb-4">Email: {user.email}</p>
-        <div className="flex flex m-2  gap-10 items-center justify-center">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center justify-center">
           <button
-            className="bg-[#BEADFA] text-white p-2 rounded-md mb-2"
+            className="bg-[#BEADFA] text-white p-2 rounded-md mb-2 sm:mb-0"
             onClick={handleChangePassword}
           >
             Change Password
           </button>
           <button
-            className="bg-[#BEADFA] text-white p-2 rounded-md mb-2"
+            className="bg-[#BEADFA] text-white p-2 rounded-md mb-2 sm:mb-0"
             onClick={handleLogout}
           >
             Logout
@@ -96,12 +104,12 @@ function User() {
           </button>
         </div>
       </div>
-      {showPasswordPrompt && ( // Render the password input field only when showPasswordPrompt is true
-        <div>
+      {showPasswordPrompt && (
+        <div className="mt-4 flex flex-col items-center">
           <input
             type="password"
             placeholder="New Password"
-            className="p-2 rounded-md border border-gray-400"
+            className="p-2 rounded-md border border-gray-400 mb-2"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />

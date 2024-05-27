@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@apollo/client";
-import { GET_NOTE } from "../../graphql/queries";
-import { UPDATE_NOTE } from "../../graphql/mutations";
-import useLocation from "wouter/use-location";
+import { useMutation, useQuery } from "@apollo/client";
+import React, { useEffect, useState } from "react";
 import { Link } from "wouter";
+import useLocation from "wouter/use-location";
+import { UPDATE_NOTE } from "../../graphql/mutations";
+import { GET_NOTE } from "../../graphql/queries";
 import Loading from "../Loading";
 
 const EditNote = () => {
@@ -72,7 +72,7 @@ const EditNote = () => {
 
   if (error || !data.getNote.success) {
     return (
-      <p>Error fetching note: {error ? error.message : data.getNote.message}</p>
+      <p>Error fetching notes: {error ? error.message : data.getNote.message}</p>
     );
   }
 
