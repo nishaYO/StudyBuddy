@@ -99,13 +99,14 @@ const SetBreaks = () => {
             style={{
               position: "absolute",
               top: index * 60 - 15 + "px",
-              left: "-60px",
+              left: "-30px",
               width: "50px",
               borderRadius: "2px",
               textAlign: "right",
               borderBottom: "1px solid #000",
               lineHeight: "14px",
               paddingRight: "576px",
+
             }}
             className="md:left-0"
           >

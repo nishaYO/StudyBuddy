@@ -26,7 +26,9 @@ function MakeSession({ handleStartSession }) {
   const greeting = makeSessionMessage();
   return (
     <div>
+
       <div className="flex flex-col items-center justify-center min-h-screen bg-[#e5dcfa]">
+
         <div className="flex flex-col items-center justify-center bg-white bg-opacity-70 p-10 rounded-lg max-w-[300px] md:max-w-[750px] w-full">
           <span className="text-2xl md:text-4xl font-bold mb-4 font-comic-sans">{`${greeting}, ${storedName}`}</span>
           <p className="text-lg mb-2 font-comic-sans">

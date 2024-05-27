@@ -126,6 +126,12 @@ const Notes = () => {
           >
             Add Note <FaPenClip />
           </button>
+          <button
+            onClick={() => navigate("/")}
+            className="p-3 fixed left-5 bottom-2 text-xl py-3 bg-purple-500 hover:bg-purple-300 mt-6 mb-8 text-white rounded-full"
+          >
+            <IoMdArrowBack/>
+          </button>
         </div>
 
         {/* error alert when deleting the message */}
@@ -155,8 +161,8 @@ const Notes = () => {
         {/* accordion design */}
         <div className="grid gap-2 grid-cols-1 md:grid-cols-2">
           {filteredNotes.map((note) => (
-            <div key={note.id} className="bg-white">
-              <h1 className="p-2 card-title bg-purple-500 text-white">
+            <div key={note.id} className="bg-white rounded-xl">
+              <h1 className="p-2 card-title bg-purple-500 text-white rounded-t-xl">
                 {note.title}
               </h1>
               <p

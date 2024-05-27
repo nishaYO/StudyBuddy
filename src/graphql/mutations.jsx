@@ -8,6 +8,29 @@ export const SIGN_UP_MUTATION = gql`
   }
 `;
 
+// export const GOOGLE_SIGN_UP_MUTATION = gql`
+//   mutation GoogleSignIn($input: GoogleSignupInput!) {
+//     googleSignIn(input: $input) {
+//       CodeMailed
+//     }
+//   }
+// `;
+
+export const GOOGLE_SIGN_IN_MUTATION = gql`
+  mutation GoogleSignIn($input: GoogleSignInInput!) {
+    googleSignIn(input: $input) {
+      loggedIn
+      user {
+        id
+        name
+        email
+      }
+      token
+      message
+    }
+  }
+`;
+
 export const VERIFY_EMAIL_MUTATION = gql`
   mutation VerifyEmail($input: VerifyEmailInput!) {
     verifyEmail(input: $input) {
