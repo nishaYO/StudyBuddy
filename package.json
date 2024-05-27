@@ -20,7 +20,6 @@
     "@mui/material": "^5.15.18",
     "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^1.9.7",
-    "axios": "^1.7.2",
     "daisyui": "^4.6.1",
     "dotenv": "^16.4.5",
     "react": "^18.2.0",
