@@ -1,15 +1,14 @@
-import { Link, useLocation } from "wouter";
-import SetTimer from "./SessionSetupComponents/SetTimer";
-import SetBreaks from "./SessionSetupComponents/SetBreaks";
-import SetMusic from "./SessionSetupComponents/SetMusic";
-import SidePanel from "../Components/CoreComponents/SidePanel";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "wouter";
+import { setBreaks } from "../redux/breakslice";
 import { setSessionIntervals } from "./../redux/sessionIntervals";
 import { setSessionStartTime } from "./../redux/sessionStartTime";
-import { useDispatch, useSelector } from "react-redux";
-import { setBreaks } from "../redux/breakslice";
 import ConvertTimeToMinutes from "./Services/ConvertTimeToMinutes";
+import SetBreaks from "./SessionSetupComponents/SetBreaks";
 import ConvertPixelToTime from "./SessionSetupComponents/SetBreaksComponents/ConvertPixelToTime";
+import SetMusic from "./SessionSetupComponents/SetMusic";
+import SetTimer from "./SessionSetupComponents/SetTimer";
 
 function SessionSetup() {
   const [location, navigate] = useLocation();
@@ -197,16 +196,16 @@ function SessionSetup() {
   };
 
   return (
-    <div className="flex flex-col font-mono bg-[#FFF3DA] p-0 min-h-screen">
+    <div className="flex flex-col font-mono bg-[#E5DCFA] p-0 min-h-screen">
       {/* <div className="fixed w-full top-0">
       </div> */}
       <div className="flex min-h-screen">
-        {/* exclude from prod */}
+        {/* exclude from prod */} 
         {/* <div className="fixed left-0">
           <SidePanel />
         </div> */}
-        <div className="flex flex-col items-center justify-center w-full p-4">
-          <div className="p-6">
+        <div className="flex flex-col items-center justify-center w-full">
+          <div>
             {/* Main Box in the Center */}
             <div className="mb-8">
               {/* Ensure proper spacing for the content */}
@@ -216,7 +215,7 @@ function SessionSetup() {
             </div>
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between py-12 p-3">
+            <div className="flex justify-between p-3">
               <button
                 className="bg-purple-500 text-white px-4 py-2 rounded-md"
                 onClick={handlePreviousClick}

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
-import { GET_ALL_NOTES } from "../../graphql/queries";
-import { DELETE_NOTE_MUTATION } from "../../graphql/mutations";
-import useLocation from "wouter/use-location";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation, useQuery } from "@apollo/client";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import NotesForm from "../SessionComponents/NotesForm";
-import { IoMdArrowBack } from "react-icons/io";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
 import { FaPenClip } from "react-icons/fa6";
+import { IoMdArrowBack } from "react-icons/io";
+import useLocation from "wouter/use-location";
+import { DELETE_NOTE_MUTATION } from "../../graphql/mutations";
+import { GET_ALL_NOTES } from "../../graphql/queries";
+import NotesForm from "../SessionComponents/NotesForm";
 
 const Notes = () => {
   const [showModal, setShowModal] = useState(false);
@@ -90,27 +90,32 @@ const Notes = () => {
         onClick={() => navigate("/")}
         className="p-3 text-xl py-3 bg-purple-500 hover:bg-purple-300 mt-4 mb-8 text-white rounded-full"
       >
-        <IoMdArrowBack/>
+        <IoMdArrowBack />
       </button>
       <div className="max-w-4xl mx-auto">
         <div className="">
           {showModal && (
             <div className="fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-70 flex justify-center items-center">
               <div className="p-5 bg-white min-w-[350px]">
-               <NotesForm onClose={() => setShowModal(false)} />
+                <NotesForm onClose={() => setShowModal(false)} />
               </div>
             </div>
           )}
         </div>
 
         {/* Search bar */}
-        <div className="lg:flex lg:items-center lg:justify-center gap-2">
+        <div className="relative lg:flex lg:items-center lg:justify-center gap-2">
           <input
             type="text"
             placeholder="Search notes..."
-            className="p-3 px-4 mb-4 border rounded-lg w-full"
+            className="p-3 px-4 mb-4 border rounded-lg w-full pr-10"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <img
+            src="/searchicon.png"
+            alt="Search Icon"
+            className="absolute right-4 top-1/3 transform -translate-y-1/2 h-6 w-6 text-gray-400 pointer-events-none"
           />
 
           <button
@@ -119,7 +124,13 @@ const Notes = () => {
             }}
             className="p-3 fixed right-5 bottom-2 py-3 border bg-purple-500 hover:bg-[#ca8bf7] rounded-lg mt-4 mb-8 text-white flex items-center gap-2"
           >
-            Add Note <FaPenClip/>
+            Add Note <FaPenClip />
+          </button>
+          <button
+            onClick={() => navigate("/")}
+            className="p-3 fixed left-5 bottom-2 text-xl py-3 bg-purple-500 hover:bg-purple-300 mt-6 mb-8 text-white rounded-full"
+          >
+            <IoMdArrowBack/>
           </button>
         </div>
 

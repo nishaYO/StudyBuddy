@@ -1,3 +1,4 @@
+import React from "react";
 
 const makeSessionMessage = () => {
   const now = new Date();
@@ -23,18 +24,18 @@ function MakeSession({ handleStartSession }) {
   };
 
   const greeting = makeSessionMessage();
-
   return (
     <div>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-400 to-yellow-200">
-        <span className="text-2xl md:text-4xl mr-auto ml-auto font-bold mb-4 font-serif">{`${greeting}, ${storedName}`}</span>
+
+      <div className="flex flex-col items-center justify-center min-h-screen bg-[#e5dcfa]">
+
         <div className="flex flex-col items-center justify-center bg-white bg-opacity-70 p-10 rounded-lg max-w-[300px] md:max-w-[750px] w-full">
-          <p className="text-lg mb-2 text-lg mb-2 font-serif">
-            Your daily study goal: {storedGoal.hours} hrs {storedGoal.minutes}{" "}
-            minutes
+          <span className="text-2xl md:text-4xl font-bold mb-4 font-comic-sans">{`${greeting}, ${storedName}`}</span>
+          <p className="text-lg mb-2 font-comic-sans">
+            Yay! 🎉 Your daily study goal: {storedGoal.hours} hrs {storedGoal.minutes} minutes of learning fun awaits you!
           </p>
           <button
-            className="px-8 py-4 bg-purple-700 hover:bg-purple-600 text-white rounded-md text-lg m-2  text-lg transition duration-300 ease-in-out"
+            className="px-8 py-4 bg-purple-700 hover:bg-purple-600 text-white rounded-md text-lg m-2 text-lg transition duration-300 ease-in-out"
             onClick={handleStartSession}
           >
             Let's Start
